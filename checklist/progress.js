@@ -3,6 +3,10 @@
 window.PROGRESS = {
   "updated": "2026-11-13T00:00:00.000Z",
   "steps": {
+    "0.1": {
+      "status": "done", "verified": false, "reviewed": false, "fails": 0, "t": 1794572210874,
+      "notes": "2026-11-13: owner created the GitHub repository and pushed. `git status -sb` shows main tracking origin/main (first check passed). Second check, the GitHub page listing the files, was not run by the agent: tick Verified after looking at the page."
+    },
     "0.2": {
       "status": "done", "verified": true, "reviewed": false, "fails": 0, "t": 1794572210874,
       "notes": "2026-11-13: owner decided the scope. Recorded in docs/scope.md and amendment A-002. Later steps were re-mapped to the question in the same amendment."
