@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13, amendment A-007",
+  version: "2026-11-13, amendment A-008",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -270,6 +270,7 @@ window.CHECKLIST = {
       id: "1.10", phase: "P1", kind: "find", who: "you+ai",
       title: "Find skin and nerve-ending data for the glans and hood",
       what: [
+        "Size and shape of each region: width, length and curvature of the glans and of the hood, with their spread between people. These set the region's electrode limits (`docs/scope.md` section 5), which are provisional until then.",
         "Thickness of the surface layer and the layers beneath it, per region.",
         "Depth, density, type and orientation of nerve endings and fine branches (genital corpuscles, free endings).",
         "Conductivity of thin and moist skin. If nothing exists for genital skin, take the nearest measured tissue and label it an assumption."
@@ -277,7 +278,8 @@ window.CHECKLIST = {
       get: ["Histology papers on the glans clitoris and prepuce that give measurements, not only descriptions."],
       verify: [
         "Each value has source, sample size, method and figure or table reference.",
-        "Values with no source are listed as assumptions, each with a range, in `docs/scope.md` section 4."
+        "Values with no source are listed as assumptions, each with a range, in `docs/scope.md` section 4.",
+        "The region table in `docs/scope.md` section 5 carries measured dimensions with sources, and no longer says 'from memory'."
       ],
       review: {
         who: "Clitoral and pelvic neuroanatomist",
@@ -338,11 +340,14 @@ window.CHECKLIST = {
       what: [
         "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files, including region (glans, hood, fingertip, forearm), material (five options), skin condition (three options) and the driver's voltage limit. Drive is current-controlled.",
         "Enforce the allowed ranges from `docs/scope.md` section 5, and compute the two flags that need only the inputs (small contact, current density).",
+        "Each region is its own preset file with its dimensions and electrode limits. The effective range of an input is the tighter of the model limit and the region limit, and the whole layout must fit on the region.",
         "Add the six test layouts (T1 to T6) from that section as example files."
       ],
       verify: [
         "Each example file loads.",
         "A value outside an input limit is rejected with the reason.",
+        "The same layout is accepted on the forearm and rejected on the glans when it does not fit there.",
+        "Adding a region needs only a new preset file.",
         "Files with missing units, overlapping contacts, or currents that do not balance when no return contact is defined are rejected with a clear message.",
         "`pytest` covers each rejection."
       ],
@@ -643,6 +648,7 @@ window.CHECKLIST = {
         "The app starts and shows no console errors.",
         "Changing only currents or waveform reuses the stored field; changing contacts, region or skin condition starts a new field solve.",
         "A value outside an input limit is refused and the reason is shown.",
+        "Changing the region updates the minimum and maximum of size, shape and spacing; a value that no longer fits is marked and the run is held, not changed silently.",
         "A repeated run returns from the cache.",
         "Each displayed quantity shows its label.",
         "Someone who did not build it sets up a layout and produces a recruitment curve without help."

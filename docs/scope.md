@@ -1,6 +1,6 @@
 # Scope
 
-Decided by the owner on 2026-11-13. Recorded as amendments A-002, A-003, A-004 and A-007. Change it only through a new amendment.
+Decided by the owner on 2026-11-13. Recorded as amendments A-002, A-003, A-004, A-007 and A-008. Change it only through a new amendment.
 
 ## 1. Purpose
 
@@ -93,10 +93,32 @@ Sources are in `literature-electrotactile.md`. "Assumption" means no source was 
 | Region | Glans | glans, hood, fingertip, forearm | Owner's decision; last two added for validation |
 | Skin condition | glans moist; hood dry; fingertip dry; forearm gelled | dry, moist, gelled | Fingertip and forearm follow the validation papers. Glans and hood: assumption |
 | Material | Stainless steel | the owner's five | Used for the pin and needle electrodes in Poulsen 2020. Does not change which fibers fire |
-| Number of contacts | 2 | 1 to 16 | Papers used 6 to 8. Upper bound is computing time: assumption |
-| Contact shape | Disc | disc, rectangle, ring | Owner's decision |
-| Contact size | 1.5 mm diameter | 0.2 mm to 12 mm, and it must fit inside the region | Smallest modeled contact is a 0.2 mm pin (Tigerholm 2019 p.2); largest validated disc is 12 mm (Zhu 2017). Default: assumption |
-| Gap between contacts | 1.0 mm | 0.2 mm up to the region size | 1 mm in Kajimoto 1999 and Araiza-Illan 2019; 1.6 mm in Malešević 2021. Lower bound: assumption (mesh resolution) |
+| Number of contacts | 2 | 1 to 16, and all contacts with their gaps must fit in the region | Papers used 6 to 8. Upper bound is computing time: assumption |
+| Contact shape | Disc | disc, rectangle, ring; a shape is offered only where it fits the region | Owner's decision |
+| Contact size | 1.5 mm diameter | 0.2 mm up to the region's maximum (next table) | Smallest modeled contact is a 0.2 mm pin (Tigerholm 2019 p.2). Default: assumption |
+| Gap between contacts | 1.0 mm | 0.2 mm up to what still fits in the region | 1 mm in Kajimoto 1999 and Araiza-Illan 2019; 1.6 mm in Malešević 2021. Lower bound: assumption (mesh resolution) |
+
+**Limits that depend on the region (owner's decision, amendment A-008)**
+
+The minimum and maximum for contact size, shape and spacing change with the selected region. Each region is a preset that carries its own dimensions and limits. A new body region is added later by adding a preset, without changing the program.
+
+Two kinds of limit apply together, and the interface shows the tighter one:
+
+1. **Model limits**, the same everywhere: the range in which the model is valid (for example the 0.2 mm lower bounds above).
+2. **Region limits**, from the region's size and shape: every contact, and the whole layout with its gaps, must fit on the region.
+
+| Region | Modeled surface (provisional) | Largest single contact | Basis |
+|---|---|---|---|
+| Glans | 4 x 6 mm | 4 mm | From memory; to be replaced by measured values in checklist step 1.10 |
+| Hood | 10 x 15 mm | 10 mm | Assumption; step 1.10 |
+| Fingertip | 15 x 20 mm | 15 mm | Finger diameter 20 mm (Araiza-Illan 2019 p.5); 10 mm line electrodes (Kajimoto 1999 p.6) |
+| Forearm | 60 x 150 mm | 60 mm | Model length 150 mm (Zhu 2017 p.3); largest published electrode 45 x 60 mm (Tigerholm 2019 p.3) |
+
+Rules:
+
+- When the region changes, the allowed ranges change with it. A value that no longer fits is marked and the run is held until the user corrects it; the program never changes a user's value silently.
+- A further flag, "flat-skin approximation is poor", appears when a contact is wider than half the region's shorter side. The first model treats skin as flat, which is least true on the glans. Threshold: assumption. Scan-derived geometry (blueprint Phase 4) removes this limit.
+- This replaces the single 12 mm maximum accepted in A-007, which would have excluded the 15 x 20 mm forearm patch in test layout T1.
 | Return path | Local: contact currents sum to zero | local, or one distant return electrode | Kajimoto 1999 p.6 |
 | Share of current per contact | +1 and -1 | -1 to +1 | Definition |
 

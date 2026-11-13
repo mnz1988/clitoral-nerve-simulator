@@ -175,7 +175,25 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: changed 0.3, 2.4, 3.4, 6.1. None added or retired.
 - Effect on results already produced: none; no results existed.
 
+## A-008: electrode size, shape and spacing limits depend on the region
+- Date: 2026-11-13
+- Raised by: owner
+- Found in step: 0.3 (after acceptance of A-007)
+- What was found: the owner wants the minimum and maximum for contact size, shape and distance to depend on the body region selected in the interface, including regions added later.
+- Why the current plan does not handle it: A-007 gave one range for all regions, with only the phrase "must fit inside the region". Its single 12 mm maximum also excluded the 15 x 20 mm forearm patch used in test layout T1.
+- Decision: accepted.
+  - Each region is a preset carrying its dimensions and its own limits. Adding a region means adding a preset.
+  - The interface applies model limits (same everywhere) and region limits (from the region's size) together and shows the tighter one.
+  - Changing region never silently changes a user's value; an out-of-range value is marked and the run is held.
+  - A fourth flag is added: "flat-skin approximation is poor", when a contact is wider than half the region's shorter side.
+  - Region dimensions are provisional. Glans and hood sizes are from memory or assumed and are set properly in step 1.10.
+- Blueprint sections changed: version line, 5.3, 9. `docs/scope.md` section 5.
+- Checklist steps added, changed or retired: changed 1.10, 2.4, 6.1. None added or retired.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
+
+- Region dimensions for the glans and hood are provisional (step 1.10).
 
 These are known gaps. Each becomes an amendment when it is answered.
 

@@ -1,6 +1,6 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2.6, 2026-11-13 (amendments A-001 to A-007).
+Free tools and open data only. Version 2.7, 2026-11-13 (amendments A-001 to A-008).
 
 The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
@@ -193,7 +193,7 @@ Quasi-static: `div(sigma * grad(V)) = 0`.
 - **Metal-to-skin interface:** model it as an impedance layer on each contact whose values depend on the selected material and skin condition (checklist step 1.12). It changes how evenly current leaves the contact and the voltage the driver must supply. The hardware is current-controlled (A-004), so to a first approximation it does not change which fibers fire.
 - **Driver voltage limit:** compute the voltage each contact needs (tissue plus interface) and compare it with the driver's limit, which is an input. Above the limit the set current cannot be delivered; flag the setting instead of reporting recruitment for a current the hardware could not supply.
 - **Skin condition:** dry, moist and gelled are separate parameter sets for the surface layer and the contact impedance, per region. All are **[assumption]** until sourced.
-- **Regions:** glans and hood for use; fingertip and forearm for validation (and the fingertip for the hardware project's finger tests). Each is a separate preset of layer thicknesses, conductivities and terminal-fiber populations.
+- **Regions:** glans and hood for use; fingertip and forearm for validation (and the fingertip for the hardware project's finger tests). Each is a separate preset of surface dimensions, layer thicknesses, conductivities, terminal-fiber populations and electrode limits (largest contact, what fits). A new region is added as a new preset (A-008).
 - **Warning flags (A-007):** driver cannot deliver the set current; current density on a contact above 1 mA per mm², which is beyond anything in the studies the model is checked against; contact area below 10 mm². Flags warn and do not block a run. None is a safety limit.
 - **Steady state for the tissue field (decided, A-005):** two published models checked or argued that tissue permittivity has little effect on fiber activation under current-controlled stimulation. The field is solved in steady state. Skin and interface capacitance are modeled only to estimate the voltage the driver must supply. Confirm with the expert reviewer.
 
@@ -242,7 +242,7 @@ Streamlit with PyVista and Plotly.
 Every electrode and stimulus value is an input (A-003). The user sets the inputs, then presses Run.
 
 - **Inputs:** region (glans, hood; fingertip and forearm for validation); skin condition (dry, moist, gelled); electrode material (stainless steel, copper (PCB), silver, gold, titanium); number, shape, size, position and role of contacts; current per contact; waveform, pulse width, rate and pattern; the driver's voltage limit; engorgement.
-- **Input limits:** each input is bounded by the range in which the model is valid. Values outside are refused with the reason. These are model limits, not safety limits. The defaults, ranges, three warning flags and six test layouts are in `scope.md` section 5.
+- **Input limits:** each input is bounded by the range in which the model is valid. Values outside are refused with the reason. These are model limits, not safety limits. Limits on contact size, shape and spacing also depend on the selected region: the layout must fit on it. When the region changes the ranges change; a value that no longer fits is marked and the run is held, never changed silently. The defaults, ranges, three warning flags and six test layouts are in `scope.md` section 5.
 - **Run:** starts a job, shows progress and an estimated time, and caches the result by configuration. Changing only currents or waveform reuses stored fields; changing contacts, region or skin condition starts a new mesh and field solve.
 - **Center:** 3D geometry with fibers colored by threshold or by whether they fire.
 - **Right:** recruitment curve, strength-duration curve, rasters, selectivity measures, charge per phase and charge density per contact, and the voltage each contact needs with a flag when it exceeds the driver's limit.
