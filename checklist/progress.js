@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T21:09:24.514Z",
+  "updated": "2026-11-13T21:19:31.736Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -66,6 +66,14 @@ window.PROGRESS = {
       "fails": 0,
       "notes": "2026-11-14, fifth pass (Sonnet 5.5; step recommends Fable 5.2 / high). See docs/literature-glans-hood.md sections 1-9 and A-009. Sizes and corpuscle types checked in PDFs; Jackson 2019 and Shih 2013 abstracts only (owner could not get full texts: AJOG zip was an unrelated issue bundle, Shih paywalled). Conductivity: IT-IS V5.0 read; Vagina value is a copy of intestine/stomach/oesophagus, Mucous Membrane a copy of muscle/tongue, Penis a copy of blood vessel wall. Only Skin (0.148 S/m, range 0.057-0.25) is usable; glans/inner-hood conductivity has no proxy and is a swept assumption (0.06-0.5 S/m). STILL MISSING: layer thickness, nerve-ending depth, usable density. Step stays doing. Decision pending: try one search for an open copy of Jackson 2019, or skip.",
       "t": 1794604164514
+    },
+    "1.9": {
+      "status": "done",
+      "verified": false,
+      "reviewed": false,
+      "fails": 0,
+      "notes": "2026-11-14 (Sonnet 5.5, as recommended). Read the source of NRV 1.4.0 (commit 7dc11954), not run. Findings in docs/nrv-capabilities.md and amendment A-010. Result: hybrid plan; NRV takes a custom 3D mesh with layered domains, thin layers, Dirichlet/Neumann surfaces and external per-contact footprints that it scales and sums (matches our unit-current superposition), but has no skin geometry, flat surface electrodes, terminal ending fibres, or Zhu/Aalborg models; fibres are straight along x. Verification check (links to documentation pages for the installed version) NOT met as written: rendered docs returned only a nav index (two attempts), and nothing is installed. Substituted source-file links; owner to accept or reject, so verified stays false. Untested items list in section 4 of the findings file (needs install, step 2.x). Process: a shallow git clone and grep of the source answered more in 6 calls than 6 documentation fetches; next time start with the clone (checkout of docs/ fails on Windows long paths; nrv/ is complete).",
+      "t": 1794604771736
     }
   },
   "amendments": []

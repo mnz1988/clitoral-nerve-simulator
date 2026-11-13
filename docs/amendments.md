@@ -212,6 +212,24 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: changed 1.10 (sources and reading tips). None added or retired.
 - Effect on results already produced: none; no results existed.
 
+## A-010: NRV checked: hybrid plan, Aalborg/Zhu fibres written by us
+- Date: 2026-11-14
+- Raised by: agent, step 1.9
+- Found in step: 1.9
+- What was found (details, file and line evidence in `docs/nrv-capabilities.md`; source of NRV 1.4.0 read, not run):
+  - NRV takes a custom 3D mesh with per-domain conductivities, thin internal layers, Dirichlet and Neumann surface conditions, and externally computed per-contact fields (`set_footprint`), which it scales by each stimulus and sums.
+  - It has no skin geometry, no flat surface contact electrodes, no terminal ending or branching fibre, and no Zhu or Aalborg A-delta/A-beta models. Fibres are straight cables along x.
+  - Fibre models present: MRG, Gaines sensory and motor, HH, Rattay-Aberham, Sundt, Tigerholm, Schild 94 and 97.
+- Why the current plan does not handle it: blueprint section 6 named Zhu and Aalborg fibres as if NRV shipped them; the plan did not say who builds the skin mesh.
+- Decision (proposed by the agent, accepted by the owner when this is committed without objection; say if you disagree):
+  - Hybrid: we build the skin mesh and contacts in Gmsh; NRV supplies fibre models, waveforms and superposition; its FEniCSx wrapper is used if a custom mesh runs through it, otherwise FEniCSx directly.
+  - Zhu and Aalborg models are written in NEURON as our own work (added to step 3.x scope).
+  - Straight finite-length fibres are the only fibre shape available; whether that represents a terminal ending adequately is a question for the nerve-modelling expert (role C).
+  - Step 1.9's check "each capability linked to a documentation page for the installed version" cannot be met: the rendered docs were unreadable by the tool and nothing is installed. It is replaced by links to the source files of the pinned version (1.4.0, commit 7dc11954) in the findings file. The step is therefore marked done but **not verified** until you accept that substitution.
+- Blueprint sections changed: version line, 1 (NRV row), 6 (fibre models line).
+- Checklist steps added, changed or retired: changed 1.9, 3.x fibre-model step (note added). None added or retired.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
 - Region dimensions: the glans size is now sourced (A-009). The hood width, and the spread of both between people, remain to be checked against the original studies (step 1.10).
@@ -231,5 +249,5 @@ These are known gaps. Each becomes an amendment when it is answered.
 - No expert reviewers are found yet; role descriptions are in `docs/reviewers.md` (step 0.4).
 - Scan data availability is unconfirmed (step 1.4).
 - Axon diameter distribution has no source (step 1.5).
-- Whether NRV supports layered skin, surface electrode arrays and fiber endings is unconfirmed (step 1.9).
+- NRV on a custom skin mesh, Neumann units, thin-layer accuracy and memory limits are untested; needs the install (step 2.x). Fibre ending shape: straight cables only (A-010).
 - The claim that surface electrodes mainly excite fibers in the skin, and the reported effect of polarity on fiber orientation, are written from memory and must be checked (step 1.11).

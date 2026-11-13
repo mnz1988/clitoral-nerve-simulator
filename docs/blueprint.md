@@ -1,6 +1,6 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2.8, 2026-11-14 (amendments A-001 to A-009).
+Free tools and open data only. Version 2.9, 2026-11-14 (amendments A-001 to A-010).
 
 The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
@@ -58,7 +58,7 @@ No human clitoral afferent recordings exist to fit this against, so Mode B is an
 
 | Purpose | Tool | Notes |
 |---|---|---|
-| Stimulation pipeline | **NRV** (`nrv-py`) | Wraps Gmsh, FEniCSx and NEURON for peripheral-nerve stimulation. Built around nerve trunks. Use it for the trunk case and for its fiber models. Whether it handles layered skin, surface electrode arrays and fiber endings is unconfirmed (checklist step 1.9); if not, the skin model uses Gmsh and FEniCSx directly with the same fiber models. |
+| Stimulation pipeline | **NRV** (`nrv-py`) | Wraps Gmsh, FEniCSx and NEURON for peripheral-nerve stimulation. Built around nerve trunks. Use it for the trunk case and for its fiber models. Checked in its source (v1.4.0, `docs/nrv-capabilities.md`, A-010): it has no skin geometry, flat surface contacts, terminal fibre endings or Zhu/Aalborg fibre models, but it does take a custom 3D mesh with layered conductivities, thin interface layers and externally computed per-contact fields. **Hybrid plan:** own Gmsh skin mesh and contacts, NRV for fibre models, waveforms and superposition. Untested until installed (step 2.x). |
 | Axon simulation | NEURON 8.x + Python | Called by NRV; usable directly for custom fibers. |
 | FEM | FEniCSx (dolfinx) | Needed directly only for scan-derived geometry. |
 | Meshing | Gmsh; pygalmesh (CGAL), iso2mesh or fTetWild | Gmsh for idealized geometry. A label-map mesher for scan-derived geometry. |
@@ -211,7 +211,7 @@ Interpolate `V` at every node of Ranvier, apply it through NEURON's `extracellul
 | Myelinated, sensory | Gaines et al. 2018 sensory variant of MRG | Preferable for afferents. |
 | Unmyelinated | Sundt et al. 2015 or Tigerholm et al. 2014 | Required for the 24 to 29% unmyelinated fibers. MRG cannot represent them. |
 
-NRV ships implementations of these families; check its documentation for the exact list.
+NRV 1.4.0 ships MRG, Gaines sensory and motor (myelinated) and HH, Rattay-Aberham, Sundt, Tigerholm, Schild 94 and 97 (unmyelinated). It does **not** ship the Zhu or Aalborg A-delta and A-beta terminal models; these are written in NEURON by us (`docs/nrv-capabilities.md`).
 
 Settings: time step 0.005 ms or smaller. Models are parameterized near body temperature; do not change `celsius` without checking how each mechanism scales.
 

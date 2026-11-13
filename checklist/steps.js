@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-14, amendment A-009",
+  version: "2026-11-14, amendment A-010",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -261,7 +261,7 @@ window.CHECKLIST = {
         "The key question after amendment A-002: can it model layered skin, arrays of surface contacts and fibers that end in the tissue? If not, the skin model is built with Gmsh and FEniCSx directly and NRV supplies only the fiber models.",
         "Anything missing becomes an amendment before coding starts."
       ],
-      verify: ["Each capability is linked to a documentation page for the installed version."],
+      verify: ["Each capability is linked to a documentation page for the installed version. (A-010: the rendered docs were unreadable and nothing is installed, so each capability is linked to a source file of NRV 1.4.0, commit 7dc11954, in `docs/nrv-capabilities.md`. The owner decides whether that substitution is accepted.)"],
       review: null,
       model: "Sonnet 5.5", effort: "medium", why: "Reading documentation.",
       tools: ["WebFetch"], needs: [], blueprint: "1, 5.2, 6"
@@ -418,7 +418,7 @@ window.CHECKLIST = {
     {
       id: "3.2", phase: "P3", kind: "do", who: "ai",
       title: "Check the axon models against their papers",
-      what: ["Reproduce conduction velocity against diameter and a strength-duration curve for each fiber model used."],
+      what: ["Reproduce conduction velocity against diameter and a strength-duration curve for each fiber model used.","NRV 1.4.0 ships MRG, Gaines sensory and motor, HH, Rattay-Aberham, Sundt, Tigerholm and Schild 94/97 but not the Zhu or Aalborg A-delta and A-beta terminal models; those are written in NEURON by us and checked here too (A-010, `docs/nrv-capabilities.md`)."],
       verify: ["Values fall within 10% of the published figures; differences are explained in the notes."],
       review: {
         who: "Computational neuroscientist",
