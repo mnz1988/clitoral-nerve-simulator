@@ -1,6 +1,8 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2 (corrected), 2026-11-13.
+Free tools and open data only. Version 2.1, 2026-11-13 (amendments A-001, A-002).
+
+The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
 This replaces an earlier draft. The backbone of that draft was sound: geometry from a scan, a finite-element field in tissue, and NEURON axons driven by that field. The corrections are listed in [section 12](#12-what-changed-from-the-first-draft).
 
@@ -18,12 +20,16 @@ Citations marked *(verify)* were written from memory and must be checked against
 
 ## 0. What is being built
 
+**Decided scope (A-002):** the simulator is a test bench for surface electro-tactile stimulation of the clitoris with adjustable multi-contact electrodes and waveforms. Mode A is the product. Mode B is kept only to supply reference firing patterns of natural touch, so electrical patterns can be compared with them.
+
+Surface electrodes mainly excite fine nerve branches and endings in the skin under the electrode [literature, verify], so the primary geometry is layered skin with terminal fibers. The nerve trunk is a secondary case.
+
 Two modes that share geometry and axons but differ greatly in how well they are grounded.
 
 **Mode A, electrical stimulation (biophysical).**
 
 ```
-electrode current
+electrode layout + current per contact + waveform
   -> potential field in tissue (FEM, quasi-static)
   -> extracellular potential at every node of Ranvier
   -> action potentials in DNC axons (cable models in NEURON)
@@ -50,7 +56,7 @@ No human clitoral afferent recordings exist to fit this against, so Mode B is an
 
 | Purpose | Tool | Notes |
 |---|---|---|
-| Stimulation pipeline | **NRV** (`nrv-py`) | Wraps Gmsh, FEniCSx and NEURON for peripheral-nerve stimulation. Use it instead of writing the coupling by hand. |
+| Stimulation pipeline | **NRV** (`nrv-py`) | Wraps Gmsh, FEniCSx and NEURON for peripheral-nerve stimulation. Built around nerve trunks. Use it for the trunk case and for its fiber models. Whether it handles layered skin, surface electrode arrays and fiber endings is unconfirmed (checklist step 1.9); if not, the skin model uses Gmsh and FEniCSx directly with the same fiber models. |
 | Axon simulation | NEURON 8.x + Python | Called by NRV; usable directly for custom fibers. |
 | FEM | FEniCSx (dolfinx) | Needed directly only for scan-derived geometry. |
 | Meshing | Gmsh; pygalmesh (CGAL), iso2mesh or fTetWild | Gmsh for idealized geometry. A label-map mesher for scan-derived geometry. |
@@ -97,17 +103,30 @@ Consequences:
 - All donors were elderly (75 to 98 years in Tunçkol; postmenopausal in the preprint). Fiber counts decline with age, so the numbers may understate younger anatomy.
 - Do not scale penile nerve data down. Branching differs, and the hood, mons and posterior labial contributions are separate.
 
-## 3. Phase 1: idealized-nerve recruitment model
+## 3. Phase 1: idealized models
 
 Do this first. It needs no scan data and exercises the whole of Mode A.
 
-1. Install NRV in WSL2. Run its tutorials to confirm the install.
-2. Build one nerve: a cylinder 0.7 mm across **[measured, preprint]** containing fascicles. Bundle count from the table above; fascicle diameters are an **[assumption]** until measured from scans.
-3. Fill the fascicles with axons: count from the range above, 71 to 76% myelinated, diameters from the declared distribution.
-4. Place the electrode. For a surface electrode, add skin and subcutaneous layers and see section 5.3.
-5. Run threshold searches by bisection for each axon across pulse widths.
-6. Produce recruitment curves (percent of fibers active against current) and strength-duration curves.
-7. Run the verification tests in section 10.1 before trusting any output.
+### 3.1 Skin-surface model (primary)
+
+1. Install the environment in WSL2 on drive F.
+2. Build a flat block of layered tissue: surface layer (epithelium), the connective layer beneath it, then erectile tissue. Thicknesses and conductivities per region are **[assumption]** until found (checklist step 1.10).
+3. Place terminal fibers in the connective layer: depth, density, orientation and diameter from histology where it exists, otherwise **[assumption]**. Each fiber is a cable model that ends in the tissue; how the ending is modeled must be stated and varied.
+4. Place the electrode layout from a configuration file (section 5.3 and `scope.md` section 5).
+5. Solve the field once per contact for unit current and store it.
+6. Run threshold searches by bisection for each fiber across waveforms.
+7. Produce: recruitment curves, strength-duration curves, and maps of which fibers fire by position, depth, orientation and type.
+8. Validate the method on the fingertip first, where human electro-tactile thresholds are published (checklist step 3.9), then switch to clitoral parameters.
+
+### 3.2 Nerve-trunk model (secondary)
+
+Purpose: check the field-to-axon coupling against published trunk results, and cover large electrodes and high currents that reach the trunk.
+
+1. One nerve: a cylinder 0.7 mm across **[measured, preprint]** containing fascicles. Bundle count from section 2; fascicle diameters are an **[assumption]** until measured from scans.
+2. Fill the fascicles with axons: count from the range in section 2, 71 to 76% myelinated, diameters from the declared distribution.
+3. Place it at its anatomical depth under the skin model and reuse steps 4 to 7 above.
+
+Run the verification tests in section 10.1 before trusting any output of either model.
 
 ## 4. Phase 2: scan-derived geometry
 
@@ -161,6 +180,9 @@ Quasi-static: `div(sigma * grad(V)) = 0`.
 - **Return:** `V = 0` on the return electrode, or on a distant cut boundary if the return is far away.
 - **Skin to air:** zero normal current.
 - **Scaling:** solve once for 1 mA and scale linearly with amplitude. Solve again only if geometry or conductivities change.
+- **Several contacts:** solve one unit-current field per contact and store it. The field for any set of contact currents is the weighted sum of the stored fields. Test this: a two-contact solve must equal the sum of the two single-contact solutions.
+- **Unconnected contacts:** a metal contact that carries no current still short-circuits the skin under it. Ignoring this is an **[assumption]**; check its effect once.
+- **Reported for information:** charge per phase and charge density per contact. These are arithmetic on the inputs, not safety limits.
 
 **Surface electrodes:** the stratum corneum dominates the impedance and is strongly frequency-dependent (around 2e-4 S/m at low frequency, far higher for hydrated skin or with gel). A purely resistive skin layer can misestimate thresholds for short pulses. Treat skin conductivity and the electrode-skin interface as the main **[assumption]** and vary them.
 
@@ -185,6 +207,8 @@ Expected behavior: conduction velocity around 4.5 to 6 m/s per µm of fiber diam
 ## 7. Phase 4: touch pathway (Mode B)
 
 All parameters in this section are **[assumption]**.
+
+Role after A-002: this pathway produces reference firing patterns for natural touch and tapping. Electrical stimulation patterns from Mode A can then be compared with them: same fibers, similar timing. It is a design aid, not a prediction of what will be felt.
 
 1. **Contact mechanics.** Convert indenter position, shape and depth into stress or strain at receptor depth. Start with an elastic half-space, as TouchSim does. A finite-element hyperelastic model in FEniCSx is a later refinement.
 2. **Receptor response.** Use a filter model, not a static curve: a weighted sum of indentation, its rate and its acceleration, followed by rectification and saturation. Rapidly adapting units weight the rate terms; slowly adapting units weight the static term. A static function of pressure cannot tell the two apart.
@@ -237,12 +261,13 @@ Report every output as a range from a sensitivity analysis over fiber count, dia
 
 | Milestone | Content | Done when |
 |---|---|---|
-| M1 | WSL2 + NRV; idealized nerve; recruitment curves | Verification tests in 10.1 pass |
-| M2 | Sensitivity analysis on the idealized model | Output ranges reported |
+| M1 | WSL2 environment; configuration schema; idealized skin-surface model; recruitment curves and maps | Verification tests in 10.1 pass; fingertip validation done |
+| M2 | Sensitivity and selectivity analysis on the idealized model | Output ranges reported |
 | M3 | Confirm data access; segment trunks; centerlines | Geometry checks in 10.2 pass |
 | M4 | Scan-derived mesh and FEM; realistic recruitment | Convergence shown; compared with clinical thresholds |
 | M5 | Touch pathway | Runs; labelled unvalidated |
 | M6 | Streamlit interface | Shows labels and ranges |
+| Version 2 | Calibrate with bench and human data from the hardware project; enter its safety limits | Defined in `scope.md` section 7 |
 
 M1 is about two weeks of work. The whole plan is months, and it is not a publishable result until M4 with its validation.
 

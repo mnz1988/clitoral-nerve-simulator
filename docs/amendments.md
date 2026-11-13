@@ -49,13 +49,39 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: checklist created.
 - Effect on results already produced: none; no results existed.
 
+## A-002: scope decided, surface electro-tactile stimulation
+- Date: 2026-11-13
+- Raised by: owner's answers to the open scope questions
+- Found in step: 0.2, 0.3, 0.4
+- What was found:
+  1. The simulator is a test bench for a hardware project that stimulates different parts of the clitoris through skin electrodes to produce sensations such as touch and tapping.
+  2. Electrodes and stimulus must be fully adjustable: size, shape, number, waveform, current range.
+  3. Accuracy target: as accurate as open data allows.
+  4. Safety limits will be defined and tested in the hardware project and entered into later versions of the simulator.
+  5. No deadline. Machine checked: 64 GB RAM, 4 cores, 379 GB free on F, only 16 GB free on C.
+- Why the current plan does not handle it:
+  - The first model in blueprint section 3 was a nerve trunk with fascicles. Surface electrodes mainly excite fine branches and endings in the skin, so the trunk is the wrong first target.
+  - The blueprint assumed one fixed electrode. Adjustable multi-contact layouts need a parameter schema and one stored field solution per contact.
+  - The touch pathway (old Mode B) was an optional illustration. With "produce touch and tapping" as the goal, its useful role is to supply reference firing patterns of natural touch for comparison.
+  - NRV was recommended as the whole pipeline. It is built around nerve trunks; whether it covers layered skin and surface electrode arrays is unconfirmed.
+  - Nothing prepared the simulator to receive bench data later.
+- Decision: accepted.
+- Blueprint sections changed: version line, 0, 1, 3, 5.3, 7, 11. New documents: `docs/scope.md`, `docs/reviewers.md`.
+- Checklist steps added, changed or retired:
+  - Changed: 0.2, 0.3, 0.4, 1.9, 2.1, 3.1, 3.3, 3.4, 3.5, 3.7, 5.2; phase P5 retitled.
+  - Added: 1.10 (skin and nerve-ending data), 1.11 (electro-tactile modeling and threshold literature), 2.4 (electrode and stimulus configuration schema), 3.8 (selectivity analysis), 3.9 (method validation on the fingertip), 8.1 (bench-data format for version 2), 8.2 (enter safety limits, later); new phase P8.
+  - Retired: none.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
 These are known gaps. Each becomes an amendment when it is answered.
 
-- Scope and intended use are not decided (step 0.2).
-- Electrode and stimulus are not specified (step 0.3).
-- No expert reviewers are named (step 0.4).
+- Realistic ranges for contact size, spacing, current, pulse width and rate are not given (step 0.3).
+- Which regions come first, electrode material and skin interface are not given (step 0.3).
+- No expert reviewers are found yet; role descriptions are in `docs/reviewers.md` (step 0.4).
 - Scan data availability is unconfirmed (step 1.4).
 - Axon diameter distribution has no source (step 1.5).
-- What NRV supports for perineurium, skin layers and custom geometry is unconfirmed (step 1.9).
+- Whether NRV supports layered skin, surface electrode arrays and fiber endings is unconfirmed (step 1.9).
+- Skin layer and nerve-ending data for the glans and hood have not been found (step 1.10).
+- The claim that surface electrodes mainly excite fibers in the skin, and the reported effect of polarity on fiber orientation, are written from memory and must be checked (step 1.11).

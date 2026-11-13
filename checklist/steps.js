@@ -4,16 +4,17 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13",
+  version: "2026-11-13, amendment A-002",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
     { id: "P2", title: "Software environment" },
     { id: "P3", title: "Idealized nerve model (milestones M1, M2)" },
     { id: "P4", title: "Scan-derived geometry (milestones M3, M4)" },
-    { id: "P5", title: "Touch pathway (milestone M5)" },
+    { id: "P5", title: "Natural-touch reference patterns (milestone M5)" },
     { id: "P6", title: "Interface (milestone M6)" },
-    { id: "P7", title: "Review before sharing" }
+    { id: "P7", title: "Review before sharing" },
+    { id: "P8", title: "Version 2: data from the hardware project (later)" }
   ],
   steps: [
     // ---------------------------------------------------------------- P0
@@ -36,9 +37,8 @@ window.CHECKLIST = {
       id: "0.2", phase: "P0", kind: "decide", who: "you",
       title: "Decide the scope and the one question the model must answer",
       what: [
-        "Choose: Mode A only (electrical stimulation), or Mode A then Mode B (touch).",
-        "Write the question in one sentence, for example: what current recruits half of the fibers with this electrode?",
-        "State how accurate the answer needs to be and what it will be used for."
+        "Decided on 2026-11-13: a test bench for surface electro-tactile stimulation with adjustable electrodes and waveforms, as accurate as open data allows. See `docs/scope.md`.",
+        "Reopen only through an amendment."
       ],
       verify: [
         "The decision is written in `docs/scope.md`.",
@@ -50,31 +50,30 @@ window.CHECKLIST = {
     },
     {
       id: "0.3", phase: "P0", kind: "decide", who: "you",
-      title: "Specify the electrode and the stimulus",
+      title: "Give ranges and reference layouts for the adjustable electrode and stimulus",
       what: [
-        "Electrode type (surface or other), contact size and material, position, return electrode.",
-        "Waveform, pulse-width range, frequency range, maximum current.",
-        "If this is for a real device, copy the values from the device specification."
+        "The parameter set is defined in `docs/scope.md` section 5: any number, shape and size of contacts, any waveform.",
+        "Still needed from you: realistic ranges for contact size, spacing, current, pulse width and rate; which regions come first; electrode material; dry, gel or moist skin.",
+        "Choose three to five reference layouts that every test will use."
       ],
       verify: [
-        "A table with units exists in `docs/scope.md`.",
-        "Someone else can redraw the setup from the table alone."
+        "The ranges, with units, are in `docs/scope.md` section 5.",
+        "Someone else can redraw each reference layout from its description alone."
       ],
       review: {
-        who: "Biomedical engineer (stimulation hardware)",
-        ask: "Are these values realistic for the hardware, and inside accepted charge-density and current limits for skin and nerve?"
+        who: "Electro-tactile stimulation engineer (role B in `docs/reviewers.md`)",
+        ask: "Are these ranges and layouts realistic for thin or moist skin, and do they cover what the hardware will actually use?"
       },
       model: "Opus 5.5", effort: "medium", why: "Needs care with units and safety limits.",
       tools: [], needs: ["0.2"], blueprint: "5.3"
     },
     {
       id: "0.4", phase: "P0", kind: "find", who: "you",
-      title: "Name your expert reviewers",
+      title: "Find your expert reviewers",
       what: [
-        "Neuroanatomist, pelvic surgeon or urogynecologist: anatomy and fiber population.",
-        "Computational neuroscientist with peripheral-nerve modeling experience: FEM and axon models.",
-        "Biomedical engineer: electrode, skin interface, safety.",
-        "Clinical neurophysiologist or urologist: validation targets."
+        "Six roles are described in `docs/reviewers.md`: the expertise required, how to recognise a fit, where to look, search terms, and the questions to ask.",
+        "Search for two or three candidates per role, in the priority order given there, and contact them.",
+        "The safety role (F) can wait for the hardware project."
       ],
       get: ["One named person per role, or a written decision to go without that review."],
       verify: [
@@ -253,7 +252,8 @@ window.CHECKLIST = {
       id: "1.9", phase: "P1", kind: "find", who: "ai",
       title: "Check what NRV can and cannot do",
       what: [
-        "Confirm against the documentation of the version you will install: which fiber models ship with it, thin-layer perineurium, surface electrodes and skin layers, importing custom geometry.",
+        "Confirm against the documentation of the version you will install: which fiber models ship with it, thin-layer perineurium, importing custom geometry.",
+        "The key question after amendment A-002: can it model layered skin, arrays of surface contacts and fibers that end in the tissue? If not, the skin model is built with Gmsh and FEniCSx directly and NRV supplies only the fiber models.",
         "Anything missing becomes an amendment before coding starts."
       ],
       verify: ["Each capability is linked to a documentation page for the installed version."],
@@ -261,13 +261,76 @@ window.CHECKLIST = {
       model: "Sonnet 5.5", effort: "medium", why: "Reading documentation.",
       tools: ["WebFetch"], needs: [], blueprint: "1, 5.2, 6"
     },
+    {
+      id: "1.10", phase: "P1", kind: "find", who: "you+ai",
+      title: "Find skin and nerve-ending data for the glans and hood",
+      what: [
+        "Thickness of the surface layer and the layers beneath it, per region.",
+        "Depth, density, type and orientation of nerve endings and fine branches (genital corpuscles, free endings).",
+        "Conductivity of thin and moist skin. If nothing exists for genital skin, take the nearest measured tissue and label it an assumption."
+      ],
+      get: ["Histology papers on the glans clitoris and prepuce that give measurements, not only descriptions."],
+      verify: [
+        "Each value has source, sample size, method and figure or table reference.",
+        "Values with no source are listed as assumptions, each with a range, in `docs/scope.md` section 4."
+      ],
+      review: {
+        who: "Clitoral and pelvic neuroanatomist",
+        ask: "Are these depths, densities and layer thicknesses right, and what is missing?"
+      },
+      model: "Fable 5.2", effort: "high", why: "The skin model stands on these numbers and the literature is thin.",
+      tools: ["Bio Research plugin (PubMed)", "research-superpowers (literature-review)", "reference-checking plugin", "pdf skill"],
+      needs: [], blueprint: "3.1"
+    },
+    {
+      id: "1.11", phase: "P1", kind: "find", who: "you+ai",
+      title: "Electro-tactile modeling methods and human thresholds",
+      what: [
+        "Published models of surface electro-tactile stimulation: how skin, electrode interface and fiber endings were modeled.",
+        "Human electro-tactile thresholds with full stimulus details: on the fingertip, and any on genital skin.",
+        "Check two claims written from memory: surface electrodes mainly excite fibers in the skin; polarity changes which fiber orientations respond."
+      ],
+      get: ["A published method to follow.", "A threshold dataset complete enough to reproduce."],
+      verify: [
+        "Each method paper is summarized with its skin model, fiber model and how it was validated.",
+        "At least one threshold dataset has every parameter needed to reproduce it; if none does, that is recorded as an amendment.",
+        "Both claims are confirmed with a source, or corrected in the blueprint."
+      ],
+      review: {
+        who: "Electro-tactile stimulation engineer",
+        ask: "Which published model is the right starting point, and which threshold data are reliable?"
+      },
+      model: "Fable 5.2", effort: "high", why: "Choosing the method the whole skin model will follow.",
+      tools: ["Bio Research plugin (PubMed)", "research-superpowers (literature-review)", "reference-checking plugin", "WebSearch"],
+      needs: [], blueprint: "0, 3.1, 5.3"
+    },
 
     // ---------------------------------------------------------------- P2
     {
+      id: "2.4", phase: "P2", kind: "do", who: "ai",
+      title: "Electrode and stimulus configuration schema",
+      what: [
+        "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files.",
+        "Add the reference layouts from step 0.3 as examples."
+      ],
+      verify: [
+        "Each example file loads.",
+        "Files with missing units, overlapping contacts, or currents that do not balance when no return contact is defined are rejected with a clear message.",
+        "`pytest` covers each rejection."
+      ],
+      review: null,
+      model: "Sonnet 5.5", effort: "medium", why: "Ordinary validation code.",
+      tools: ["quick-gate-python plugin (not installed yet)"], needs: ["2.3"], blueprint: "5.3"
+    },
+    {
       id: "2.1", phase: "P2", kind: "do", who: "you+ai",
       title: "Install WSL2, Ubuntu and conda",
-      what: ["Install WSL2 with Ubuntu (needs administrator rights, so you may have to run it).", "Install Miniforge inside Ubuntu."],
-      verify: ["`wsl -l -v` shows Ubuntu with VERSION 2.", "`conda --version` works inside Ubuntu."],
+      what: [
+        "Install Ubuntu under WSL2 (needs administrator rights, so you may have to run it). WSL2 itself is present; no distribution is installed.",
+        "Drive C has only 16 GB free: put the distribution on drive F (check the current `wsl --install` options for choosing a location, or export it and re-import it onto F).",
+        "Install Miniforge inside Ubuntu."
+      ],
+      verify: ["`wsl -l -v` shows Ubuntu with VERSION 2.", "The distribution's disk file is on drive F.", "`conda --version` works inside Ubuntu."],
       review: null,
       model: "Sonnet 5.5", effort: "low", why: "Standard installation.",
       tools: ["PowerShell"], needs: ["0.5"], blueprint: "1"
@@ -302,10 +365,12 @@ window.CHECKLIST = {
       what: [
         "Point source in a homogeneous medium against the analytic solution.",
         "Linearity: doubling current doubles the potential.",
+        "Superposition: a two-contact solve equals the sum of the two single-contact solutions.",
         "Mesh convergence of thresholds."
       ],
       verify: [
         "`pytest tests/` passes.",
+        "Superposition error is under 1%.",
         "Point-source error is under 2% away from the source (target is an assumption; record the achieved value).",
         "Thresholds change by under 3% on one refinement."
       ],
@@ -327,36 +392,48 @@ window.CHECKLIST = {
     },
     {
       id: "3.3", phase: "P3", kind: "do", who: "ai",
-      title: "Build the fiber population file",
-      what: ["Write `axons/population.csv` with position, diameter, type and a label column (measured, literature, assumption).", "Produce low-count and high-count variants."],
+      title: "Build the fiber population files",
+      what: [
+        "For the skin model: `axons/terminals.csv` with position, depth, orientation, diameter, type and a label column (measured, literature, assumption).",
+        "For the trunk model: `axons/population.csv` with position, diameter, type and label.",
+        "Produce low and high variants of count and density."
+      ],
       verify: ["Counts and myelinated fraction match the chosen inputs exactly.", "A diameter histogram is saved and matches the chosen distribution."],
       review: {
         who: "Neuroanatomist",
-        ask: "Does the population (count range, myelinated fraction, diameters, fascicle layout) look like this nerve?"
+        ask: "Do the terminal fibers (depth, density, orientation, diameters) and the trunk population (count range, myelinated fraction, fascicle layout) look like this tissue?"
       },
       model: "Sonnet 5.5", effort: "medium", why: "Straightforward data generation.",
-      tools: ["Data plugin (validate-data)", "dataviz skill"], needs: ["1.5"], blueprint: "2, 3"
+      tools: ["Data plugin (validate-data)", "dataviz skill"], needs: ["1.5", "1.10"], blueprint: "2, 3"
     },
     {
       id: "3.4", phase: "P3", kind: "do", who: "ai",
-      title: "Build the idealized nerve, tissue layers and electrode",
-      what: ["Nerve with fascicles and perineurium, surrounding tissue, skin if the electrode is on the surface, electrode from step 0.3."],
+      title: "Build the idealized skin-surface model and electrode layouts",
+      what: [
+        "Layered tissue block with terminal fibers; the reference layouts from step 0.3 loaded from configuration files.",
+        "One stored unit-current field per contact.",
+        "Afterwards, the secondary nerve-trunk case (nerve with fascicles and perineurium under the skin model)."
+      ],
       verify: [
+        "Changing the currents on the contacts does not trigger a new field solve.",
         "The conductivity table printed by the code equals blueprint section 5.2.",
         "Current through a closed surface around the electrode equals the injected current within 1%.",
         "A mesh picture is saved."
       ],
       review: {
-        who: "Computational neuroscientist and biomedical engineer",
-        ask: "Is the perineurium treatment sound, and is the skin and electrode interface model adequate for these pulse widths?"
+        who: "Electro-tactile stimulation engineer and computational neuroscientist",
+        ask: "Is the skin and electrode-interface model adequate for these pulse widths, and is the treatment of fiber endings and of the perineurium sound?"
       },
       model: "Opus 5.5", effort: "high", why: "Geometry, materials and boundary conditions must all be right together.",
-      tools: ["code-review skill"], needs: ["3.1", "0.3", "1.6"], blueprint: "3, 5"
+      tools: ["code-review skill"], needs: ["3.1", "0.3", "1.6", "1.10", "2.4"], blueprint: "3.1, 3.2, 5"
     },
     {
       id: "3.5", phase: "P3", kind: "do", who: "ai",
       title: "Recruitment and strength-duration curves",
-      what: ["Threshold search for every fiber across pulse widths; plot recruitment against current."],
+      what: [
+        "Threshold search for every fiber across the reference layouts and waveforms; plot recruitment against current.",
+        "Maps of which fibers fire, by position, depth, orientation and type."
+      ],
       verify: [
         "Recruitment rises monotonically with current.",
         "Larger myelinated fibers have lower thresholds; thresholds rise with distance from the electrode.",
@@ -384,12 +461,52 @@ window.CHECKLIST = {
     },
     {
       id: "3.7", phase: "P3", kind: "decide", who: "you",
-      title: "Checkpoint: is the idealized model enough?",
-      what: ["Compare the M2 ranges with the accuracy you asked for in step 0.2.", "Decide whether Phase 4 is worth its cost, and record the decision as an amendment."],
+      title: "Checkpoint: what should scan-derived geometry add?",
+      what: [
+        "The accuracy target is 'as accurate as open data allows', so Phase 4 goes ahead if the scan data can be obtained (step 1.4).",
+        "Use the sensitivity results to decide what the scans must supply for a skin-surface model: region shape and curvature, branch paths to each region, trunk depth.",
+        "Record the decision as an amendment."
+      ],
       verify: ["The decision and its reason are in `docs/amendments.md`."],
       review: null,
       model: "Fable 5.2", effort: "medium", why: "A short, honest second opinion on the decision.",
-      tools: [], needs: ["3.6"], blueprint: "11"
+      tools: [], needs: ["3.6", "3.9"], blueprint: "11"
+    },
+    {
+      id: "3.8", phase: "P3", kind: "do", who: "ai",
+      title: "Selectivity analysis across electrode layouts and waveforms",
+      what: [
+        "For each reference layout and waveform: how focused the activation is, how deep it reaches, the mix of fiber types and orientations recruited, and how these change with polarity, pulse width and contact size.",
+        "Write `docs/results-selectivity.md`."
+      ],
+      verify: [
+        "Each result is a range from the sensitivity analysis.",
+        "Every statement about sensation is worded as a hypothesis for the hardware project to test."
+      ],
+      review: {
+        who: "Electro-tactile stimulation engineer and somatosensory neuroscientist",
+        ask: "Do these selectivity results agree with what electro-tactile experiments show, and which differences could plausibly be felt?"
+      },
+      model: "Fable 5.2", effort: "high", why: "Interpretation where overclaiming is easy.",
+      tools: ["dataviz skill", "Data plugin (statistical-analysis)"], needs: ["3.6"], blueprint: "0, 3.1"
+    },
+    {
+      id: "3.9", phase: "P3", kind: "do", who: "ai",
+      title: "Validate the method on the fingertip",
+      what: [
+        "Rebuild one published fingertip electro-tactile experiment with the same code: its electrode, its waveform, fingertip skin values from the literature.",
+        "Compare predicted thresholds with the measured ones."
+      ],
+      verify: [
+        "Predicted and measured thresholds sit in one table, with ranges.",
+        "The difference is reported as it is. Parameters are not tuned to close it unless the tuning is declared."
+      ],
+      review: {
+        who: "Computational neuroscientist",
+        ask: "Is this a fair test of the method, and is the agreement good enough to transfer the method to other skin?"
+      },
+      model: "Opus 5.5", effort: "high", why: "A full model rebuild plus an honest comparison.",
+      tools: ["dataviz skill", "code-review skill"], needs: ["3.5", "1.11"], blueprint: "3.1, 10.2"
     },
 
     // ---------------------------------------------------------------- P4
@@ -461,8 +578,12 @@ window.CHECKLIST = {
     },
     {
       id: "5.2", phase: "P5", kind: "do", who: "ai",
-      title: "Receptor filter model and receptive-field rule",
-      what: ["Rapidly and slowly adapting filter models.", "A written rule that assigns each axon a skin location."],
+      title: "Receptor filter model and reference firing patterns",
+      what: [
+        "Rapidly and slowly adapting filter models.",
+        "A written rule that assigns each axon a skin location.",
+        "Reference firing patterns for touch, tapping and vibration, to compare with the patterns electrical stimulation produces."
+      ],
       verify: [
         "Rapidly adapting units fire on ramps and vibration and fall silent during a static hold; slowly adapting units keep firing.",
         "Every parameter is labelled an assumption in code and interface."
@@ -503,6 +624,45 @@ window.CHECKLIST = {
       model: "Fable 5.2", effort: "high", why: "Last chance to catch overclaims.",
       tools: ["code-review skill", "reference-checking plugin (referee review)", "research-superpowers (requesting-peer-review)"],
       needs: [], blueprint: "10, 13"
+    },
+
+    // ---------------------------------------------------------------- P8
+    {
+      id: "8.1", phase: "P8", kind: "do", who: "you+ai",
+      title: "Define the format for bench and human data",
+      what: [
+        "Decide which measurements the hardware project will record so they can calibrate the simulator: electrode impedance, perception threshold per layout and waveform, reported sensation quality and location, comfort limit.",
+        "Write the file format and an empty example into `calibration/`.",
+        "Do this before the hardware project starts collecting data, so nothing has to be measured twice."
+      ],
+      verify: [
+        "Every measurement names its electrode layout and waveform using the same configuration files as the simulator.",
+        "Whoever leads the hardware project confirms the format is practical."
+      ],
+      review: {
+        who: "Electro-tactile stimulation engineer",
+        ask: "Is this the right set of measurements, and is anything essential missing?"
+      },
+      model: "Opus 5.5", effort: "medium", why: "Design of a small data format with long-term consequences.",
+      tools: [], needs: ["2.4"], blueprint: "scope 7"
+    },
+    {
+      id: "8.2", phase: "P8", kind: "do", who: "you",
+      title: "Enter safety limits from the hardware project (later)",
+      what: [
+        "When the hardware project has defined and tested its safety limits, enter them as constraints so the simulator flags settings outside them.",
+        "Until then the simulator reports charge per phase and charge density for information only."
+      ],
+      verify: [
+        "Each limit cites the hardware project's test record.",
+        "A setting outside a limit is flagged in the interface."
+      ],
+      review: {
+        who: "Stimulation-safety engineer",
+        ask: "Are the limits entered correctly and applied to the right quantities?"
+      },
+      model: "Sonnet 5.5", effort: "medium", why: "Small, careful change to existing code.",
+      tools: ["code-review skill"], needs: ["8.1", "6.1"], blueprint: "scope 7"
     }
   ]
 };

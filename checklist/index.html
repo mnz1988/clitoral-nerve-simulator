@@ -137,6 +137,11 @@
   var state = { steps: {}, amendments: [] };
   var cards = {};
   var byId = {};
+  // Show steps in numeric order (1.9 before 1.10) wherever they sit in steps.js.
+  DATA.steps.sort(function (a, b) {
+    var pa = a.id.split('.').map(Number), pb = b.id.split('.').map(Number);
+    return (pa[0] - pb[0]) || (pa[1] - pb[1]);
+  });
   DATA.steps.forEach(function (s) { byId[s.id] = s; });
 
   function $(id) { return document.getElementById(id); }
