@@ -1,5 +1,8 @@
 # Large or third-party data: never commit
 data/
+# Papers downloaded by hand (publisher copyright; keep local only)
+downloaded-manually/
+*.pdf
 segmentation/
 meshes/
 *.jp2
