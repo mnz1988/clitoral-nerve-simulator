@@ -78,6 +78,61 @@ Because every value is a user input, the simulator still needs three things, pro
 2. **Input limits**: the range inside which the model is valid (for example contact size against mesh resolution, pulse width against the field model's assumptions). These are model limits, not safety limits.
 3. **A few fixed test layouts** used only by the automated tests, so results can be compared between code versions.
 
+#### Proposal (agent, 2026-11-13; not yet accepted by the owner, not yet reviewed by an expert)
+
+Sources are in `literature-electrotactile.md`. "Assumption" means no source was found and the value is the agent's choice. None of these ranges is a safety limit.
+
+**Regions.** Glans and hood for use; fingertip and forearm for validation only, because that is where human data exist.
+
+**Electrode inputs**
+
+| Input | Default | Allowed range | Basis |
+|---|---|---|---|
+| Region | Glans | glans, hood, fingertip, forearm | Owner's decision; last two added for validation |
+| Skin condition | glans moist; hood dry; fingertip dry; forearm gelled | dry, moist, gelled | Fingertip and forearm follow the validation papers. Glans and hood: assumption |
+| Material | Stainless steel | the owner's five | Used for the pin and needle electrodes in Poulsen 2020. Does not change which fibers fire |
+| Number of contacts | 2 | 1 to 16 | Papers used 6 to 8. Upper bound is computing time: assumption |
+| Contact shape | Disc | disc, rectangle, ring | Owner's decision |
+| Contact size | 1.5 mm diameter | 0.2 mm to 12 mm, and it must fit inside the region | Smallest modeled contact is a 0.2 mm pin (Tigerholm 2019 p.2); largest validated disc is 12 mm (Zhu 2017). Default: assumption |
+| Gap between contacts | 1.0 mm | 0.2 mm up to the region size | 1 mm in Kajimoto 1999 and Araiza-Illan 2019; 1.6 mm in Malešević 2021. Lower bound: assumption (mesh resolution) |
+| Return path | Local: contact currents sum to zero | local, or one distant return electrode | Kajimoto 1999 p.6 |
+| Share of current per contact | +1 and -1 | -1 to +1 | Definition |
+
+**Stimulus inputs**
+
+| Input | Default | Allowed range | Basis |
+|---|---|---|---|
+| Pulse shape | Biphasic, symmetric, charge-balanced | monophasic; biphasic symmetric; biphasic asymmetric | Every hardware study read used biphasic balanced pulses |
+| Leading phase | Cathodic | cathodic, anodic | Cathodic first in Zhu 2017 and Malešević 2021; both in Kajimoto 1999 |
+| Pulse width per phase | 200 µs | 10 µs to 10 ms | Default: Kajimoto p.6, Zhu. Lower bound: the steady-state field assumption needs pulses far longer than about 1 µs (Zhu p.3), and 10 µs is the shortest simulated. Upper bound: longest validated (Poulsen 2020) |
+| Gap between phases | 0 | 0 to 1 ms | Assumption |
+| Current per contact | 0.5 mA | 0 to 10 mA | Default lies between the forearm rheobases (0.1 to 0.4 mA, Poulsen) and the fingertip sensation threshold (1.0 mA, Malešević). Upper bound covers the stimulator ranges in the papers (2 mA Kajimoto, 9 mA Malešević): assumption |
+| Pulse rate | 50 Hz | 1 to 1000 Hz, and one pulse must fit inside one period | 50 Hz in Zhu; adjustable to 1 kHz in Kajimoto |
+| Train length | 1 s | 0.05 to 5 s | Assumption (computing time) |
+| Each pulse averages to zero | On | on, off | Kajimoto p.6 |
+| Driver voltage limit | 150 V | 5 to 300 V | ±150 V supply in Kajimoto 1999 figure 11. Range: assumption |
+
+**Flags.** These warn; they do not refuse a run.
+
+| Flag | Rule | Basis |
+|---|---|---|
+| Driver cannot deliver | The voltage a contact needs exceeds the driver's limit | Amendment A-004 |
+| Outside the checked range | Current density on any contact above 1 mA per mm² | The highest in the studies read is about 0.8 mA per mm² (9 mA on 11 mm², the stimulator maximum in Malešević 2021). Threshold: assumption |
+| Small contact | Contact area below 10 mm² | Hand and arm studies report discomfort from the high current density of small contacts (Kourtesis 2022 p.2) |
+
+**Test layouts.** Fixed cases for automated tests. The first four have published results to compare with.
+
+| Name | Layout and stimulus | Compared with |
+|---|---|---|
+| T1 forearm patch | Cathode 15 x 20 mm, anode 2 cm away, gelled; rectangular pulses 0.1 to 10 ms | Poulsen 2020: measured rheobase 0.381 mA |
+| T2 forearm disc | One 9 mm gold disc, gelled, return 12 cm away; biphasic cathodic-first, 200 µs, 50 Hz | Zhu 2017: thresholds 0.5 to 1.5 mA; trend with disc size |
+| T3 fingertip pads | Six 11 mm² pads, 1.6 mm gaps, 150 mm² reference; biphasic 400 µs, 30 Hz | Malešević 2021: sensation threshold median 1.0 mA. Pad shape to be read from the paper's figure |
+| T4 fingertip lines | Eight lines 0.5 x 10 mm at 1 mm pitch, currents sum to zero, 200 µs; centre contact anodic, then cathodic | Kajimoto 1999 and Araiza-Illan 2019: polarity selects fiber orientation |
+| T5 glans pair | The default interface state: two 1.5 mm discs, 1 mm gap, moist, 200 µs, 50 Hz, 0.5 mA | Nothing. Regression test only |
+| T6 hood grid | Four 2 mm discs in a 2 x 2 grid, 2 mm gaps, dry, same stimulus | Nothing. Regression test only |
+
+**A design tension to know about.** The glans is small: a few millimetres across (from memory; to be confirmed in checklist step 1.10). Several contacts on it must therefore be small, and small contacts mean high current density, which hand and arm studies link to discomfort. The simulator will show this as the "small contact" and current-density flags. How to resolve it belongs to the hardware project.
+
 ### What "run" costs
 
 | What the user changed | What is recomputed | Rough cost on this machine |
@@ -122,7 +177,7 @@ The field problem is linear. Solve it once per contact for unit current and stor
 
 ### Still to be given by the owner
 
-Nothing outstanding. The driver's voltage limit is set by the user in the interface; only its default value remains, which the agent proposes in checklist step 0.3.
+Acceptance, or changes, of the proposal above (defaults, allowed ranges, flags, test layouts).
 
 ## 6. Accuracy target
 

@@ -165,6 +165,7 @@ The blueprint and the checklist are expected to change. This file records every 
 
 These are known gaps. Each becomes an amendment when it is answered.
 
+- The proposed defaults, allowed ranges, flags and test layouts in `docs/scope.md` section 5 await the owner's acceptance and an expert's review (step 0.3). On acceptance they become amendment A-007, which also adds the forearm preset and the two new flags to the blueprint and checklist.
 - Seven small items in `docs/literature-electrotactile.md` section 7 remain uncertain or unread (two need a look at a figure or page image; two papers were not obtained).
 - Skin conductivities are not traced to their primary sources, and their direction labels are undefined (steps 1.6, 1.10). Tavernier 1993 is the paper to read.
 

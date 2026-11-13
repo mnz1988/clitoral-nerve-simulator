@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T15:52:58.568Z",
+  "updated": "2026-11-13T15:59:18.182Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -24,8 +24,8 @@ window.PROGRESS = {
       "verified": false,
       "reviewed": false,
       "fails": 0,
-      "t": 1794574248697,
-      "notes": "2026-11-13: owner decided all values are interface inputs; regions glans and hood; materials stainless steel, copper (PCB), silver, gold, titanium; skin dry, moist, gelled (amendment A-003). Drive type: current-controlled (A-004). The driver's voltage limit is a user input. Nothing further needed from the owner. Still open: defaults, input limits and test layouts, to be proposed by the agent after step 1.11."
+      "t": 1794585558182,
+      "notes": "2026-11-13: owner decided all values are interface inputs; regions glans and hood; five materials; three skin conditions (A-003); current-controlled drive with a user-set voltage limit (A-004). Agent proposed defaults, allowed ranges, three flags and six test layouts in docs/scope.md section 5, each with a source or the word assumption. Waiting for: the owner's acceptance or changes, then the electro-tactile engineer's review. Process note: once step 1.11 was verified this took one pass; Opus 5.5 at medium is enough."
     },
     "0.4": {
       "status": "doing",
