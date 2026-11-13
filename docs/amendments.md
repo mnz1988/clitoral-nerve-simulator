@@ -111,6 +111,7 @@ The blueprint and the checklist are expected to change. This file records every 
   - Electrode material does not change which fibers fire, except when the needed voltage exceeds the driver's limit.
   - New input: the driver's voltage limit. New output: the voltage each contact needs, with a flag when it exceeds the limit.
 - Blueprint sections changed: version line, 5.3, 9. `docs/scope.md` section 5.
+- Confirmed by the owner later the same day: the driver's voltage limit is set by the user in the interface; the version order in `docs/scope.md` section 7 is accepted for now.
 - Checklist steps added, changed or retired: changed 0.3, 2.4, 3.4. None added or retired.
 - Effect on results already produced: none; no results existed.
 
@@ -118,8 +119,7 @@ The blueprint and the checklist are expected to change. This file records every 
 
 These are known gaps. Each becomes an amendment when it is answered.
 
-- The driver's voltage limit is not given; it is an input with an assumed default until then (step 0.3).
-- The version order in `docs/scope.md` section 7 is the agent's reading and is not yet confirmed by the owner.
+- The default value for the driver's voltage limit is not yet proposed (step 0.3).
 - Defaults, input limits and test layouts are not yet proposed (step 0.3, after step 1.11).
 - Interface values for the five materials and three skin conditions have not been found (step 1.12).
 - Whether a purely resistive skin model is adequate for dry skin and short pulses is undecided (steps 1.11, 3.4).

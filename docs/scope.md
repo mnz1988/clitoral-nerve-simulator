@@ -60,6 +60,8 @@ Dry, moist, gelled.
 
 The hardware is **current-controlled** (decided by the owner, A-004). The driver sets the current and supplies whatever voltage that takes, up to its limit (its compliance voltage). The simulator therefore reports the voltage each contact needs and flags any setting the driver could not deliver.
 
+The user sets the current and the driver's voltage limit in the interface. The voltage actually applied is a result of the simulation, not a separate setting: for a given electrode and skin, current and voltage cannot both be chosen freely.
+
 All metals listed conduct millions of times better than tissue, so in the tissue field they behave almost identically. The differences are at the metal-to-skin interface. [literature, verify in checklist step 1.12]
 
 The interface must say this next to the material selector, so a user does not read meaning into a result that did not change.
@@ -99,7 +101,7 @@ Times are estimates until measured (checklist step 3.5). Results are cached by c
 | Material | stainless steel, copper (PCB), silver, gold, titanium |
 | Skin condition | dry, moist, gelled |
 | Drive | current-controlled (decided) |
-| Driver voltage limit | the highest voltage the driver can supply; an input |
+| Driver voltage limit | the highest voltage the driver can supply; set by the user |
 
 ### Stimulus
 
@@ -118,8 +120,7 @@ The field problem is linear. Solve it once per contact for unit current and stor
 
 ### Still to be given by the owner
 
-- The highest voltage the hardware's driver can supply, if known. Until then it is an input with an assumed default.
-- Confirmation that the version order in section 7 matches the owner's intent.
+Nothing outstanding. The driver's voltage limit is set by the user in the interface; only its default value remains, which the agent proposes in checklist step 0.3.
 
 ## 6. Accuracy target
 
@@ -133,7 +134,7 @@ The field problem is linear. Solve it once per contact for unit current and stor
 
 ## 7. Versions and safety
 
-The owner's order of work (A-003). The version numbers are the agent's reading of it; correct them if wrong.
+The owner's order of work (A-003). The version numbers are the agent's reading of it; the owner accepted them for now on 2026-11-13.
 
 | Stage | Basis | Tested on people? | Safety content |
 |---|---|---|---|

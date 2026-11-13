@@ -56,11 +56,11 @@ window.CHECKLIST = {
         "The agent proposes, from the electro-tactile literature (step 1.11): a default for each input, the limits inside which the model is valid, and a few fixed layouts for automated tests. Each is labelled an assumption.",
         "You accept or change them.",
         "Drive type decided on 2026-11-13: current-controlled.",
-        "Still needed from you, if known: the highest voltage the driver can supply. Until then it is an input with an assumed default."
+        "The driver's voltage limit is set by the user in the interface (decided 2026-11-13); it needs a default like every other input."
       ],
       verify: [
         "Defaults, input limits and test layouts are in `docs/scope.md` section 5, each with a source or the word assumption.",
-        "The driver's voltage limit, or its assumed default, is recorded.",
+        "A default for the driver's voltage limit is recorded.",
         "You have accepted them (say so in this step's notes)."
       ],
       review: {
