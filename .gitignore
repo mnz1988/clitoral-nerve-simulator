@@ -1,0 +1,23 @@
+# Large or third-party data: never commit
+data/
+segmentation/
+meshes/
+*.jp2
+*.tif
+*.tiff
+*.nrrd
+*.msh
+*.vtu
+*.xdmf
+*.h5
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# NEURON compiled mechanisms
+x86_64/
+arm64/
+*.dll
