@@ -81,3 +81,21 @@ Step 1.10 therefore stays **doing**, not done.
 - Migda MS et al. High-frequency ultrasonography of the vulva, vagina and cervix. J Ultrason 2019;19(79):261-268. doi:10.15557/JoU.2019.0039. PMC6988569. Layers seen in labia and mons; **no thickness values given, and the clitoris was not measured** (Europe PMC text).
 - Review of clitoral anatomy for aesthetic, reconstructive and transgender surgery. Int Braz J Urol 2026. doi:10.1590/S1677-5538.IBJU.2026.9910. PMC13682733. Used only to find the Longhurst ranges and the 0.2 to 0.7 mm nerve diameter; both are second-hand.
 - Cavalcanti GA et al. 2007. doi:10.1590/s1677-55382007000600010. Already in `literature-electrotactile.md`.
+
+## 8. Third pass, 2026-11-14: density leads and conductivity proxy (abstracts only)
+
+| Item | Result | Source |
+|---|---|---|
+| Glans size, cadavers | 8 mm long (5-12), 4 mm wide (3-10), median, 27 cadavers aged 48-96 (22 gross, 5 histology) | Jackson 2019 abstract |
+| Erectile tissue | Absent in the glans and labia minora; present in body, crura, bulbs | Jackson 2019 abstract |
+| Dorsal nerve width | 3 mm (2-4) at the crura, 1 mm (1-2) at the distal body. With Kelling 2020 (2.0-3.2 mm) this makes the 0.2-0.7 mm figure the odd one out; treat the nerve as about 1 to 3 mm wide and the 0.2-0.7 mm figure as unreliable | Jackson 2019; Kelling 2020 |
+| Nerve density, glans | Measured, but the abstract gives no numbers (only: denser on the dorsal than ventral half of the body; not significantly denser at the distal labia minora). **Full text needed** | Jackson 2019 |
+| Corpuscles per field, glans | 1 to 14 per 100x high-power field (5 vulvectomy specimens; glans penis 1 to 3). Corpuscles lay in the subepithelial tissue. **Field area not in the abstract, so this cannot become a density yet** | Shih 2013 abstract |
+| Pacinian corpuscles in the glans | **Sources disagree.** Shih 2013: none in the glans, only along the dorsal nerve trunk. García-Mesa 2020: present in the central glans. Unresolved | Shih 2013; García-Mesa 2020 p.5 |
+| Conductivity of genital or mucosal tissue | **Not found.** PubMed returned only MHz-range colorectal cancer studies, which do not apply to low-frequency pulses. The IT'IS tissue database page that holds low-frequency values (based on Gabriel 1996) did not display its table to the fetch tool, and itself warns that its skin values "should be used with caution" | IT'IS page; Gabriel 1996 |
+
+Effect: the glans is 4 to 8 mm long and 4 to 5 mm wide in the cadaver studies (Jackson 2019; Longhurst 2024 overall), so the 6.4 x 5.1 mm default stands. Because Jackson 2019 gives 8 x 4 mm for cadavers, the preset sizes remain editable inputs.
+
+Two attempts were made at the conductivity proxy (PubMed searches; IT'IS page). Stopped, per rule 1. Options for the owner: (a) download the IT'IS Tissue Properties Database spreadsheet (itis.swiss, Downloads) into `downloaded-manually/`; (b) accept "wet skin" and "mucous membrane" values from Gabriel 1996 as an assumption with a wide range and sweep it; (c) drop it and sweep a plausible range (state the range) in the first runs.
+
+Sources added: Jackson LA, Hare AM, Carrick KS, Ramirez DMO, Hamner JJ, Corton MM. Anatomy, histology, and nerve density of clitoris and associated structures: clinical applications to vulvar surgery. Am J Obstet Gynecol 2019;221(5):519.e1-519.e9. doi:10.1016/j.ajog.2019.06.048. PMID 31254525. Shih C, Cold CJ, Yang CC. Cutaneous corpuscular receptors of the human glans clitoris: descriptive characteristics and comparison with the glans penis. J Sex Med 2013;10(7):1783-9. doi:10.1111/jsm.12191. PMID 23692408. Both abstracts read only.

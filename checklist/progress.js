@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T20:49:35.722Z",
+  "updated": "2026-11-13T20:54:49.083Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -64,8 +64,8 @@ window.PROGRESS = {
       "verified": false,
       "reviewed": false,
       "fails": 0,
-      "notes": "2026-11-14: first pass (Sonnet 5.5; step recommends Fable 5.2 / high) then second pass after the owner downloaded two PDFs. Findings in docs/literature-glans-hood.md, amendment A-009. Checked in the PDFs: glans 6.40 x 5.14 mm and prepuce length 23.19 mm (Longhurst 2024 Table 1, ranges 1-21, 2-32, 5-40 mm; the 32 mm width max is not matched by any single study); glans corpuscle types (Garcia-Mesa 2020, 6 donors). Garcia-Mesa gives no depths and its density unit is unreliable, so not used. NOT found: layer thickness, nerve-ending depth, usable density, conductivity of glans or hood skin. Verification check 1 only partly met, so the step stays doing. Next: fetch Jackson 2019 (AJOG 221:519) and Shih 2013 (J Sex Med 10:1783) for density; search conductivity proxies. Process note: reading the PDFs directly with Desktop Commander read_file was reliable and cheap; the summarising fetch tool mis-handled units. PubMed search needs 2-3 terms; use Europe PMC for open papers.",
-      "t": 1794602975722
+      "notes": "2026-11-14, three passes (Sonnet 5.5; step recommends Fable 5.2 / high). Details in docs/literature-glans-hood.md and amendment A-009. Checked in PDFs: Longhurst 2024 (glans 6.40 x 5.14 mm, prepuce length 23.19 mm), Garcia-Mesa 2020 (corpuscle types; no depths; density unit unreliable). Abstracts only: Jackson 2019 (glans 8 x 4 mm cadaver; nerve density numbers need full text), Shih 2013 (1-14 corpuscles per 100x field, field area unknown). Sources disagree on Pacinian corpuscles in the glans. NOT found: layer thickness, nerve depth, usable density, conductivity of glans/hood skin. Conductivity proxy: two attempts (PubMed; IT-IS page without table) failed, stopped per rule 1; options in section 8 of the findings file (download IT-IS spreadsheet, accept Gabriel 1996 wet-skin/mucosa values as labelled assumption, or sweep a range). Step stays doing. Process: read PDFs directly with Desktop Commander read_file; PubMed search needs 2-3 terms.",
+      "t": 1794603289083
     }
   },
   "amendments": []
