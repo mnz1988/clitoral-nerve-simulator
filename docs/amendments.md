@@ -221,11 +221,11 @@ The blueprint and the checklist are expected to change. This file records every 
   - It has no skin geometry, no flat surface contact electrodes, no terminal ending or branching fibre, and no Zhu or Aalborg A-delta/A-beta models. Fibres are straight cables along x.
   - Fibre models present: MRG, Gaines sensory and motor, HH, Rattay-Aberham, Sundt, Tigerholm, Schild 94 and 97.
 - Why the current plan does not handle it: blueprint section 6 named Zhu and Aalborg fibres as if NRV shipped them; the plan did not say who builds the skin mesh.
-- Decision (proposed by the agent, accepted by the owner when this is committed without objection; say if you disagree):
+- Decision (accepted by the owner on 2026-11-14, including the substitution of source-file links for documentation links in the step 1.9 check):
   - Hybrid: we build the skin mesh and contacts in Gmsh; NRV supplies fibre models, waveforms and superposition; its FEniCSx wrapper is used if a custom mesh runs through it, otherwise FEniCSx directly.
   - Zhu and Aalborg models are written in NEURON as our own work (added to step 3.x scope).
   - Straight finite-length fibres are the only fibre shape available; whether that represents a terminal ending adequately is a question for the nerve-modelling expert (role C).
-  - Step 1.9's check "each capability linked to a documentation page for the installed version" cannot be met: the rendered docs were unreadable by the tool and nothing is installed. It is replaced by links to the source files of the pinned version (1.4.0, commit 7dc11954) in the findings file. The step is therefore marked done but **not verified** until you accept that substitution.
+  - Step 1.9's check "each capability linked to a documentation page for the installed version" cannot be met: the rendered docs were unreadable by the tool and nothing is installed. It is replaced by links to the source files of the pinned version (1.4.0, commit 7dc11954) in the findings file. The owner accepted the substitution on 2026-11-14, so the step is marked verified.
 - Blueprint sections changed: version line, 1 (NRV row), 6 (fibre models line).
 - Checklist steps added, changed or retired: changed 1.9, 3.x fibre-model step (note added). None added or retired.
 - Effect on results already produced: none; no results existed.
