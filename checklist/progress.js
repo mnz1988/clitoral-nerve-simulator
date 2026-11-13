@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T21:37:45.065Z",
+  "updated": "2026-11-13T21:50:28.144Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -74,6 +74,14 @@ window.PROGRESS = {
       "fails": 0,
       "notes": "2026-11-14 (Sonnet 5.5, as recommended). Read the source of NRV 1.4.0 (commit 7dc11954), not run. Findings in docs/nrv-capabilities.md and amendment A-010. Result: hybrid plan; custom 3D mesh with layered domains, thin layers, Dirichlet/Neumann surfaces and external per-contact footprints that NRV scales and sums; no skin geometry, flat surface electrodes, terminal-ending fibres or Zhu/Aalborg models; fibres straight along x. The check \"links to documentation pages for the installed version\" could not be met (rendered docs returned only a nav index twice; nothing installed); the owner accepted source-file links of v1.4.0 instead on 2026-11-14, so verified. Untested items are in section 4 of the findings file (needs install, step 2.x). Process: a shallow git clone and grep of the source answered more in 6 calls than 6 documentation fetches; start with the clone next time (docs/ checkout fails on Windows long paths; nrv/ is complete).",
       "t": 1794605865065
+    },
+    "2.1": {
+      "status": "doing",
+      "verified": false,
+      "reviewed": false,
+      "fails": 0,
+      "notes": "2026-11-14 (Sonnet 5.5 / low). Ran: wsl --install Ubuntu-22.04 --location F:\\WSL\\Ubuntu-22.04 --no-launch (owner approved the download). Result: wsl -l -v shows Ubuntu-22.04, VERSION 2; disk file F:\\WSL\\Ubuntu-22.04\\ext4.vhdx (1.3 GB) is on drive F; guest is Ubuntu 22.04.5 LTS. The command printed ERROR_ALREADY_EXISTS yet the distribution was installed and runs (probably a second pass over an install that had already completed). No Linux user exists yet: owner must open Ubuntu once and choose a username and password (agent does not enter passwords). Still to do: Miniforge install and conda --version check, so the step is not done. Process: --location and --no-launch work on WSL 3.0.5 from a non-admin shell; nesting quotes with awk in a wsl bash -c call from PowerShell breaks; use getent or a script file.",
+      "t": 1794606628144
     }
   },
   "amendments": []
