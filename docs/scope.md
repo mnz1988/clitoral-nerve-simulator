@@ -1,6 +1,6 @@
 # Scope
 
-Decided by the owner on 2026-11-13. Recorded as amendments A-002, A-003 and A-004. Change it only through a new amendment.
+Decided by the owner on 2026-11-13. Recorded as amendments A-002, A-003, A-004 and A-007. Change it only through a new amendment.
 
 ## 1. Purpose
 
@@ -78,7 +78,9 @@ Because every value is a user input, the simulator still needs three things, pro
 2. **Input limits**: the range inside which the model is valid (for example contact size against mesh resolution, pulse width against the field model's assumptions). These are model limits, not safety limits.
 3. **A few fixed test layouts** used only by the automated tests, so results can be compared between code versions.
 
-#### Proposal (agent, 2026-11-13; not yet accepted by the owner, not yet reviewed by an expert)
+#### Defaults, ranges, flags and test layouts
+
+Proposed by the agent and accepted by the owner on 2026-11-13 (amendment A-007). Not yet reviewed by an expert.
 
 Sources are in `literature-electrotactile.md`. "Assumption" means no source was found and the value is the agent's choice. None of these ranges is a safety limit.
 
@@ -177,7 +179,7 @@ The field problem is linear. Solve it once per contact for unit current and stor
 
 ### Still to be given by the owner
 
-Acceptance, or changes, of the proposal above (defaults, allowed ranges, flags, test layouts).
+Nothing outstanding.
 
 ## 6. Accuracy target
 

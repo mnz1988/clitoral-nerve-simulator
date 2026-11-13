@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T15:59:18.182Z",
+  "updated": "2026-11-13T16:02:49.204Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -20,12 +20,12 @@ window.PROGRESS = {
       "notes": "2026-11-13: owner decided the scope. Recorded in docs/scope.md and amendment A-002. Later steps were re-mapped to the question in the same amendment."
     },
     "0.3": {
-      "status": "doing",
-      "verified": false,
+      "status": "done",
+      "verified": true,
       "reviewed": false,
       "fails": 0,
-      "t": 1794585558182,
-      "notes": "2026-11-13: owner decided all values are interface inputs; regions glans and hood; five materials; three skin conditions (A-003); current-controlled drive with a user-set voltage limit (A-004). Agent proposed defaults, allowed ranges, three flags and six test layouts in docs/scope.md section 5, each with a source or the word assumption. Waiting for: the owner's acceptance or changes, then the electro-tactile engineer's review. Process note: once step 1.11 was verified this took one pass; Opus 5.5 at medium is enough."
+      "t": 1794585769204,
+      "notes": "2026-11-13: defaults, allowed ranges, three warning flags and six test layouts are in docs/scope.md section 5, each with a source or the word assumption; a default for the driver's voltage limit is recorded (150 V). The owner accepted them as written (amendment A-007). All three verification checks pass. Still open: review by the electro-tactile engineer (role B in docs/reviewers.md); the owner ticks that box. Process note: once step 1.11 was verified this took one pass; Opus 5.5 at medium is enough."
     },
     "0.4": {
       "status": "doing",

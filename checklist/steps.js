@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13, amendment A-006",
+  version: "2026-11-13, amendment A-007",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -54,7 +54,7 @@ window.CHECKLIST = {
       what: [
         "Decided on 2026-11-13: every electrode and stimulus value is an input in the interface; regions are glans and hood; material and skin condition are selectable. See `docs/scope.md` section 5.",
         "The agent proposes, from the electro-tactile literature (step 1.11): a default for each input, the limits inside which the model is valid, and a few fixed layouts for automated tests. Each is labelled an assumption.",
-        "You accept or change them.",
+        "Accepted by the owner as written on 2026-11-13 (amendment A-007). The expert review is still open.",
         "Drive type decided on 2026-11-13: current-controlled.",
         "The driver's voltage limit is set by the user in the interface (decided 2026-11-13); it needs a default like every other input."
       ],
@@ -336,9 +336,9 @@ window.CHECKLIST = {
       id: "2.4", phase: "P2", kind: "do", who: "ai",
       title: "Electrode and stimulus configuration schema",
       what: [
-        "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files, including region (glans, hood, fingertip), material (five options), skin condition (three options) and the driver's voltage limit. Drive is current-controlled.",
-        "Enforce the input limits from step 0.3.",
-        "Add the test layouts from step 0.3 as examples."
+        "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files, including region (glans, hood, fingertip, forearm), material (five options), skin condition (three options) and the driver's voltage limit. Drive is current-controlled.",
+        "Enforce the allowed ranges from `docs/scope.md` section 5, and compute the two flags that need only the inputs (small contact, current density).",
+        "Add the six test layouts (T1 to T6) from that section as example files."
       ],
       verify: [
         "Each example file loads.",
@@ -438,7 +438,7 @@ window.CHECKLIST = {
       id: "3.4", phase: "P3", kind: "do", who: "ai",
       title: "Build the idealized skin-surface model and electrode layouts",
       what: [
-        "Layered tissue block with terminal fibers, as presets for glans, hood and fingertip, each in dry, moist and gelled condition.",
+        "Layered tissue block with terminal fibers, as presets for glans, hood, fingertip and forearm, each in dry, moist and gelled condition.",
         "Electrode layouts loaded from configuration files, with an interface layer per contact set by the selected material.",
         "One stored unit-current field per contact.",
         "The voltage each contact needs, compared with the driver's limit.",
@@ -634,7 +634,8 @@ window.CHECKLIST = {
       id: "6.1", phase: "P6", kind: "do", who: "ai",
       title: "Streamlit interface",
       what: [
-        "Inputs for every electrode and stimulus value, region, electrode material and skin condition, each bounded by its input limit.",
+        "Inputs for every electrode and stimulus value, region, electrode material and skin condition, each opening at its default and bounded by its allowed range (`docs/scope.md` section 5).",
+        "The three warning flags shown next to every result.",
         "A Run button that starts a job, shows progress and an estimated time, and caches results by configuration.",
         "3D view and curves; labels and ranges always visible; the notes on anatomy, safety and what material does not change."
       ],

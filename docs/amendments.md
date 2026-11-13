@@ -161,11 +161,25 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: changed 0.6, 3.9. None added or retired.
 - Effect on results already produced: none; no results existed.
 
+## A-007: defaults, allowed ranges, flags and test layouts accepted
+- Date: 2026-11-13
+- Raised by: agent's proposal for step 0.3; accepted by the owner as written
+- Found in step: 0.3
+- What was found: every electrode and stimulus input now has a default and an allowed range; three warning flags and six fixed test layouts are defined. All are in `docs/scope.md` section 5, each with a source or marked as an assumption.
+- Why the current plan does not handle it:
+  - The plan had no forearm region, but two of the four validation layouts are on the forearm.
+  - The plan had one flag (driver voltage). Two more are added: current density above 1 mA per mm², and contact area below 10 mm².
+  - Nothing recorded that the glans is too small for several large contacts.
+- Decision: accepted by the owner on 2026-11-13. Assumptions inside it (contact size default, upper bounds on contact count and current, voltage range, skin condition defaults for glans and hood, the current-density threshold) stay labelled as assumptions and are the first things to revisit when hardware details or an expert's review arrive.
+- Blueprint sections changed: version line, 5.3, 9.
+- Checklist steps added, changed or retired: changed 0.3, 2.4, 3.4, 6.1. None added or retired.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
 These are known gaps. Each becomes an amendment when it is answered.
 
-- The proposed defaults, allowed ranges, flags and test layouts in `docs/scope.md` section 5 await the owner's acceptance and an expert's review (step 0.3). On acceptance they become amendment A-007, which also adds the forearm preset and the two new flags to the blueprint and checklist.
+- The accepted defaults, ranges, flags and test layouts (A-007) still await the electro-tactile engineer's review (step 0.3).
 - Seven small items in `docs/literature-electrotactile.md` section 7 remain uncertain or unread (two need a look at a figure or page image; two papers were not obtained).
 - Skin conductivities are not traced to their primary sources, and their direction labels are undefined (steps 1.6, 1.10). Tavernier 1993 is the paper to read.
 
