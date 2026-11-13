@@ -1,6 +1,6 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2.3, 2026-11-13 (amendments A-001 to A-004).
+Free tools and open data only. Version 2.4, 2026-11-13 (amendments A-001 to A-005).
 
 The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
@@ -22,7 +22,9 @@ Citations marked *(verify)* were written from memory and must be checked against
 
 **Decided scope (A-002):** the simulator is a test bench for surface electro-tactile stimulation of the clitoris with adjustable multi-contact electrodes and waveforms. Mode A is the product. Mode B is kept only to supply reference firing patterns of natural touch, so electrical patterns can be compared with them.
 
-Surface electrodes mainly excite fine nerve branches and endings in the skin under the electrode [literature, verify], so the primary geometry is layered skin with terminal fibers. The nerve trunk is a secondary case.
+Surface electrodes mainly excite fine nerve branches and endings in the skin under the electrode [literature; sources in [literature-electrotactile.md](literature-electrotactile.md)], so the primary geometry is layered skin with terminal fibers. Large contacts and high currents reach deeper, so the nerve trunk is kept as a secondary case.
+
+Expect version 1 to be reliable for comparing settings (this layout against that one, this waveform against that one) and unreliable for absolute current values until it is calibrated with bench data. Published models of this kind match trends better than absolute thresholds.
 
 Two modes that share geometry and axons but differ greatly in how well they are grounded.
 
@@ -116,7 +118,9 @@ Do this first. It needs no scan data and exercises the whole of Mode A.
 5. Solve the field once per contact for unit current and store it.
 6. Run threshold searches by bisection for each fiber across waveforms.
 7. Produce: recruitment curves, strength-duration curves, and maps of which fibers fire by position, depth, orientation and type.
-8. Validate the method on the fingertip first, where human electro-tactile thresholds are published (checklist step 3.9), then switch to clitoral parameters.
+8. Validate the method first where human thresholds are published with enough detail to reproduce: the forearm (Zhu 2017), and the fingertip once a complete dataset is obtained (checklist step 3.9). Then switch to clitoral parameters.
+
+Method to follow (A-005): skin layers and fiber placement after the Aalborg models (Tigerholm 2019; Poulsen 2020); multi-contact fields by superposition with free tools after Araiza Illan 2019; tactile fiber model starting from Zhu 2017. Fiber orientation is an explicit property of every terminal fiber, and polarity is an input.
 
 ### 3.2 Nerve-trunk model (secondary)
 
@@ -165,6 +169,7 @@ Low-frequency values in S/m. All *(verify)* against the cited source.
 | Blood | 0.6 to 0.7 | [literature] |
 | Erectile tissue, flaccid / engorged | 0.3 / 0.6 | **[assumption]**; no measurement found |
 | Skin | see 5.3 | |
+| Skin layers in published electro-tactile models | stratum corneum 2e-5 to 2e-4; epidermis 0.15 to 0.95; dermis 1.6 to 2.6 | [literature] forearm values from Tigerholm 2019 and Zhu 2017; they disagree with each other and with older single-value skin figures. Trace to primary sources before use (checklist steps 1.6, 1.10) |
 
 Rules:
 
@@ -187,7 +192,7 @@ Quasi-static: `div(sigma * grad(V)) = 0`.
 - **Driver voltage limit:** compute the voltage each contact needs (tissue plus interface) and compare it with the driver's limit, which is an input. Above the limit the set current cannot be delivered; flag the setting instead of reporting recruitment for a current the hardware could not supply.
 - **Skin condition:** dry, moist and gelled are separate parameter sets for the surface layer and the contact impedance, per region. All are **[assumption]** until sourced.
 - **Regions:** glans, hood, and fingertip (for validation and for the hardware project's finger tests) are separate presets of layer thicknesses, conductivities and terminal-fiber populations.
-- **Open method question:** for dry skin and short pulses, a purely resistive skin layer may not be adequate and a time-dependent solve may be needed. Decide after checklist step 1.11.
+- **Steady state for the tissue field (decided, A-005):** two published models checked or argued that tissue permittivity has little effect on fiber activation under current-controlled stimulation. The field is solved in steady state. Skin and interface capacitance are modeled only to estimate the voltage the driver must supply. Confirm with the expert reviewer.
 
 **Surface electrodes:** the stratum corneum dominates the impedance and is strongly frequency-dependent (around 2e-4 S/m at low frequency, far higher for hydrated skin or with gel). A purely resistive skin layer can misestimate thresholds for short pulses. Treat skin conductivity and the electrode-skin interface as the main **[assumption]** and vary them.
 
@@ -270,7 +275,7 @@ Report every output as a range from a sensitivity analysis over fiber count, dia
 
 | Milestone | Content | Done when |
 |---|---|---|
-| M1 | WSL2 environment; configuration schema; idealized skin-surface model; recruitment curves and maps | Verification tests in 10.1 pass; fingertip validation done |
+| M1 | WSL2 environment; configuration schema; idealized skin-surface model; recruitment curves and maps | Verification tests in 10.1 pass; method validation on published forearm data done |
 | M2 | Sensitivity and selectivity analysis on the idealized model | Output ranges reported |
 | M3 | Confirm data access; segment trunks; centerlines | Geometry checks in 10.2 pass |
 | M4 | Scan-derived mesh and FEM; realistic recruitment | Convergence shown; compared with clinical thresholds |

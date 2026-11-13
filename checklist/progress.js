@@ -22,6 +22,10 @@ window.PROGRESS = {
     "0.5": {
       "status": "done", "verified": true, "reviewed": false, "fails": 0, "t": 1794572210874,
       "notes": "2026-11-13: F 379 GB free of 466. C 16 GB free. RAM 64 GB. CPU Intel Core i3-13100F, 4 cores, 8 threads. GPU NVIDIA RTX 3080 Ti. `wsl --status` reports default version 2; no Linux distribution installed. Consequence: install WSL distribution on F (step 2.1). Next time: one PowerShell call is enough; Haiku 5.5 at low is sufficient."
+    },
+    "1.11": {
+      "status": "done", "verified": false, "reviewed": false, "fails": 0, "t": 1794574642490,
+      "notes": "2026-11-13: written up in docs/literature-electrotactile.md; amendment A-005. Both claims checked (confirmed with conditions). Three models summarized. Not yet verified: values were extracted by an automated reader and need spot-checking against the papers; five papers could not be read after two attempts each and need manual download (section 6 of that file). No complete fingertip dataset obtained; forearm dataset (Zhu 2017) used instead. Next time: PubMed Central and Frontiers load; MDPI, bioRxiv, DOAJ, SciELO and repository PDFs do not. Fable 5.2 at high was appropriate; the searching itself could run on Sonnet 5.5."
     }
   },
   "amendments": []

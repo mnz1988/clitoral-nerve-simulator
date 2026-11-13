@@ -115,9 +115,38 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: changed 0.3, 2.4, 3.4. None added or retired.
 - Effect on results already produced: none; no results existed.
 
+## A-005: results of the electro-tactile literature search
+- Date: 2026-11-13
+- Raised by: agent, from checklist step 1.11
+- Found in step: 1.11
+- What was found (details and sources in `docs/literature-electrotactile.md`):
+  1. Surface electrodes exciting fibers in the skin: confirmed, with the condition that large contacts and high currents reach deeper.
+  2. Polarity selecting fiber orientation: supported by a model-based proposal and one psychophysical comparison, not by nerve recordings.
+  3. Steady-state field solutions are accepted practice for current-controlled stimulation; two groups checked or argued it.
+  4. No fingertip threshold dataset with every parameter was obtained. The most complete dataset found is for the forearm (Zhu 2017).
+  5. Published models match trends between settings better than absolute thresholds.
+  6. A complete free-tool precedent exists for multi-contact fields by superposition (Araiza Illan 2019, Elmer and Gmsh).
+  7. Published dermis conductivities (1.6 to 2.6 S/m) are far above the 0.17 S/m skin value from the first draft, and two papers differ tenfold on the stratum corneum.
+- Why the current plan does not handle it:
+  - Step 3.9 and blueprint section 3.1 assumed a fingertip dataset exists.
+  - Blueprint section 5.3 left the resistive-or-time-dependent question open.
+  - The plan did not say that absolute thresholds are expected to be unreliable before calibration.
+- Decision: accepted.
+  - Step 3.9 validates on the forearm first; the fingertip is added when a complete dataset is obtained.
+  - The tissue field is solved in steady state. Capacitance is modeled only for the voltage the driver must supply.
+  - Version 1 is described as reliable for comparing settings, not for absolute currents.
+  - Skin conductivities are flagged for tracing to primary sources (steps 1.6, 1.10).
+- Blueprint sections changed: version line, 0, 3.1, 5.2, 5.3, 11. `docs/scope.md` sections 3, 4, 6.
+- Checklist steps added, changed or retired: changed 3.9. None added or retired.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
 These are known gaps. Each becomes an amendment when it is answered.
+
+- Five papers could not be read automatically and need manual download (list in `docs/literature-electrotactile.md` section 6).
+- Values in `docs/literature-electrotactile.md` were extracted by an automated reader and are not yet spot-checked against the papers (step 1.11 is not ticked Verified).
+- Skin conductivities differ widely between published models and are not traced to primary sources (steps 1.6, 1.10).
 
 - The default value for the driver's voltage limit is not yet proposed (step 0.3).
 - Defaults, input limits and test layouts are not yet proposed (step 0.3, after step 1.11).

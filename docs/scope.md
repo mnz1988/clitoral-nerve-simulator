@@ -22,9 +22,11 @@ Simulate the electrical response of clitoral nerve fibers to surface electro-tac
 
 The gap between "which fibers fire" and "what is felt" is closed only by measurements on people in the hardware project. The simulator narrows the search; it does not replace those measurements.
 
+Published models of this kind reproduce trends between settings better than absolute thresholds (checklist step 1.11). Until version 1 is calibrated with bench data, trust its comparisons between settings more than its absolute current values.
+
 ## 4. What this changes in the model
 
-**Surface electrodes mainly excite the fine nerve branches and endings in the skin under the electrode, not the main nerve trunk.** [literature, verify] The first model is therefore a layered skin model with terminal fibers, not a nerve trunk with fascicles. The trunk model stays as a secondary case: it is the standard published test of the field-to-axon coupling, and it matters for large electrodes and high currents.
+**Surface electrodes mainly excite the fine nerve branches and endings in the skin under the electrode, not the main nerve trunk.** [literature; confirmed in checklist step 1.11, sources in `literature-electrotactile.md`] The first model is therefore a layered skin model with terminal fibers, not a nerve trunk with fascicles. The trunk model stays as a secondary case: it is the standard published test of the field-to-axon coupling, and it matters for large electrodes and high currents.
 
 This shifts where the uncertainty is. The quantities that matter most are now:
 
@@ -128,7 +130,7 @@ Nothing outstanding. The driver's voltage limit is set by the user in the interf
 
 1. Every parameter is traced to a source and labelled measured, literature or assumption.
 2. Every output is reported as a range from a sensitivity analysis, never a single number.
-3. The method is first validated where human data exist (fingertip electro-tactile thresholds), then transferred to clitoral anatomy (checklist step 3.9).
+3. The method is first validated where human data exist with enough detail to reproduce (forearm thresholds; the fingertip once a complete dataset is obtained), then transferred to clitoral anatomy (checklist step 3.9).
 4. Scan-derived geometry is used wherever the scans can be obtained.
 5. Where no open data exists, the gap is stated; it is not filled silently.
 

@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13, amendment A-004",
+  version: "2026-11-13, amendment A-005",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -521,10 +521,11 @@ window.CHECKLIST = {
     },
     {
       id: "3.9", phase: "P3", kind: "do", who: "ai",
-      title: "Validate the method on the fingertip",
+      title: "Validate the method on published human data",
       what: [
-        "Rebuild one published fingertip electro-tactile experiment with the same code: its electrode, its waveform, fingertip skin values from the literature.",
-        "Compare predicted thresholds with the measured ones."
+        "Rebuild the forearm experiment of Zhu 2017 with the same code: 9 mm disc with gel, biphasic cathodic-first pulses, forearm skin values from the literature. It is the most complete dataset found in step 1.11.",
+        "Compare predicted thresholds with the measured ones, for absolute values and for trends with electrode size and pulse width.",
+        "Repeat on the fingertip when a complete fingertip dataset is obtained (see `docs/literature-electrotactile.md` section 6)."
       ],
       verify: [
         "Predicted and measured thresholds sit in one table, with ranges.",
