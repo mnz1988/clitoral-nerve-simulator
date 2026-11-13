@@ -99,3 +99,24 @@ Effect: the glans is 4 to 8 mm long and 4 to 5 mm wide in the cadaver studies (J
 Two attempts were made at the conductivity proxy (PubMed searches; IT'IS page). Stopped, per rule 1. Options for the owner: (a) download the IT'IS Tissue Properties Database spreadsheet (itis.swiss, Downloads) into `downloaded-manually/`; (b) accept "wet skin" and "mucous membrane" values from Gabriel 1996 as an assumption with a wide range and sweep it; (c) drop it and sweep a plausible range (state the range) in the first runs.
 
 Sources added: Jackson LA, Hare AM, Carrick KS, Ramirez DMO, Hamner JJ, Corton MM. Anatomy, histology, and nerve density of clitoris and associated structures: clinical applications to vulvar surgery. Am J Obstet Gynecol 2019;221(5):519.e1-519.e9. doi:10.1016/j.ajog.2019.06.048. PMID 31254525. Shih C, Cold CJ, Yang CC. Cutaneous corpuscular receptors of the human glans clitoris: descriptive characteristics and comparison with the glans penis. J Sex Med 2013;10(7):1783-9. doi:10.1111/jsm.12191. PMID 23692408. Both abstracts read only.
+## 9. Conductivity proxy found, 2026-11-14 (IT'IS Tissue Properties Database V5.0, file supplied by the owner)
+
+Read from `Thermal_dielectric_acoustic_MR properties_database_V5.0(ASCII).txt`, column "LF Conductivity [S/m]" (average, SD, sample size, min, max). The file is in `downloaded-manually/Database-V5-0.zip`; not tracked by git. The database says its values come from the Gabriel dispersion relations plus literature, and its own website warns that skin values should be used with caution. Primary sources not traced (the zip holds `References_Low_Frequency_V5.0.pdf`).
+
+| Tissue entry | Mean | SD | Sample size | Min | Max |
+|---|---|---|---|---|---|
+| Skin | 0.148 | 0.042 | 7 | 0.057 | 0.25 |
+| Vagina | 0.164 | 0.054 | 1 | 0.164 | 0.164 |
+| Mucous Membrane | 0.461 | 0.244 | 24 | 0.1 | 0.726 |
+| Connective Tissue | 0.079 | 0.023 | 14 | | |
+| Fat | 0.078 | 0.093 | 91 | 0.024 | 0.215 |
+| Nerve | 0.348 | 0.194 | 194 | 0.064 | 0.852 |
+| Penis | 0.232 | 0.014 | 1 | | |
+
+Cautions found while reading:
+- **"Mucous Membrane", "Muscle" and "Tongue" carry identical numbers** (0.461, SD 0.244, n 24). The mucous membrane entry looks copied from muscle, so it is not independent evidence for genital mucosa. Do not use 0.461 as the default.
+- **"Penis" has the same values as "Blood Vessel Wall"** (0.232, SD 0.0136, n 1): also a copy. No tissue in the database is measured genital skin.
+- "Vagina" is a single value.
+- All entries are bulk values. The skin entry does not separate stratum corneum, epidermis and dermis; the layer split still comes from the skin papers in `literature-electrotactile.md` section 3 (stratum corneum differs tenfold).
+
+Effect: there is still no measured conductivity for the glans or hood. The proxies above are labelled assumptions with ranges in `docs/scope.md` section 4; the first runs sweep them.

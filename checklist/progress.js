@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T20:54:49.083Z",
+  "updated": "2026-11-13T21:00:10.310Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -64,8 +64,8 @@ window.PROGRESS = {
       "verified": false,
       "reviewed": false,
       "fails": 0,
-      "notes": "2026-11-14, three passes (Sonnet 5.5; step recommends Fable 5.2 / high). Details in docs/literature-glans-hood.md and amendment A-009. Checked in PDFs: Longhurst 2024 (glans 6.40 x 5.14 mm, prepuce length 23.19 mm), Garcia-Mesa 2020 (corpuscle types; no depths; density unit unreliable). Abstracts only: Jackson 2019 (glans 8 x 4 mm cadaver; nerve density numbers need full text), Shih 2013 (1-14 corpuscles per 100x field, field area unknown). Sources disagree on Pacinian corpuscles in the glans. NOT found: layer thickness, nerve depth, usable density, conductivity of glans/hood skin. Conductivity proxy: two attempts (PubMed; IT-IS page without table) failed, stopped per rule 1; options in section 8 of the findings file (download IT-IS spreadsheet, accept Gabriel 1996 wet-skin/mucosa values as labelled assumption, or sweep a range). Step stays doing. Process: read PDFs directly with Desktop Commander read_file; PubMed search needs 2-3 terms.",
-      "t": 1794603289083
+      "notes": "2026-11-14, four passes (Sonnet 5.5; step recommends Fable 5.2 / high). Details in docs/literature-glans-hood.md (sections 1-9) and amendment A-009. Checked in PDFs: Longhurst 2024 sizes, Garcia-Mesa 2020 corpuscle types (no depths; density unit unreliable). Abstracts only: Jackson 2019, Shih 2013; Pacinian corpuscles in the glans disputed. Conductivity: owner supplied IT-IS V5.0 database; proxies (Skin 0.148 S/m range 0.057-0.25; Vagina 0.164) recorded as labelled assumptions in scope.md section 4; no genital tissue is measured there, and Mucous Membrane equals Muscle/Tongue values (copy). STILL MISSING: layer thickness, nerve-ending depth, usable density. Verification check 1 partly met; step stays doing. Process: reading IT-IS ASCII file by column header with PowerShell worked in one call; PubMed search needs 2-3 terms.",
+      "t": 1794603610310
     }
   },
   "amendments": []

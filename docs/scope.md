@@ -43,7 +43,8 @@ Assumptions in force until a source is found (each is a parameter to sweep, not 
 | Epidermis thickness | glans | none chosen yet | to be set from the nearest measured tissue in step 1.10 | assumption |
 | Epidermis thickness | hood | none chosen yet | vulvar skin proxy: about 0.18 mm cell layer in normal vulvar skin (Fu 2021, abstract) to 0.41 mm | assumption, proxy |
 | Depth of nerve endings | glans, hood | none chosen yet | corpuscles lie in "subepithelial, intermediate and deep" zones (García-Mesa 2020), no distances | assumption |
-| Genital skin conductivity | glans, hood | none chosen yet | take the nearest measured moist tissue (step 1.6, 1.12) | assumption |
+| Low-frequency conductivity | hood (outer skin) | 0.15 S/m | 0.06 to 0.25 S/m | assumption, proxy: IT'IS V5.0 "Skin" (mean 0.148, SD 0.042, 7 values, min 0.057, max 0.25; one bulk value, no layers; primary sources not traced) |
+| Low-frequency conductivity | glans, hood inner face | 0.16 S/m | 0.06 to 0.46 S/m | assumption, proxy: IT'IS V5.0 "Vagina" 0.164 (one value) for the default; the range spans "Skin" low to "Mucous Membrane" 0.46 (but see note below) |
 | Hood width | hood | 15 mm | 8 to 25 mm | assumption |
 
 ## 5. Electrodes and stimulus: inputs in the interface

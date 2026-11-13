@@ -215,7 +215,7 @@ The blueprint and the checklist are expected to change. This file records every 
 ## Open questions waiting for an amendment
 
 - Region dimensions: the glans size is now sourced (A-009). The hood width, and the spread of both between people, remain to be checked against the original studies (step 1.10).
-- Layer thickness, nerve-ending depth and density, and conductivity of glans and hood skin: still missing (step 1.10).
+- Layer thickness, nerve-ending depth and density of glans and hood skin: still missing. Conductivity: proxies from the IT'IS V5.0 database are in scope.md section 4 as assumptions; no genital tissue is measured there (step 1.10).
 - Dorsal nerve diameter: Jackson 2019 (1 to 3 mm) and Kelling 2020 (2.0 to 3.2 mm) agree; the 0.2 to 0.7 mm figure is the odd one out. Pacinian corpuscles in the glans: Shih 2013 says none, García-Mesa 2020 says some. Glans corpuscle density (the unit in García-Mesa 2020 is unreliable; try Jackson 2019 and Shih 2013), and the nerve-free ventral glans area need the original papers (step 1.10).
 
 These are known gaps. Each becomes an amendment when it is answered.
