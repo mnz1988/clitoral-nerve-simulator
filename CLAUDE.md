@@ -21,7 +21,7 @@ Read these before doing any step. They are the owner's standing instructions.
 
 5. **Changes go through amendments.** New subjects, problems, contradictions and scope changes are written into `docs/amendments.md` and folded into the blueprint and `checklist/steps.js` in the same commit. Never reuse a retired step id.
 
-6. **Keep the checklist current.** When a step's state changes, update `checklist/progress.js` (same shape the Export button writes; set `t` to the current time in milliseconds so the page prefers it over older browser state).
+6. **Keep the checklist current.** When a step's state changes, update `checklist/progress.js` (same shape the Export button writes; set `t` to the current time in milliseconds so the page prefers it over older browser state). After any change to `steps.js`, `progress.js` or `index.html`, run `node checklist/test_checklist.js checklist` and commit only if it passes.
 
 7. **No data in the repository.** Scans, segmentations, third-party meshes and papers stay under ignored folders.
 
