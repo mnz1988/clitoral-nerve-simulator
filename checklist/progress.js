@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T21:00:10.310Z",
+  "updated": "2026-11-13T21:09:24.514Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -64,8 +64,8 @@ window.PROGRESS = {
       "verified": false,
       "reviewed": false,
       "fails": 0,
-      "notes": "2026-11-14, four passes (Sonnet 5.5; step recommends Fable 5.2 / high). Details in docs/literature-glans-hood.md (sections 1-9) and amendment A-009. Checked in PDFs: Longhurst 2024 sizes, Garcia-Mesa 2020 corpuscle types (no depths; density unit unreliable). Abstracts only: Jackson 2019, Shih 2013; Pacinian corpuscles in the glans disputed. Conductivity: owner supplied IT-IS V5.0 database; proxies (Skin 0.148 S/m range 0.057-0.25; Vagina 0.164) recorded as labelled assumptions in scope.md section 4; no genital tissue is measured there, and Mucous Membrane equals Muscle/Tongue values (copy). STILL MISSING: layer thickness, nerve-ending depth, usable density. Verification check 1 partly met; step stays doing. Process: reading IT-IS ASCII file by column header with PowerShell worked in one call; PubMed search needs 2-3 terms.",
-      "t": 1794603610310
+      "notes": "2026-11-14, fifth pass (Sonnet 5.5; step recommends Fable 5.2 / high). See docs/literature-glans-hood.md sections 1-9 and A-009. Sizes and corpuscle types checked in PDFs; Jackson 2019 and Shih 2013 abstracts only (owner could not get full texts: AJOG zip was an unrelated issue bundle, Shih paywalled). Conductivity: IT-IS V5.0 read; Vagina value is a copy of intestine/stomach/oesophagus, Mucous Membrane a copy of muscle/tongue, Penis a copy of blood vessel wall. Only Skin (0.148 S/m, range 0.057-0.25) is usable; glans/inner-hood conductivity has no proxy and is a swept assumption (0.06-0.5 S/m). STILL MISSING: layer thickness, nerve-ending depth, usable density. Step stays doing. Decision pending: try one search for an open copy of Jackson 2019, or skip.",
+      "t": 1794604164514
     }
   },
   "amendments": []
