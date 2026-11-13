@@ -1,6 +1,6 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2.7, 2026-11-13 (amendments A-001 to A-008).
+Free tools and open data only. Version 2.8, 2026-11-14 (amendments A-001 to A-009).
 
 The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
@@ -112,7 +112,7 @@ Do this first. It needs no scan data and exercises the whole of Mode A.
 ### 3.1 Skin-surface model (primary)
 
 1. Install the environment in WSL2 on drive F.
-2. Build a flat block of layered tissue: surface layer (epithelium), the connective layer beneath it, then erectile tissue. Thicknesses and conductivities per region are **[assumption]** until found (checklist step 1.10).
+2. Build a flat block of layered tissue: surface layer (epithelium), the connective layer beneath it, then erectile tissue. Thicknesses and conductivities per region are **[assumption]** until found (checklist step 1.10; first pass in `literature-glans-hood.md` found glans size, 6.4 x 5.1 mm pooled mean, but no layer thickness or conductivity).
 3. Place terminal fibers in the connective layer: depth, density, orientation and diameter from histology where it exists, otherwise **[assumption]**. Each fiber is a cable model that ends in the tissue; how the ending is modeled must be stated and varied.
 4. Place the electrode layout from a configuration file (section 5.3 and `scope.md` section 5).
 5. Solve the field once per contact for unit current and store it.

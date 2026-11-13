@@ -191,9 +191,32 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: changed 1.10, 2.4, 6.1. None added or retired.
 - Effect on results already produced: none; no results existed.
 
+## A-009: glans and hood dimensions replaced; skin and nerve-depth data still missing
+- Date: 2026-11-14
+- Raised by: agent, first pass of step 1.10
+- Found in step: 1.10
+- What was found (details in `docs/literature-glans-hood.md`):
+  - Pooled glans size over 21 studies is 6.40 x 5.14 mm; pooled hood (prepuce) length is 23.19 mm (Longhurst 2024, abstract read). The provisional 4 x 6 mm glans and 10 x 15 mm hood in A-008 were off, the hood most.
+  - The glans contains free endings, genital end-bulbs, Meissner-like and Pacinian corpuscles, no Ruffini (García-Mesa 2020, 6 donors, 52 to 83 years).
+  - No paper gave layer thickness, nerve-ending depth, usable density or conductivity for the glans or hood.
+  - In mouse and guinea pig, free intra-epithelial endings are rare in the clitoris and large corpuscles sit in dermal papillae (Vilimas 2011). If that holds for people, fingertip-style terminal-fibre models may not transfer.
+  - One small study reports a nerve-free area ventral to the glans (Wolf-Vollenbröker 2026). Dorsal nerve diameter is reported as 2.0 to 3.2 mm in one source and 0.2 to 0.7 mm in another; unresolved.
+- Why the current plan does not handle it: the region table carried sizes "from memory"; the skin model had no stated assumptions for the missing quantities; one-uniform-density innervation may be wrong.
+- Decision (made inside A-008's rule that step 1.10 sets the sizes; not a new scope choice):
+  - Glans preset: 6.4 x 5.1 mm, largest contact 5 mm. Hood preset: 23.2 mm long, width 15 mm (assumption, range 8 to 25 mm), largest contact 10 mm.
+  - Region sizes are editable inputs with these as defaults, because the spread between people is wide.
+  - The missing quantities are listed as assumptions with ranges in `docs/scope.md` section 4. The first model runs sweep them rather than fix them.
+  - Step 1.10 stays "doing". Its first verification check (source, sample size, method and figure reference for every value) is not met.
+  - Open to the owner: how the hood is positioned during stimulation (outer face, inner face, retracted) and whether arousal state is in scope (`literature-glans-hood.md` section 3).
+- Blueprint sections changed: version line, 3.1 pointer. `docs/scope.md` sections 4 and 5.
+- Checklist steps added, changed or retired: changed 1.10 (sources and reading tips). None added or retired.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
-- Region dimensions for the glans and hood are provisional (step 1.10).
+- Region dimensions: the glans size is now sourced (A-009). The hood width, and the spread of both between people, remain to be checked against the original studies (step 1.10).
+- Layer thickness, nerve-ending depth and density, and conductivity of glans and hood skin: still missing (step 1.10).
+- Dorsal nerve diameter disagreement (2.0 to 3.2 mm versus 0.2 to 0.7 mm), glans corpuscle density unit, and the nerve-free ventral glans area need the original papers (step 1.10).
 
 These are known gaps. Each becomes an amendment when it is answered.
 
@@ -209,5 +232,4 @@ These are known gaps. Each becomes an amendment when it is answered.
 - Scan data availability is unconfirmed (step 1.4).
 - Axon diameter distribution has no source (step 1.5).
 - Whether NRV supports layered skin, surface electrode arrays and fiber endings is unconfirmed (step 1.9).
-- Skin layer and nerve-ending data for the glans and hood have not been found (step 1.10).
 - The claim that surface electrodes mainly excite fibers in the skin, and the reported effect of polarity on fiber orientation, are written from memory and must be checked (step 1.11).

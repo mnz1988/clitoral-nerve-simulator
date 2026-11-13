@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13, amendment A-008",
+  version: "2026-11-14, amendment A-009",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -275,7 +275,11 @@ window.CHECKLIST = {
         "Depth, density, type and orientation of nerve endings and fine branches (genital corpuscles, free endings).",
         "Conductivity of thin and moist skin. If nothing exists for genital skin, take the nearest measured tissue and label it an assumption."
       ],
-      get: ["Histology papers on the glans clitoris and prepuce that give measurements, not only descriptions."],
+      get: [
+        "Histology papers on the glans clitoris and prepuce that give measurements, not only descriptions.",
+        "First pass done 2026-11-14 (`docs/literature-glans-hood.md`, A-009). Still to get: García-Mesa 2020 (J Anat 238:446, open access, PMC7812125) for its tables and the unit of corpuscle density; Longhurst 2024 (Clin Anat, doi 10.1002/ca.24113) for the size ranges. Ask the owner to put the PDFs in `downloaded-manually/`.",
+        "Search tip: PubMed search ANDs every word, so use two or three terms. Read open papers through Europe PMC (`https://www.ebi.ac.uk/europepmc/webservices/rest/<PMCID>/fullTextXML`); PMC pages began showing a browser check."
+      ],
       verify: [
         "Each value has source, sample size, method and figure or table reference.",
         "Values with no source are listed as assumptions, each with a range, in `docs/scope.md` section 4.",

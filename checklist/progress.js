@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T16:02:49.204Z",
+  "updated": "2026-11-13T20:38:28.251Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -58,6 +58,14 @@ window.PROGRESS = {
       "fails": 0,
       "notes": "2026-11-13: redefined by amendment A-006. PDFs are read with the Desktop Commander plugin's read_file; poppler was not installed and is not needed. Evidence: six pages read directly and matched against extracted values (Zhu p.3, Araiza-Illan p.5, Malesevic p.7, Kajimoto pp.6-7, Cavalcanti p.4, Poulsen p.19). Limits: figures are not readable; minus signs and superscripts can be lost in tables.",
       "t": 1794585178568
+    },
+    "1.10": {
+      "status": "doing",
+      "verified": false,
+      "reviewed": false,
+      "fails": 0,
+      "notes": "2026-11-14 first pass (Sonnet 5.5; the step recommends Fable 5.2 / high). Findings in docs/literature-glans-hood.md, amendment A-009. Found: pooled glans 6.40 x 5.14 mm and prepuce length 23.19 mm (Longhurst 2024, abstract); glans nerve-ending types (Garcia-Mesa 2020, 6 donors); dorsal nerve counts (Tuncko 2024). NOT found: layer thickness, nerve-ending depth, usable density (unit unclear), conductivity of glans or hood skin. Verification check 1 (source, sample size, method, figure reference per value) is not met, so the step stays doing. Numbers read through a summarising fetch tool are marked unverified. Next: owner downloads Garcia-Mesa 2020 and Longhurst 2024 into downloaded-manually/; read their tables directly; then decide proxies for the missing quantities. Process note: PubMed search needs 2-3 terms only; read open papers through Europe PMC; PMC pages began showing a browser check.",
+      "t": 1794602308251
     }
   },
   "amendments": []

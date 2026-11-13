@@ -1,6 +1,6 @@
 # Scope
 
-Decided by the owner on 2026-11-13. Recorded as amendments A-002, A-003, A-004, A-007 and A-008. Change it only through a new amendment.
+Decided by the owner on 2026-11-13. Recorded as amendments A-002, A-003, A-004, A-007, A-008 and A-009. Change it only through a new amendment.
 
 ## 1. Purpose
 
@@ -34,7 +34,17 @@ This shifts where the uncertainty is. The quantities that matter most are now:
 - depth, density, orientation and diameter of the terminal fibers;
 - the electrode-to-skin interface (dry, gel or moist).
 
-None of these has been found in open data for the clitoris yet (checklist steps 1.10 and 1.11).
+None of these has been found in open data for the clitoris yet (checklist steps 1.10 and 1.11). A first literature pass for step 1.10 (`literature-glans-hood.md`, 2026-11-14) found glans and hood length and width and the types of nerve endings in the glans, but **no layer thickness, no depth of nerve endings, no usable density and no conductivity for the glans or hood**.
+
+Assumptions in force until a source is found (each is a parameter to sweep, not a fact; to be revisited in step 1.10):
+
+| Quantity | Region | Starting value | Range to sweep | Label |
+|---|---|---|---|---|
+| Epidermis thickness | glans | none chosen yet | to be set from the nearest measured tissue in step 1.10 | assumption |
+| Epidermis thickness | hood | none chosen yet | vulvar skin proxy: about 0.18 mm cell layer in normal vulvar skin (Fu 2021, abstract) to 0.41 mm | assumption, proxy |
+| Depth of nerve endings | glans, hood | none chosen yet | corpuscles lie in "subepithelial, intermediate and deep" zones (García-Mesa 2020), no distances | assumption |
+| Genital skin conductivity | glans, hood | none chosen yet | take the nearest measured moist tissue (step 1.6, 1.12) | assumption |
+| Hood width | hood | 15 mm | 8 to 25 mm | assumption |
 
 ## 5. Electrodes and stimulus: inputs in the interface
 
@@ -109,8 +119,8 @@ Two kinds of limit apply together, and the interface shows the tighter one:
 
 | Region | Modeled surface (provisional) | Largest single contact | Basis |
 |---|---|---|---|
-| Glans | 4 x 6 mm | 4 mm | From memory; to be replaced by measured values in checklist step 1.10 |
-| Hood | 10 x 15 mm | 10 mm | Assumption; step 1.10 |
+| Glans | 6.4 x 5.1 mm (length x width, mean) | 5 mm (the shorter side) | Pooled mean of 21 studies, Longhurst 2024 (abstract) [measured, pooled]. Spread is wide (1 to 21 mm long, 2 to 32 mm wide, second-hand and unverified), so the region size is a user-editable input with this mean as default (A-009) |
+| Hood | 23.2 mm long (mean) x 15 mm wide | 10 mm | Length: Longhurst 2024 pooled mean prepuce length [measured, pooled]. Width 15 mm: **assumption**, no source found, range 8 to 25 mm. Thickness: not found (step 1.10) |
 | Fingertip | 15 x 20 mm | 15 mm | Finger diameter 20 mm (Araiza-Illan 2019 p.5); 10 mm line electrodes (Kajimoto 1999 p.6) |
 | Forearm | 60 x 150 mm | 60 mm | Model length 150 mm (Zhu 2017 p.3); largest published electrode 45 x 60 mm (Tigerholm 2019 p.3) |
 
@@ -155,7 +165,7 @@ Rules:
 | T5 glans pair | The default interface state: two 1.5 mm discs, 1 mm gap, moist, 200 µs, 50 Hz, 0.5 mA | Nothing. Regression test only |
 | T6 hood grid | Four 2 mm discs in a 2 x 2 grid, 2 mm gaps, dry, same stimulus | Nothing. Regression test only |
 
-**A design tension to know about.** The glans is small: a few millimetres across (from memory; to be confirmed in checklist step 1.10). Several contacts on it must therefore be small, and small contacts mean high current density, which hand and arm studies link to discomfort. The simulator will show this as the "small contact" and current-density flags. How to resolve it belongs to the hardware project.
+**A design tension to know about.** The glans is small: about 6.4 mm long and 5.1 mm wide on average, with a wide spread between people (Longhurst 2024, pooled mean; see `literature-glans-hood.md`). Several contacts on it must therefore be small, and small contacts mean high current density, which hand and arm studies link to discomfort. The simulator will show this as the "small contact" and current-density flags. How to resolve it belongs to the hardware project.
 
 ### What "run" costs
 
