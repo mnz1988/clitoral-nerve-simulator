@@ -12,8 +12,8 @@ window.PROGRESS = {
       "notes": "2026-11-13: owner decided the scope. Recorded in docs/scope.md and amendment A-002. Later steps were re-mapped to the question in the same amendment."
     },
     "0.3": {
-      "status": "doing", "verified": false, "reviewed": false, "fails": 0, "t": 1794573562847,
-      "notes": "2026-11-13: owner decided all values are interface inputs; regions glans and hood; materials stainless steel, copper (PCB), silver, gold, titanium; skin dry, moist, gelled (amendment A-003). Still open: drive type (current or voltage) from the owner; defaults, input limits and test layouts to be proposed by the agent after step 1.11."
+      "status": "doing", "verified": false, "reviewed": false, "fails": 0, "t": 1794573803588,
+      "notes": "2026-11-13: owner decided all values are interface inputs; regions glans and hood; materials stainless steel, copper (PCB), silver, gold, titanium; skin dry, moist, gelled (amendment A-003). Drive type: current-controlled (A-004). Still open: the driver's voltage limit, if the owner knows it; defaults, input limits and test layouts to be proposed by the agent after step 1.11."
     },
     "0.4": {
       "status": "doing", "verified": false, "reviewed": false, "fails": 0, "t": 1794572210874,

@@ -1,6 +1,6 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2.2, 2026-11-13 (amendments A-001, A-002, A-003).
+Free tools and open data only. Version 2.3, 2026-11-13 (amendments A-001 to A-004).
 
 The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
@@ -183,7 +183,8 @@ Quasi-static: `div(sigma * grad(V)) = 0`.
 - **Several contacts:** solve one unit-current field per contact and store it. The field for any set of contact currents is the weighted sum of the stored fields. Test this: a two-contact solve must equal the sum of the two single-contact solutions.
 - **Unconnected contacts:** a metal contact that carries no current still short-circuits the skin under it. Ignoring this is an **[assumption]**; check its effect once.
 - **Reported for information:** charge per phase and charge density per contact. These are arithmetic on the inputs, not safety limits.
-- **Metal-to-skin interface:** model it as an impedance layer on each contact whose values depend on the selected material and skin condition (checklist step 1.12). It changes how evenly current leaves the contact and the voltage the driver must supply. Under current-controlled drive it does not, to a first approximation, change which fibers fire; under voltage-controlled drive it does.
+- **Metal-to-skin interface:** model it as an impedance layer on each contact whose values depend on the selected material and skin condition (checklist step 1.12). It changes how evenly current leaves the contact and the voltage the driver must supply. The hardware is current-controlled (A-004), so to a first approximation it does not change which fibers fire.
+- **Driver voltage limit:** compute the voltage each contact needs (tissue plus interface) and compare it with the driver's limit, which is an input. Above the limit the set current cannot be delivered; flag the setting instead of reporting recruitment for a current the hardware could not supply.
 - **Skin condition:** dry, moist and gelled are separate parameter sets for the surface layer and the contact impedance, per region. All are **[assumption]** until sourced.
 - **Regions:** glans, hood, and fingertip (for validation and for the hardware project's finger tests) are separate presets of layer thicknesses, conductivities and terminal-fiber populations.
 - **Open method question:** for dry skin and short pulses, a purely resistive skin layer may not be adequate and a time-dependent solve may be needed. Decide after checklist step 1.11.
@@ -232,11 +233,11 @@ Streamlit with PyVista and Plotly.
 
 Every electrode and stimulus value is an input (A-003). The user sets the inputs, then presses Run.
 
-- **Inputs:** region (glans, hood, fingertip); skin condition (dry, moist, gelled); electrode material (stainless steel, copper (PCB), silver, gold, titanium); number, shape, size, position and role of contacts; current per contact; waveform, pulse width, rate and pattern; engorgement.
+- **Inputs:** region (glans, hood, fingertip); skin condition (dry, moist, gelled); electrode material (stainless steel, copper (PCB), silver, gold, titanium); number, shape, size, position and role of contacts; current per contact; waveform, pulse width, rate and pattern; the driver's voltage limit; engorgement.
 - **Input limits:** each input is bounded by the range in which the model is valid. Values outside are refused with the reason. These are model limits, not safety limits.
 - **Run:** starts a job, shows progress and an estimated time, and caches the result by configuration. Changing only currents or waveform reuses stored fields; changing contacts, region or skin condition starts a new mesh and field solve.
 - **Center:** 3D geometry with fibers colored by threshold or by whether they fire.
-- **Right:** recruitment curve, strength-duration curve, rasters, selectivity measures, charge per phase and charge density per contact.
+- **Right:** recruitment curve, strength-duration curve, rasters, selectivity measures, charge per phase and charge density per contact, and the voltage each contact needs with a flag when it exceeds the driver's limit.
 - **Always visible:** the label of each quantity (measured, literature, assumption); the statement that version 1 is one approximate anatomy from elderly donors; the statement that no output is evidence of safety.
 - **Next to the material selector:** what the material does and does not change (section 5.3).
 - A banner on Mode B.

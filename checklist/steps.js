@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13, amendment A-003",
+  version: "2026-11-13, amendment A-004",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -55,11 +55,12 @@ window.CHECKLIST = {
         "Decided on 2026-11-13: every electrode and stimulus value is an input in the interface; regions are glans and hood; material and skin condition are selectable. See `docs/scope.md` section 5.",
         "The agent proposes, from the electro-tactile literature (step 1.11): a default for each input, the limits inside which the model is valid, and a few fixed layouts for automated tests. Each is labelled an assumption.",
         "You accept or change them.",
-        "Still needed from you: whether the hardware drives current or voltage."
+        "Drive type decided on 2026-11-13: current-controlled.",
+        "Still needed from you, if known: the highest voltage the driver can supply. Until then it is an input with an assumed default."
       ],
       verify: [
         "Defaults, input limits and test layouts are in `docs/scope.md` section 5, each with a source or the word assumption.",
-        "The drive type is recorded.",
+        "The driver's voltage limit, or its assumed default, is recorded.",
         "You have accepted them (say so in this step's notes)."
       ],
       review: {
@@ -333,7 +334,7 @@ window.CHECKLIST = {
       id: "2.4", phase: "P2", kind: "do", who: "ai",
       title: "Electrode and stimulus configuration schema",
       what: [
-        "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files, including region (glans, hood, fingertip), material (five options), skin condition (three options) and drive type.",
+        "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files, including region (glans, hood, fingertip), material (five options), skin condition (three options) and the driver's voltage limit. Drive is current-controlled.",
         "Enforce the input limits from step 0.3.",
         "Add the test layouts from step 0.3 as examples."
       ],
@@ -438,10 +439,12 @@ window.CHECKLIST = {
         "Layered tissue block with terminal fibers, as presets for glans, hood and fingertip, each in dry, moist and gelled condition.",
         "Electrode layouts loaded from configuration files, with an interface layer per contact set by the selected material.",
         "One stored unit-current field per contact.",
+        "The voltage each contact needs, compared with the driver's limit.",
         "Afterwards, the secondary nerve-trunk case (nerve with fascicles and perineurium under the skin model)."
       ],
       verify: [
         "Changing the currents on the contacts does not trigger a new field solve.",
+        "A setting that needs more voltage than the driver's limit is flagged, not silently simulated.",
         "The conductivity table printed by the code equals blueprint section 5.2.",
         "Current through a closed surface around the electrode equals the injected current within 1%.",
         "A mesh picture is saved."

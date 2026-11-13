@@ -100,11 +100,26 @@ The blueprint and the checklist are expected to change. This file records every 
   - Retired: none.
 - Effect on results already produced: none; no results existed.
 
+## A-004: the hardware is current-controlled
+- Date: 2026-11-13
+- Raised by: owner's answer
+- Found in step: 0.3
+- What was found: the hardware driver is current-controlled.
+- Why the current plan does not handle it: the plan kept both drive types open, and nothing represented the driver's voltage limit.
+- Decision: accepted. Consequences:
+  - The field model's current boundary condition (blueprint 5.3) is the right one; no voltage-driven mode is built.
+  - Electrode material does not change which fibers fire, except when the needed voltage exceeds the driver's limit.
+  - New input: the driver's voltage limit. New output: the voltage each contact needs, with a flag when it exceeds the limit.
+- Blueprint sections changed: version line, 5.3, 9. `docs/scope.md` section 5.
+- Checklist steps added, changed or retired: changed 0.3, 2.4, 3.4. None added or retired.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
 These are known gaps. Each becomes an amendment when it is answered.
 
-- Whether the hardware drives current or voltage is not given (step 0.3).
+- The driver's voltage limit is not given; it is an input with an assumed default until then (step 0.3).
+- The version order in `docs/scope.md` section 7 is the agent's reading and is not yet confirmed by the owner.
 - Defaults, input limits and test layouts are not yet proposed (step 0.3, after step 1.11).
 - Interface values for the five materials and three skin conditions have not been found (step 1.12).
 - Whether a purely resistive skin model is adequate for dry skin and short pulses is undecided (steps 1.11, 3.4).

@@ -1,6 +1,6 @@
 # Scope
 
-Decided by the owner on 2026-11-13. Recorded as amendments A-002 and A-003. Change it only through a new amendment.
+Decided by the owner on 2026-11-13. Recorded as amendments A-002, A-003 and A-004. Change it only through a new amendment.
 
 ## 1. Purpose
 
@@ -55,8 +55,10 @@ Dry, moist, gelled.
 | Choice | Changes | Does not change (to a first approximation) |
 |---|---|---|
 | Skin condition | Surface-layer conductivity and contact impedance, so how current spreads and concentrates at contact edges, so which fibers fire | |
-| Electrode material, current-controlled drive | The voltage the driver must supply; how evenly current leaves the contact; electrochemical behavior at the surface | Which fibers fire |
-| Electrode material, voltage-controlled drive | The current actually delivered, so which fibers fire | |
+| Electrode material | The voltage the driver must supply; how evenly current leaves the contact; electrochemical behavior at the surface | Which fibers fire |
+| Electrode material or dry skin, when the needed voltage exceeds what the driver can supply | The current actually delivered falls below the set value, so fewer fibers fire than requested | |
+
+The hardware is **current-controlled** (decided by the owner, A-004). The driver sets the current and supplies whatever voltage that takes, up to its limit (its compliance voltage). The simulator therefore reports the voltage each contact needs and flags any setting the driver could not deliver.
 
 All metals listed conduct millions of times better than tissue, so in the tissue field they behave almost identically. The differences are at the metal-to-skin interface. [literature, verify in checklist step 1.12]
 
@@ -96,7 +98,8 @@ Times are estimates until measured (checklist step 3.5). Results are cached by c
 | Region | glans, hood; fingertip for validation |
 | Material | stainless steel, copper (PCB), silver, gold, titanium |
 | Skin condition | dry, moist, gelled |
-| Drive | current-controlled or voltage-controlled (not yet decided) |
+| Drive | current-controlled (decided) |
+| Driver voltage limit | the highest voltage the driver can supply; an input |
 
 ### Stimulus
 
@@ -115,7 +118,8 @@ The field problem is linear. Solve it once per contact for unit current and stor
 
 ### Still to be given by the owner
 
-- Whether the hardware drives current or voltage. This decides whether electrode material affects which fibers fire.
+- The highest voltage the hardware's driver can supply, if known. Until then it is an input with an assumed default.
+- Confirmation that the version order in section 7 matches the owner's intent.
 
 ## 6. Accuracy target
 
