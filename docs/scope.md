@@ -1,6 +1,6 @@
 # Scope
 
-Decided by the owner on 2026-11-13. Recorded as amendment A-002. Change it only through a new amendment.
+Decided by the owner on 2026-11-13. Recorded as amendments A-002 and A-003. Change it only through a new amendment.
 
 ## 1. Purpose
 
@@ -34,9 +34,54 @@ This shifts where the uncertainty is. The quantities that matter most are now:
 
 None of these has been found in open data for the clitoris yet (checklist steps 1.10 and 1.11).
 
-## 5. Electrodes and stimulus: a parameter set, not one design
+## 5. Electrodes and stimulus: inputs in the interface
 
-The owner's requirement: size, shape, number, waveform and current range must all be adjustable.
+The owner's requirement: size, shape, number, waveform and current range are all inputs in the interface. The user sets them, then runs the simulation. Nothing is fixed in advance.
+
+### Regions
+
+Version 1: **glans** and **hood**. More regions are added in later versions. A **fingertip** preset is also needed, for validation (checklist step 3.9) and because the hardware project tests on fingers first.
+
+### Electrode material (selectable)
+
+Stainless steel, copper (PCB), silver, gold, titanium.
+
+### Skin condition (selectable)
+
+Dry, moist, gelled.
+
+### What these two choices change, and what they do not
+
+| Choice | Changes | Does not change (to a first approximation) |
+|---|---|---|
+| Skin condition | Surface-layer conductivity and contact impedance, so how current spreads and concentrates at contact edges, so which fibers fire | |
+| Electrode material, current-controlled drive | The voltage the driver must supply; how evenly current leaves the contact; electrochemical behavior at the surface | Which fibers fire |
+| Electrode material, voltage-controlled drive | The current actually delivered, so which fibers fire | |
+
+All metals listed conduct millions of times better than tissue, so in the tissue field they behave almost identically. The differences are at the metal-to-skin interface. [literature, verify in checklist step 1.12]
+
+The interface must say this next to the material selector, so a user does not read meaning into a result that did not change.
+
+Note for the hardware project, not a result of this simulator: the listed metals differ in corrosion and ion release under stimulation, and copper and silver are the ones usually questioned for skin and mucosal contact. [literature, verify] That is a hardware safety topic.
+
+### Defaults, input limits and test layouts
+
+Because every value is a user input, the simulator still needs three things, proposed by the agent from the electro-tactile literature and accepted by the owner (checklist step 0.3):
+
+1. **A default** for each input, so the interface opens in a sensible state. Labelled assumption.
+2. **Input limits**: the range inside which the model is valid (for example contact size against mesh resolution, pulse width against the field model's assumptions). These are model limits, not safety limits.
+3. **A few fixed test layouts** used only by the automated tests, so results can be compared between code versions.
+
+### What "run" costs
+
+| What the user changed | What is recomputed | Rough cost on this machine |
+|---|---|---|
+| Current per contact, polarity | Nothing in the field; fibers only | Short |
+| Waveform, pulse width, rate, pattern | Fibers only | Short to moderate |
+| Contact shape, size, position or number | Mesh and one field solve per changed contact, then fibers | Minutes or more |
+| Region or skin condition | Everything | Longest |
+
+Times are estimates until measured (checklist step 3.5). Results are cached by configuration, so a repeated run is instant.
 
 ### Electrode layout (one configuration file per layout)
 
@@ -48,8 +93,10 @@ The owner's requirement: size, shape, number, waveform and current range must al
 | Position of each contact | on the skin surface of the chosen region |
 | Role of each contact | active, return, or unconnected |
 | Share of current per contact | signed fraction, for steering between contacts |
-| Region | glans, hood, or other external skin near the clitoris |
-| Interface | dry, gel, or moist skin (changes the skin model) |
+| Region | glans, hood; fingertip for validation |
+| Material | stainless steel, copper (PCB), silver, gold, titanium |
+| Skin condition | dry, moist, gelled |
+| Drive | current-controlled or voltage-controlled (not yet decided) |
 
 ### Stimulus
 
@@ -68,9 +115,7 @@ The field problem is linear. Solve it once per contact for unit current and stor
 
 ### Still to be given by the owner
 
-- Realistic ranges for contact size, spacing, current, pulse width and rate. The simulator can accept anything, but tests and validation need bounded reference cases.
-- Which regions come first.
-- Electrode material and whether gel or moisture is used.
+- Whether the hardware drives current or voltage. This decides whether electrode material affects which fibers fire.
 
 ## 6. Accuracy target
 
@@ -84,14 +129,27 @@ The field problem is linear. Solve it once per contact for unit current and stor
 
 ## 7. Versions and safety
 
-| Version | Basis | Safety content |
-|---|---|---|
-| 1 | Open data and literature only | None. Reports charge per phase and charge density per contact as plain numbers, for information. |
-| 2 and later | Version 1 plus bench and human measurements from the hardware project | Safety limits defined and tested in the hardware project are entered as constraints. |
+The owner's order of work (A-003). The version numbers are the agent's reading of it; correct them if wrong.
 
-Safety limits are defined and tested in the hardware project, not here. Until version 2, no output of this simulator is evidence that a setting is safe.
+| Stage | Basis | Tested on people? | Safety content |
+|---|---|---|---|
+| Version 1 | Open data and literature only; glans and hood | No | None. Reports charge per phase and charge density per contact as plain numbers, for information. |
+| Version 2 | Version 1 plus bench measurements from the hardware (no people) | No | Safety limits from the hardware project's bench safety tests are entered as constraints. |
+| After the safety tests | Tests on fingers only, to check safety again | Fingers only | Safety data updated from the finger tests; the fingertip model is calibrated against them. |
+| Later versions | More regions; further data | Not planned yet | Updated each time. |
 
-To make version 2 possible, version 1 must: keep all parameters in versioned files, stamp every result with the parameter and code version, and define now the format in which bench data will be entered (checklist step 8.1).
+Safety limits are defined and tested in the hardware project, not here. No output of this simulator is evidence that a setting is safe.
+
+Two cautions:
+
+- **Finger tests are still tests on people.** They normally need informed consent and, depending on the country and institution, ethics approval. Check this before the first finger test.
+- **Finger results do not transfer directly to the glans or hood.** Fingertip skin is thick and dry; glans and hood skin is thinner and moister with denser innervation, so thresholds and tolerable current density are expected to be lower there. [literature, verify] A setting shown safe on a finger is not thereby safe elsewhere.
+
+To make the later stages possible, version 1 must: keep all parameters in versioned files, stamp every result with the parameter and code version, include the fingertip preset, and define now the format in which bench and finger data will be entered (checklist step 8.1).
+
+## 7a. Who the model represents
+
+Accepted by the owner: version 1 is one approximate anatomy. All open anatomical data come from elderly donors, and anatomy differs between people. The interface states this. Variation between people is a possible later addition (several anatomy parameter sets), not part of version 1.
 
 ## 8. Machine and time
 

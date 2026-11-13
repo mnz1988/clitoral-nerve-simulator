@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13, amendment A-002",
+  version: "2026-11-13, amendment A-003",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -49,23 +49,25 @@ window.CHECKLIST = {
       tools: [], needs: [], blueprint: "0"
     },
     {
-      id: "0.3", phase: "P0", kind: "decide", who: "you",
-      title: "Give ranges and reference layouts for the adjustable electrode and stimulus",
+      id: "0.3", phase: "P0", kind: "decide", who: "you+ai",
+      title: "Agree defaults, input limits and test layouts for the interface",
       what: [
-        "The parameter set is defined in `docs/scope.md` section 5: any number, shape and size of contacts, any waveform.",
-        "Still needed from you: realistic ranges for contact size, spacing, current, pulse width and rate; which regions come first; electrode material; dry, gel or moist skin.",
-        "Choose three to five reference layouts that every test will use."
+        "Decided on 2026-11-13: every electrode and stimulus value is an input in the interface; regions are glans and hood; material and skin condition are selectable. See `docs/scope.md` section 5.",
+        "The agent proposes, from the electro-tactile literature (step 1.11): a default for each input, the limits inside which the model is valid, and a few fixed layouts for automated tests. Each is labelled an assumption.",
+        "You accept or change them.",
+        "Still needed from you: whether the hardware drives current or voltage."
       ],
       verify: [
-        "The ranges, with units, are in `docs/scope.md` section 5.",
-        "Someone else can redraw each reference layout from its description alone."
+        "Defaults, input limits and test layouts are in `docs/scope.md` section 5, each with a source or the word assumption.",
+        "The drive type is recorded.",
+        "You have accepted them (say so in this step's notes)."
       ],
       review: {
         who: "Electro-tactile stimulation engineer (role B in `docs/reviewers.md`)",
-        ask: "Are these ranges and layouts realistic for thin or moist skin, and do they cover what the hardware will actually use?"
+        ask: "Are these defaults and limits realistic for thin or moist skin, and do they cover what the hardware will actually use?"
       },
-      model: "Opus 5.5", effort: "medium", why: "Needs care with units and safety limits.",
-      tools: [], needs: ["0.2"], blueprint: "5.3"
+      model: "Opus 5.5", effort: "medium", why: "Needs care with units and with what the model can validly represent.",
+      tools: [], needs: ["0.2", "1.11"], blueprint: "5.3, 9"
     },
     {
       id: "0.4", phase: "P0", kind: "find", who: "you",
@@ -304,23 +306,46 @@ window.CHECKLIST = {
       tools: ["Bio Research plugin (PubMed)", "research-superpowers (literature-review)", "reference-checking plugin", "WebSearch"],
       needs: [], blueprint: "0, 3.1, 5.3"
     },
+    {
+      id: "1.12", phase: "P1", kind: "find", who: "you+ai",
+      title: "Electrode interface values for each material and skin condition",
+      what: [
+        "For stainless steel, copper (PCB), silver, gold and titanium: how the metal-to-skin interface behaves under stimulation pulses, on moist skin and with gel.",
+        "For dry, moist and gelled skin on glans-like, hood-like and fingertip skin: surface-layer conductivity and contact impedance.",
+        "Write a short table of what each option changes in the model and what it does not."
+      ],
+      get: ["Measured interface values that state electrode area, the medium, and the frequency or pulse conditions."],
+      verify: [
+        "Each of the five materials and three skin conditions has values with sources, or is labelled an assumption with a range.",
+        "The table in `docs/scope.md` section 5 is confirmed or corrected, and the '(verify)' tags there are resolved."
+      ],
+      review: {
+        who: "Electro-tactile stimulation engineer",
+        ask: "Are these interface values and their expected effects realistic, and is a resistive skin model enough for our pulse widths?"
+      },
+      model: "Fable 5.2", effort: "high", why: "Scattered, condition-dependent literature; easy to misapply a value.",
+      tools: ["Bio Research plugin (PubMed)", "research-superpowers (literature-review)", "reference-checking plugin", "WebSearch"],
+      needs: [], blueprint: "5.2, 5.3"
+    },
 
     // ---------------------------------------------------------------- P2
     {
       id: "2.4", phase: "P2", kind: "do", who: "ai",
       title: "Electrode and stimulus configuration schema",
       what: [
-        "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files.",
-        "Add the reference layouts from step 0.3 as examples."
+        "Implement the parameter set from `docs/scope.md` section 5 as validated configuration files, including region (glans, hood, fingertip), material (five options), skin condition (three options) and drive type.",
+        "Enforce the input limits from step 0.3.",
+        "Add the test layouts from step 0.3 as examples."
       ],
       verify: [
         "Each example file loads.",
+        "A value outside an input limit is rejected with the reason.",
         "Files with missing units, overlapping contacts, or currents that do not balance when no return contact is defined are rejected with a clear message.",
         "`pytest` covers each rejection."
       ],
       review: null,
       model: "Sonnet 5.5", effort: "medium", why: "Ordinary validation code.",
-      tools: ["quick-gate-python plugin (not installed yet)"], needs: ["2.3"], blueprint: "5.3"
+      tools: ["quick-gate-python plugin (not installed yet)"], needs: ["2.3", "0.3"], blueprint: "5.3"
     },
     {
       id: "2.1", phase: "P2", kind: "do", who: "you+ai",
@@ -410,7 +435,8 @@ window.CHECKLIST = {
       id: "3.4", phase: "P3", kind: "do", who: "ai",
       title: "Build the idealized skin-surface model and electrode layouts",
       what: [
-        "Layered tissue block with terminal fibers; the reference layouts from step 0.3 loaded from configuration files.",
+        "Layered tissue block with terminal fibers, as presets for glans, hood and fingertip, each in dry, moist and gelled condition.",
+        "Electrode layouts loaded from configuration files, with an interface layer per contact set by the selected material.",
         "One stored unit-current field per contact.",
         "Afterwards, the secondary nerve-trunk case (nerve with fascicles and perineurium under the skin model)."
       ],
@@ -425,7 +451,7 @@ window.CHECKLIST = {
         ask: "Is the skin and electrode-interface model adequate for these pulse widths, and is the treatment of fiber endings and of the perineurium sound?"
       },
       model: "Opus 5.5", effort: "high", why: "Geometry, materials and boundary conditions must all be right together.",
-      tools: ["code-review skill"], needs: ["3.1", "0.3", "1.6", "1.10", "2.4"], blueprint: "3.1, 3.2, 5"
+      tools: ["code-review skill"], needs: ["3.1", "0.3", "1.6", "1.10", "1.12", "2.4"], blueprint: "3.1, 3.2, 5"
     },
     {
       id: "3.5", phase: "P3", kind: "do", who: "ai",
@@ -600,11 +626,22 @@ window.CHECKLIST = {
     {
       id: "6.1", phase: "P6", kind: "do", who: "ai",
       title: "Streamlit interface",
-      what: ["Controls, 3D view, curves; labels and ranges always visible; a banner on Mode B."],
-      verify: ["The app starts and shows no console errors.", "Each displayed quantity shows its label.", "Someone who did not build it produces a recruitment curve without help."],
+      what: [
+        "Inputs for every electrode and stimulus value, region, electrode material and skin condition, each bounded by its input limit.",
+        "A Run button that starts a job, shows progress and an estimated time, and caches results by configuration.",
+        "3D view and curves; labels and ranges always visible; the notes on anatomy, safety and what material does not change."
+      ],
+      verify: [
+        "The app starts and shows no console errors.",
+        "Changing only currents or waveform reuses the stored field; changing contacts, region or skin condition starts a new field solve.",
+        "A value outside an input limit is refused and the reason is shown.",
+        "A repeated run returns from the cache.",
+        "Each displayed quantity shows its label.",
+        "Someone who did not build it sets up a layout and produces a recruitment curve without help."
+      ],
       review: null,
-      model: "Sonnet 5.5", effort: "medium", why: "Ordinary interface work on precomputed results.",
-      tools: ["run skill", "dataviz skill", "built-in browser preview"], needs: ["3.6"], blueprint: "9"
+      model: "Opus 5.5", effort: "medium", why: "Job handling and caching on top of ordinary interface work.",
+      tools: ["run skill", "dataviz skill", "built-in browser preview"], needs: ["3.6", "2.4"], blueprint: "9"
     },
 
     // ---------------------------------------------------------------- P7
@@ -631,7 +668,7 @@ window.CHECKLIST = {
       id: "8.1", phase: "P8", kind: "do", who: "you+ai",
       title: "Define the format for bench and human data",
       what: [
-        "Decide which measurements the hardware project will record so they can calibrate the simulator: electrode impedance, perception threshold per layout and waveform, reported sensation quality and location, comfort limit.",
+        "Decide which measurements the hardware project will record so they can calibrate the simulator. From bench tests without people: electrode impedance per material and skin condition, delivered current and voltage. From the later finger tests: perception threshold per layout and waveform, reported sensation quality and location, comfort limit.",
         "Write the file format and an empty example into `calibration/`.",
         "Do this before the hardware project starts collecting data, so nothing has to be measured twice."
       ],
@@ -650,7 +687,9 @@ window.CHECKLIST = {
       id: "8.2", phase: "P8", kind: "do", who: "you",
       title: "Enter safety limits from the hardware project (later)",
       what: [
+        "Order decided by the owner: bench safety tests first, with no people; then tests on fingers only, to recheck safety; the safety data is updated after each.",
         "When the hardware project has defined and tested its safety limits, enter them as constraints so the simulator flags settings outside them.",
+        "Limits measured on fingers are entered for the fingertip preset only; they are not copied to the glans or hood.",
         "Until then the simulator reports charge per phase and charge density for information only."
       ],
       verify: [

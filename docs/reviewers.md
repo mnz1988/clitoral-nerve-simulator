@@ -48,6 +48,7 @@ An AI opinion does not count as any of these reviews.
   2. Are our parameter ranges (contact size, spacing, current, pulse width, rate) realistic for thin or moist skin?
   3. Which stimulus parameters are known to change sensation quality, and which of our outputs relate to them?
   4. What goes wrong in practice that a model like this misses?
+  5. For stainless steel, copper, silver, gold and titanium contacts on dry, moist and gelled skin: which interface values should we use, and what really differs between them in use?
 - **Time to ask for:** one hour, plus a short follow-up on first results.
 
 ## C. Peripheral-nerve computational modeler
@@ -98,4 +99,4 @@ An AI opinion does not count as any of these reviews.
 
 ## Not a reviewer, but needed later
 
-Testing the hardware on people will need ethics approval and informed consent under the rules of the country where it happens. Find out early who grants it; it often takes longer than the engineering.
+The owner's plan is bench safety tests first, then tests on fingers only. Finger tests are still tests on people: they need informed consent and, depending on the country and institution, ethics approval. Find out early who grants it; it often takes longer than the engineering.

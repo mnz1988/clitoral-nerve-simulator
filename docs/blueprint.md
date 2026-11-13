@@ -1,6 +1,6 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2.1, 2026-11-13 (amendments A-001, A-002).
+Free tools and open data only. Version 2.2, 2026-11-13 (amendments A-001, A-002, A-003).
 
 The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
@@ -183,6 +183,10 @@ Quasi-static: `div(sigma * grad(V)) = 0`.
 - **Several contacts:** solve one unit-current field per contact and store it. The field for any set of contact currents is the weighted sum of the stored fields. Test this: a two-contact solve must equal the sum of the two single-contact solutions.
 - **Unconnected contacts:** a metal contact that carries no current still short-circuits the skin under it. Ignoring this is an **[assumption]**; check its effect once.
 - **Reported for information:** charge per phase and charge density per contact. These are arithmetic on the inputs, not safety limits.
+- **Metal-to-skin interface:** model it as an impedance layer on each contact whose values depend on the selected material and skin condition (checklist step 1.12). It changes how evenly current leaves the contact and the voltage the driver must supply. Under current-controlled drive it does not, to a first approximation, change which fibers fire; under voltage-controlled drive it does.
+- **Skin condition:** dry, moist and gelled are separate parameter sets for the surface layer and the contact impedance, per region. All are **[assumption]** until sourced.
+- **Regions:** glans, hood, and fingertip (for validation and for the hardware project's finger tests) are separate presets of layer thicknesses, conductivities and terminal-fiber populations.
+- **Open method question:** for dry skin and short pulses, a purely resistive skin layer may not be adequate and a time-dependent solve may be needed. Decide after checklist step 1.11.
 
 **Surface electrodes:** the stratum corneum dominates the impedance and is strongly frequency-dependent (around 2e-4 S/m at low frequency, far higher for hydrated skin or with gel). A purely resistive skin layer can misestimate thresholds for short pulses. Treat skin conductivity and the electrode-skin interface as the main **[assumption]** and vary them.
 
@@ -226,12 +230,16 @@ Expose engorgement as a manual slider that changes erectile-tissue conductivity 
 
 Streamlit with PyVista and Plotly.
 
-- Controls: mode, electrode position and current, pulse width and frequency; for Mode B indenter location, depth and vibration frequency; engorgement.
-- Center: 3D geometry with fibers colored by threshold (Mode A) or firing rate (Mode B).
-- Right: recruitment curve, strength-duration curve, rasters, conduction delay.
-- Always visible: the label of each quantity on screen (measured, literature, assumption) and a banner on Mode B.
+Every electrode and stimulus value is an input (A-003). The user sets the inputs, then presses Run.
 
-Precompute FEM solutions and thresholds offline. The UI should only scale and look up.
+- **Inputs:** region (glans, hood, fingertip); skin condition (dry, moist, gelled); electrode material (stainless steel, copper (PCB), silver, gold, titanium); number, shape, size, position and role of contacts; current per contact; waveform, pulse width, rate and pattern; engorgement.
+- **Input limits:** each input is bounded by the range in which the model is valid. Values outside are refused with the reason. These are model limits, not safety limits.
+- **Run:** starts a job, shows progress and an estimated time, and caches the result by configuration. Changing only currents or waveform reuses stored fields; changing contacts, region or skin condition starts a new mesh and field solve.
+- **Center:** 3D geometry with fibers colored by threshold or by whether they fire.
+- **Right:** recruitment curve, strength-duration curve, rasters, selectivity measures, charge per phase and charge density per contact.
+- **Always visible:** the label of each quantity (measured, literature, assumption); the statement that version 1 is one approximate anatomy from elderly donors; the statement that no output is evidence of safety.
+- **Next to the material selector:** what the material does and does not change (section 5.3).
+- A banner on Mode B.
 
 ## 10. Validation
 

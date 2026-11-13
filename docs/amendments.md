@@ -73,12 +73,41 @@ The blueprint and the checklist are expected to change. This file records every 
   - Retired: none.
 - Effect on results already produced: none; no results existed.
 
+## A-003: all electrode and stimulus values are interface inputs; material and skin options; testing order
+- Date: 2026-11-13
+- Raised by: owner's answers to the remaining scope questions
+- Found in step: 0.3
+- What was found:
+  1. Contact size, spacing, current, pulse width and rate are inputs the user sets in the interface before running; no fixed ranges or layouts.
+  2. Regions for version 1: glans and hood. More regions in later versions.
+  3. Electrode material is selectable: stainless steel, copper (PCB), silver, gold, titanium. Skin condition is selectable: dry, moist, gelled.
+  4. Version 1 represents one approximate anatomy; accepted.
+  5. Order of testing: no tests on people in versions 1 or 2; bench safety tests first; then tests on fingers only, to recheck safety and update the safety data.
+- Why the current plan does not handle it:
+  - Blueprint section 9 said the interface only looks up precomputed results. Free inputs mean the interface must start runs, show progress and cache results.
+  - Free inputs still need defaults, model-validity limits and fixed test layouts; nobody was assigned to produce them.
+  - Nothing modeled the metal-to-skin interface, so a material selector would have had no effect, or a misleading one.
+  - No fingertip preset existed outside the validation step, although the hardware project will measure on fingers first.
+- Decision: accepted, with these points stated to the owner:
+  - Under current-controlled drive, electrode material changes the driver voltage and interface behavior, not which fibers fire. The interface must say so.
+  - Skin condition does change which fibers fire.
+  - Finger tests are tests on people and need consent, and possibly ethics approval.
+  - Finger results do not transfer directly to the glans or hood.
+- Blueprint sections changed: version line, 5.2, 5.3, 9. `docs/scope.md` sections 5, 7, 7a.
+- Checklist steps added, changed or retired:
+  - Changed: 0.3, 2.4, 3.4, 6.1, 8.1, 8.2.
+  - Added: 1.12 (electrode interface values per material and skin condition).
+  - Retired: none.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
 These are known gaps. Each becomes an amendment when it is answered.
 
-- Realistic ranges for contact size, spacing, current, pulse width and rate are not given (step 0.3).
-- Which regions come first, electrode material and skin interface are not given (step 0.3).
+- Whether the hardware drives current or voltage is not given (step 0.3).
+- Defaults, input limits and test layouts are not yet proposed (step 0.3, after step 1.11).
+- Interface values for the five materials and three skin conditions have not been found (step 1.12).
+- Whether a purely resistive skin model is adequate for dry skin and short pulses is undecided (steps 1.11, 3.4).
 - No expert reviewers are found yet; role descriptions are in `docs/reviewers.md` (step 0.4).
 - Scan data availability is unconfirmed (step 1.4).
 - Axon diameter distribution has no source (step 1.5).
