@@ -9,15 +9,15 @@ Nothing here has been reviewed by an expert (step 1.10 review box stays unticked
 
 | Needed by the model | Found? | Value and label | Source |
 |---|---|---|---|
-| Glans length and width | Yes, as a pooled average over 21 studies | Length 6.40 mm, width 5.14 mm (measured, pooled; abstract) | Longhurst 2024 |
-| Spread of glans size | Partly | Ranges 1 to 21 mm (length) and 2 to 32 mm (width), quoted from a 2026 review of that meta-analysis (literature, **unverified**; the 32 mm maximum looks like an outlier or an enlarged clitoris) | Review PMC13682733 citing Longhurst 2024 |
-| Hood (prepuce) size | Length only | Mean length 23.19 mm (measured, pooled; abstract). Width and thickness not found | Longhurst 2024 |
+| Glans length and width | Yes, as a pooled average over 21 studies | Length 6.40 mm, width 5.14 mm (measured, pooled; text p.6 and Table 1 overall row p.9, PDF pages; **verified from the PDF 2026-11-14**) | Longhurst 2024 |
+| Spread of glans size | Yes | Ranges 1 to 21 mm (length) and 2 to 32 mm (width) across 2432 women (Table 1 overall row). The 32 mm width maximum is not matched by any single study range listed in the table (the widest listed is 11.6 mm), so it is probably an outlier or a typing error; use 2 to 12 mm as the working width range and say so. By method the mean glans length differs: MRI 9.34 mm, cadaver 7.27 mm, living-person measurement 5.38 mm, so the pooled 6.40 mm mixes methods. Length falls with age in one large series (7.5 mm at 35-44 to 5.2 mm at 75-84; Kreklau 2018, Table 1) | Longhurst 2024, Table 1 (PDF pages 7-9) |
+| Hood (prepuce) size | Length only | Mean length 23.19 mm, range 5 to 40 mm (Table 1 overall row, PDF p.9; verified). Measured on living women in the vulvar-measurement studies (Agrawal 2021, Kreklau 2018, Cao 2015, Kaya 2020; Table 1), so it is the external hood length, not thickness. Width and thickness not found | Longhurst 2024 |
 | Hood fold depth | One clinical inclusion value | At least 10 mm hood depth was required to enter a study (not a population measurement) | Grau 2026 (genital bar electrode study), Table 1 via Europe PMC |
 | Thickness of epidermis and dermis on the glans or hood | **No** | Not found. No paper in the search measured it | none |
 | Thickness of vulvar skin (proxy) | Poor | Epidermal cell layer (basal layer to stratum corneum base) 177 ± 80 µm in normal vulvar skin of 15 women after plastic surgery (measured; site on the vulva not stated in the abstract). In vulvar lichen sclerosus (disease, not normal) the full epidermis averaged 0.41 mm, against 0.13 mm in the same disease elsewhere | Fu 2021; Scurry 2001 |
 | Nerve ending types in the glans | Yes, qualitative | Free nerve endings, genital end-bulbs, Meissner-like and Pacinian corpuscles; no Ruffini corpuscles. 6 glans from donors aged 52 to 83 | García-Mesa 2020 (full text) |
-| Corpuscle density in the glans | Yes, with a unit problem | 4.37 ± 0.7 per unit area counted (all sections); 5.22 ± 0.4 at ages 52 to 60; 4.16 ± 0.8 at 61 to 83; 13.9 ± 1.3 if each lobule counts as one corpuscle. The paper reports the unit as "mm2" while counting fields of 400 µm². **The unit is unclear; do not use these numbers until the paper's own table is read** | García-Mesa 2020 (full text, read through a summarising tool, unverified) |
-| Depth of corpuscles below the surface | **No** (only qualitative zones: subepithelial, intermediate, deep) | none | García-Mesa 2020 |
+| Corpuscle density in the glans | Yes, with a unit problem (**confirmed in the PDF**) | 4.37 ± 0.7 "per mm2" (all sections); 5.22 ± 0.4 at ages 52 to 60; 4.16 ± 0.8 at 61 to 83; 13.9 ± 1.3 if each lobule counts as one corpuscle (p.4-5, section 3.2). Methods (p.4) count five fields of "400 µm2" per section and say "mean of sensory corpuscles by mm2". Four corpuscles per mm2 is far too few for a glans described as densely innervated, and 400 µm2 fields would give hundreds per mm2 for even one corpuscle, so the unit is unreliable. Authors say numbers are low and untested statistically. **Do not use as a density input; ask the authors or use another source** | García-Mesa 2020, PDF pages 4-5 |
+| Depth of corpuscles below the surface | **No** (only qualitative zones: subepithelial, intermediate, deep; corpuscles get larger with depth; fibre network denser at the periphery than the centre; Pacinian corpuscles only in the central glans) (verified, p.4 and p.7) | none | García-Mesa 2020 |
 | Corpuscle size, fibre diameter, papilla size | **No** | none | García-Mesa 2020 |
 | Free (intra-epidermal) endings in the clitoris | Animal only | Fine intra-epithelial fibres are abundant in hairy skin but rare in non-hairy genital skin and in the clitoris of guinea pig and mouse. Large complex endings sit in dermal papillae | Vilimas 2011 |
 | Nerve to the glans | Yes | Dorsal nerve of the clitoris: about 2917 axons in the crus and 3137 in the hemi-body, 71 to 76 % myelinated (measured, body donors; number of donors not in the abstract); about one third of the axons of the penis, about 6 times the density per area | Tunçkol 2024 |
@@ -43,10 +43,10 @@ Nothing here has been reviewed by an expert (step 1.10 review box stays unticked
 - **Age and arousal.** All the histology is from donors aged 52 to 90, and blood filling changes thickness and conductivity. The scope already accepts one elderly-donor anatomy; arousal state is a separate unaddressed variable, and the engorgement slider (blueprint section 8) has no data behind it.
 - **Hormonal status** (menopause, contraception) changes epithelial thickness and moisture; no source found.
 
-## 4. Gaps still open for step 1.10
+## 4. Gaps still open for step 1.10 (updated 2026-11-14 after reading both PDFs)
 
 - Thickness of epidermis, dermis and stratum corneum on the glans and hood.
-- Depth and density of nerve endings per area, with the unit confirmed (García-Mesa 2020 tables, full text needed).
+- Depth and density of nerve endings per area. García-Mesa 2020 was read: no depths, and the density unit is unreliable. New leads, not yet fetched: Jackson 2019, Am J Obstet Gynecol 221:519.e1 ("Anatomy, histology, and nerve density of clitoris and associated structures", cadavers, in the Longhurst table); Shih 2013, J Sex Med 10:1783 (corpuscular receptors of the glans clitoris, compared with glans penis).
 - Conductivity of genital skin (thin, moist) and its nearest measured proxy.
 - Hood width and thickness.
 - Resolution of the dorsal nerve diameter disagreement.
@@ -55,7 +55,7 @@ Nothing here has been reviewed by an expert (step 1.10 review box stays unticked
 
 | Check | Result |
 |---|---|
-| Every value has source, sample size, method, table or figure reference | **Not met.** Section 1 gives sources and sample sizes; table or figure references are missing for the two full-text reads, and the García-Mesa numbers are unverified |
+| Every value has source, sample size, method, table or figure reference | **Partly met.** Size values and corpuscle types are now checked against the two PDFs with page references. Still unchecked: Grau 2026, Vilimas 2011, Wolf-Vollenbröker 2026, Fu 2021 (abstracts only) and the dorsal nerve diameter conflict |
 | Values with no source listed as assumptions with a range in `docs/scope.md` | Done in A-009 (scope.md section 4 and the region table) |
 | Region table carries measured dimensions with sources | Glans: done (pooled mean). Hood: length only |
 

@@ -119,8 +119,8 @@ Two kinds of limit apply together, and the interface shows the tighter one:
 
 | Region | Modeled surface (provisional) | Largest single contact | Basis |
 |---|---|---|---|
-| Glans | 6.4 x 5.1 mm (length x width, mean) | 5 mm (the shorter side) | Pooled mean of 21 studies, Longhurst 2024 (abstract) [measured, pooled]. Spread is wide (1 to 21 mm long, 2 to 32 mm wide, second-hand and unverified), so the region size is a user-editable input with this mean as default (A-009) |
-| Hood | 23.2 mm long (mean) x 15 mm wide | 10 mm | Length: Longhurst 2024 pooled mean prepuce length [measured, pooled]. Width 15 mm: **assumption**, no source found, range 8 to 25 mm. Thickness: not found (step 1.10) |
+| Glans | 6.4 x 5.1 mm (length x width, mean) | 5 mm (the shorter side) | Pooled mean of 21 studies, Longhurst 2024, Table 1 [measured, pooled; checked in the PDF]. Spread is wide (length 1 to 21 mm; width 2 to 32 mm, though no single study lists a width above 11.6 mm), so the region size is a user-editable input with this mean as default (A-009) |
+| Hood | 23.2 mm long (mean) x 15 mm wide | 10 mm | Length: Longhurst 2024 pooled mean prepuce length, range 5 to 40 mm, from living-woman vulvar measurements [measured, pooled; checked in the PDF]. Width 15 mm: **assumption**, no source found, range 8 to 25 mm. Thickness: not found (step 1.10) |
 | Fingertip | 15 x 20 mm | 15 mm | Finger diameter 20 mm (Araiza-Illan 2019 p.5); 10 mm line electrodes (Kajimoto 1999 p.6) |
 | Forearm | 60 x 150 mm | 60 mm | Model length 150 mm (Zhu 2017 p.3); largest published electrode 45 x 60 mm (Tigerholm 2019 p.3) |
 

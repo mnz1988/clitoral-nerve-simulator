@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T20:38:28.251Z",
+  "updated": "2026-11-13T20:49:35.722Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -64,8 +64,8 @@ window.PROGRESS = {
       "verified": false,
       "reviewed": false,
       "fails": 0,
-      "notes": "2026-11-14 first pass (Sonnet 5.5; the step recommends Fable 5.2 / high). Findings in docs/literature-glans-hood.md, amendment A-009. Found: pooled glans 6.40 x 5.14 mm and prepuce length 23.19 mm (Longhurst 2024, abstract); glans nerve-ending types (Garcia-Mesa 2020, 6 donors); dorsal nerve counts (Tuncko 2024). NOT found: layer thickness, nerve-ending depth, usable density (unit unclear), conductivity of glans or hood skin. Verification check 1 (source, sample size, method, figure reference per value) is not met, so the step stays doing. Numbers read through a summarising fetch tool are marked unverified. Next: owner downloads Garcia-Mesa 2020 and Longhurst 2024 into downloaded-manually/; read their tables directly; then decide proxies for the missing quantities. Process note: PubMed search needs 2-3 terms only; read open papers through Europe PMC; PMC pages began showing a browser check.",
-      "t": 1794602308251
+      "notes": "2026-11-14: first pass (Sonnet 5.5; step recommends Fable 5.2 / high) then second pass after the owner downloaded two PDFs. Findings in docs/literature-glans-hood.md, amendment A-009. Checked in the PDFs: glans 6.40 x 5.14 mm and prepuce length 23.19 mm (Longhurst 2024 Table 1, ranges 1-21, 2-32, 5-40 mm; the 32 mm width max is not matched by any single study); glans corpuscle types (Garcia-Mesa 2020, 6 donors). Garcia-Mesa gives no depths and its density unit is unreliable, so not used. NOT found: layer thickness, nerve-ending depth, usable density, conductivity of glans or hood skin. Verification check 1 only partly met, so the step stays doing. Next: fetch Jackson 2019 (AJOG 221:519) and Shih 2013 (J Sex Med 10:1783) for density; search conductivity proxies. Process note: reading the PDFs directly with Desktop Commander read_file was reliable and cheap; the summarising fetch tool mis-handled units. PubMed search needs 2-3 terms; use Europe PMC for open papers.",
+      "t": 1794602975722
     }
   },
   "amendments": []

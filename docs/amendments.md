@@ -208,7 +208,7 @@ The blueprint and the checklist are expected to change. This file records every 
   - The missing quantities are listed as assumptions with ranges in `docs/scope.md` section 4. The first model runs sweep them rather than fix them.
   - Step 1.10 stays "doing". Its first verification check (source, sample size, method and figure reference for every value) is not met.
   - Open to the owner: how the hood is positioned during stimulation (outer face, inner face, retracted) and whether arousal state is in scope (`literature-glans-hood.md` section 3).
-- Blueprint sections changed: version line, 3.1 pointer. `docs/scope.md` sections 4 and 5.
+- Second pass, 2026-11-14, after the owner downloaded the two papers: Longhurst 2024 sizes and ranges confirmed in the PDF. García-Mesa 2020 read in full: no depths, and its corpuscle density (4.37 per "mm2" from 400 µm2 fields) has an unreliable unit, so it is not used. Leads to fetch: Jackson 2019 (AJOG) and Shih 2013 (J Sex Med).`n- Blueprint sections changed: version line, 3.1 pointer. `docs/scope.md` sections 4 and 5.
 - Checklist steps added, changed or retired: changed 1.10 (sources and reading tips). None added or retired.
 - Effect on results already produced: none; no results existed.
 
@@ -216,7 +216,7 @@ The blueprint and the checklist are expected to change. This file records every 
 
 - Region dimensions: the glans size is now sourced (A-009). The hood width, and the spread of both between people, remain to be checked against the original studies (step 1.10).
 - Layer thickness, nerve-ending depth and density, and conductivity of glans and hood skin: still missing (step 1.10).
-- Dorsal nerve diameter disagreement (2.0 to 3.2 mm versus 0.2 to 0.7 mm), glans corpuscle density unit, and the nerve-free ventral glans area need the original papers (step 1.10).
+- Dorsal nerve diameter disagreement (2.0 to 3.2 mm versus 0.2 to 0.7 mm), glans corpuscle density (the unit in García-Mesa 2020 is unreliable; try Jackson 2019 and Shih 2013), and the nerve-free ventral glans area need the original papers (step 1.10).
 
 These are known gaps. Each becomes an amendment when it is answered.
 
