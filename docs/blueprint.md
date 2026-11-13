@@ -284,6 +284,14 @@ app/             Streamlit interface
 tests/           verification tests from section 10.1
 ```
 
+## 15. Changing this blueprint
+
+This document is expected to change as steps turn up new subjects and problems.
+
+- The steps that carry out this plan are in `checklist/steps.js`, shown by `checklist/index.html`.
+- Every change is recorded in [amendments.md](amendments.md) with its reason, the sections changed and the results that must be rerun.
+- A change to this file, the matching change to the checklist and the log entry go in one commit.
+
 ## References
 
 Checked on 2026-11-13:

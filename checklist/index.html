@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulator checklist</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d1f23; --muted: #5d636e; --line: #dcd9d0;
+    --accent: #2f5d8a; --ok: #2c7a4b; --warn: #a2640a; --bad: #a8322d;
+    --chip: #ecebe5; --code: #f0eee8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16181c; --panel: #1f2227; --ink: #e8e8e6; --muted: #a0a6b1; --line: #343841;
+      --accent: #8db8e3; --ok: #6cc391; --warn: #e0a84e; --bad: #ee8079;
+      --chip: #2a2e35; --code: #2a2e35;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 940px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 22px; margin: 8px 0 2px; }
+  h2 { font-size: 16px; margin: 28px 0 8px; }
+  p { margin: 6px 0; }
+  .muted { color: var(--muted); }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .bar { height: 8px; background: var(--chip); border-radius: 4px; overflow: hidden; margin: 8px 0 4px; }
+  .bar > div { height: 100%; background: var(--ok); width: 0; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+  select, input[type=text], textarea, button {
+    font: inherit; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  textarea { width: 100%; min-height: 64px; resize: vertical; }
+  input[type=text] { min-width: 0; flex: 1 1 160px; }
+  details.step { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--line);
+    border-radius: 8px; margin: 8px 0; }
+  details.step[data-state=complete] { border-left-color: var(--ok); }
+  details.step[data-state=blocked] { border-left-color: var(--bad); }
+  details.step[data-state=doing] { border-left-color: var(--accent); }
+  details.step[data-state=waiting] { border-left-color: var(--warn); }
+  details.step > summary { cursor: pointer; padding: 10px 12px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+  details.step > summary .id { font-variant-numeric: tabular-nums; color: var(--muted); min-width: 2.4em; }
+  details.step > summary .title { font-weight: 600; flex: 1 1 260px; }
+  .chip { background: var(--chip); border-radius: 999px; padding: 1px 9px; font-size: 12.5px; white-space: nowrap; }
+  .chip.state-complete { color: var(--ok); } .chip.state-blocked { color: var(--bad); }
+  .chip.state-doing { color: var(--accent); } .chip.state-waiting { color: var(--warn); }
+  .body { padding: 2px 14px 14px; border-top: 1px solid var(--line); }
+  .body h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 14px 0 4px; }
+  .body ul { margin: 4px 0; padding-left: 20px; }
+  code { background: var(--code); border-radius: 4px; padding: 1px 5px; font-size: 13px; word-break: break-word; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-top: 10px; }
+  .controls label { display: inline-flex; gap: 6px; align-items: center; }
+  .alert { border: 1px solid var(--bad); color: var(--bad); border-radius: 6px; padding: 8px 10px; margin-top: 10px; }
+  .note-warn { color: var(--warn); }
+  .amend { border-top: 1px solid var(--line); padding: 8px 0; }
+  .amend:first-child { border-top: 0; }
+  .grid { display: grid; gap: 8px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Simulator checklist</h1>
+  <p class="muted">Steps for <a href="../docs/blueprint.md">docs/blueprint.md</a>. Definitions live in <code>steps.js</code>; progress is kept in this browser and in <code>progress.js</code>.</p>
+
+  <div class="panel">
+    <div id="summary">Loading…</div>
+    <div class="bar"><div id="barfill"></div></div>
+    <div id="next" class="muted"></div>
+  </div>
+
+  <details class="panel" style="margin-top:12px">
+    <summary><strong>How this checklist works</strong></summary>
+    <ul>
+      <li><strong>Complete</strong> means three things: status is Done, the verification checks were run and passed, and the expert review is done where one is required.</li>
+      <li><strong>Two failed attempts, then stop.</strong> Log each failed attempt. The second attempt must change something (approach, model or effort). After two, the step is blocked until you decide: fix it by hand, change the approach, or drop the step.</li>
+      <li><strong>Expert review</strong> boxes are ticked by you, after a named person has answered the question shown in the step. An AI answer does not count.</li>
+      <li><strong>New problems and changes</strong> go into an amendment (bottom of this page). An amendment is then folded into <code>docs/amendments.md</code>, the blueprint and <code>steps.js</code>.</li>
+      <li><strong>Model and effort</strong> are starting recommendations. Lower them when a step proves easy; raise them only after a failed attempt.</li>
+      <li><strong>Saving:</strong> changes are kept in this browser. Press Export, save the file over <code>checklist/progress.js</code>, and commit it so the state travels with the repository.</li>
+    </ul>
+  </details>
+
+  <div class="toolbar">
+    <select id="fPhase" aria-label="Phase"></select>
+    <select id="fWho" aria-label="Who">
+      <option value="">Anyone</option>
+      <option value="you">Needs you</option>
+      <option value="ai">AI can do it</option>
+      <option value="review">Needs expert review</option>
+      <option value="get">Something to download or find</option>
+    </select>
+    <select id="fState" aria-label="State">
+      <option value="">Any state</option>
+      <option value="open">Not complete</option>
+      <option value="complete">Complete</option>
+      <option value="blocked">Blocked</option>
+      <option value="waiting">Waiting for verification or review</option>
+    </select>
+    <input type="text" id="fText" placeholder="Search steps" aria-label="Search steps">
+    <button id="bExport" title="Download progress.js">Export</button>
+    <button id="bImport" title="Load a saved progress.js">Import</button>
+    <input type="file" id="fileIn" accept=".js,.json" class="hidden">
+  </div>
+
+  <div id="phases"></div>
+
+  <h2>Amendments: new problems and changes to the plan</h2>
+  <div class="panel">
+    <p class="muted">Use this when a step turns up a new subject, a wrong assumption or a problem the blueprint does not cover. Drafts are exported with your progress.</p>
+    <div class="grid">
+      <input type="text" id="aTitle" placeholder="Short title, e.g. Scan data is not public">
+      <select id="aStep" aria-label="Found in step"></select>
+      <textarea id="aProblem" placeholder="What was found, and why the current plan does not handle it"></textarea>
+      <textarea id="aChange" placeholder="Proposed change: blueprint sections to edit, steps to add, change or retire"></textarea>
+      <div><button id="aAdd">Add draft amendment</button></div>
+    </div>
+    <div id="amendList" style="margin-top:10px"></div>
+  </div>
+
+  <p class="muted" style="margin-top:24px" id="foot"></p>
+</main>
+
+<script src="steps.js"></script>
+<script src="progress.js"></script>
+<script>
+(function () {
+  'use strict';
+  var DATA = window.CHECKLIST || { phases: [], steps: [] };
+  var BASE = window.PROGRESS || { steps: {}, amendments: [] };
+  var KEY = 'cns-checklist-v1';
+  var state = { steps: {}, amendments: [] };
+  var cards = {};
+  var byId = {};
+  DATA.steps.forEach(function (s) { byId[s.id] = s; });
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag), k;
+    if (attrs) for (k in attrs) {
+      var v = attrs[k];
+      if (v === null || v === undefined || v === false) continue;
+      if (k === 'text') n.textContent = v;
+      else if (k === 'class') n.className = v;
+      else if (k.slice(0, 2) === 'on') n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v === true ? '' : v);
+    }
+    (kids || []).forEach(function (c) {
+      if (c === null || c === undefined) return;
+      n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    });
+    return n;
+  }
+  // Turns "run `cmd` now" into text and <code> nodes without using innerHTML.
+  function rich(text) {
+    var parts = String(text).split('`'), out = [];
+    parts.forEach(function (p, i) { if (p) out.push(i % 2 ? el('code', { text: p }) : p); });
+    return out;
+  }
+  function list(items) {
+    return el('ul', null, (items || []).map(function (t) { return el('li', null, rich(t)); }));
+  }
+
+  // ---------- state ----------
+  function newer(a, b) { return !a ? b : !b ? a : ((b.t || 0) >= (a.t || 0) ? b : a); }
+  function mergeIn(src) {
+    if (!src) return;
+    Object.keys(src.steps || {}).forEach(function (id) {
+      state.steps[id] = newer(state.steps[id], src.steps[id]);
+    });
+    var map = {};
+    state.amendments.concat(src.amendments || []).forEach(function (m) {
+      if (m && m.id) map[m.id] = newer(map[m.id], m);
+    });
+    state.amendments = Object.keys(map).map(function (k) { return map[k]; })
+      .sort(function (a, b) { return (a.created || 0) - (b.created || 0); });
+  }
+  function load() {
+    mergeIn(BASE);
+    try { mergeIn(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch (e) { /* storage unavailable */ }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* storage unavailable */ }
+  }
+  function st(id) {
+    return state.steps[id] || (state.steps[id] =
+      { status: 'todo', verified: false, reviewed: false, fails: 0, notes: '', t: 0 });
+  }
+  function touch(id) { st(id).t = Date.now(); save(); refreshCard(id); refreshAll(); }
+
+  function stateOf(step) {
+    var s = st(step.id);
+    if (s.fails >= 2 || s.status === 'blocked') return 'blocked';
+    if (s.status === 'done') {
+      if (s.verified && (!step.review || s.reviewed)) return 'complete';
+      return 'waiting';
+    }
+    if (s.status === 'doing') return 'doing';
+    return 'todo';
+  }
+  var LABEL = { todo: 'To do', doing: 'In progress', waiting: 'Needs check', complete: 'Complete', blocked: 'Blocked' };
+  var WHO = { you: 'You', ai: 'AI', 'you+ai': 'You + AI' };
+  var KIND = { 'do': 'Do', download: 'Download', find: 'Find', decide: 'Decide', review: 'Review' };
+
+  // ---------- cards ----------
+  function buildCard(step) {
+    var s = st(step.id);
+    var chipState = el('span', { class: 'chip' });
+    var summary = el('summary', null, [
+      el('span', { class: 'id', text: step.id }),
+      el('span', { class: 'title', text: step.title }),
+      chipState,
+      el('span', { class: 'chip', text: KIND[step.kind] || step.kind }),
+      el('span', { class: 'chip', text: WHO[step.who] || step.who }),
+      el('span', { class: 'chip', text: step.model + ' / ' + step.effort })
+    ]);
+
+    var body = el('div', { class: 'body' });
+    body.appendChild(el('h3', { text: 'What to do' }));
+    body.appendChild(list(step.what));
+    if (step.get && step.get.length) {
+      body.appendChild(el('h3', { text: 'What to download or find' }));
+      body.appendChild(list(step.get));
+    }
+    body.appendChild(el('h3', { text: 'How to verify it was done correctly' }));
+    body.appendChild(list(step.verify));
+    if (step.review) {
+      body.appendChild(el('h3', { text: 'Expert review' }));
+      body.appendChild(el('p', null, [el('strong', { text: step.review.who + ': ' }), step.review.ask]));
+    }
+    body.appendChild(el('h3', { text: 'AI model and effort' }));
+    body.appendChild(el('p', null, [el('strong', { text: step.model + ' / ' + step.effort }), ' — ' + step.why]));
+    if (step.tools && step.tools.length) {
+      body.appendChild(el('h3', { text: 'Skills, plugins and tools' }));
+      body.appendChild(el('p', { text: step.tools.join(' · ') }));
+    }
+    var deps = el('p', { class: 'muted' });
+    body.appendChild(deps);
+    if (step.blueprint) body.appendChild(el('p', { class: 'muted', text: 'Blueprint section: ' + step.blueprint }));
+
+    var selStatus = el('select', {
+      onchange: function () {
+        s.status = selStatus.value;
+        if (s.status !== 'done') { s.verified = false; s.reviewed = false; }
+        touch(step.id);
+      }
+    }, [['todo', 'To do'], ['doing', 'In progress'], ['done', 'Done'], ['blocked', 'Blocked']].map(function (o) {
+      return el('option', { value: o[0], text: o[1] });
+    }));
+    var cbVer = el('input', { type: 'checkbox', onchange: function () { s.verified = cbVer.checked; touch(step.id); } });
+    var cbRev = el('input', { type: 'checkbox', onchange: function () { s.reviewed = cbRev.checked; touch(step.id); } });
+    var failText = el('span');
+    var bFail = el('button', {
+      text: 'Log failed attempt',
+      onclick: function () { if (s.fails < 2) { s.fails += 1; if (s.fails >= 2) s.status = 'blocked'; touch(step.id); } }
+    });
+    var bClear = el('button', {
+      text: 'Clear after my decision',
+      onclick: function () { s.fails = 0; s.status = 'todo'; touch(step.id); }
+    });
+    var alertBox = el('div', { class: 'alert hidden' });
+    var notes = el('textarea', { placeholder: 'Notes: what was done, results, page numbers, what failed and why' });
+    notes.addEventListener('change', function () { s.notes = notes.value; touch(step.id); });
+
+    body.appendChild(el('div', { class: 'controls' }, [
+      el('label', null, ['Status ', selStatus]),
+      el('label', null, [cbVer, ' Verified']),
+      step.review ? el('label', null, [cbRev, ' Expert review done']) : null
+    ]));
+    body.appendChild(el('div', { class: 'controls' }, [failText, bFail, bClear]));
+    body.appendChild(alertBox);
+    body.appendChild(el('h3', { text: 'Notes' }));
+    body.appendChild(notes);
+
+    var card = el('details', { class: 'step', id: 'step-' + step.id }, [summary, body]);
+    cards[step.id] = {
+      card: card, chip: chipState, sel: selStatus, ver: cbVer, rev: cbRev, failText: failText,
+      bFail: bFail, bClear: bClear, alert: alertBox, notes: notes, deps: deps
+    };
+    return card;
+  }
+
+  function refreshCard(id) {
+    var step = byId[id], c = cards[id];
+    if (!step || !c) return;
+    var s = st(id), state_ = stateOf(step);
+    c.card.setAttribute('data-state', state_);
+    c.chip.textContent = LABEL[state_];
+    c.chip.className = 'chip state-' + state_;
+    c.sel.value = s.status;
+    c.ver.checked = !!s.verified; c.rev.checked = !!s.reviewed;
+    c.ver.disabled = c.rev.disabled = s.status !== 'done';
+    c.failText.textContent = 'Failed attempts: ' + (s.fails || 0) + ' of 2';
+    c.bFail.disabled = s.fails >= 2;
+    c.bClear.classList.toggle('hidden', !(s.fails > 0 || s.status === 'blocked'));
+    if (s.fails >= 2) {
+      c.alert.textContent = 'Stopped after two failed attempts. Do not retry. Decide: fix it by hand, change the approach, or drop the step (write an amendment). Then press "Clear after my decision".';
+      c.alert.classList.remove('hidden');
+    } else if (s.fails === 1) {
+      c.alert.textContent = 'One failed attempt. The next attempt must change something: the approach, the model or the effort level.';
+      c.alert.classList.remove('hidden');
+    } else c.alert.classList.add('hidden');
+    if (document.activeElement !== c.notes) c.notes.value = s.notes || '';
+  }
+
+  function refreshDeps() {
+    DATA.steps.forEach(function (step) {
+      var c = cards[step.id];
+      if (!c) return;
+      if (!step.needs || !step.needs.length) { c.deps.textContent = ''; return; }
+      var open = step.needs.filter(function (d) { return byId[d] && stateOf(byId[d]) !== 'complete'; });
+      c.deps.textContent = 'Depends on: ' + step.needs.join(', ') +
+        (open.length ? '  (not complete yet: ' + open.join(', ') + ')' : '  (all complete)');
+      c.deps.className = open.length ? 'note-warn' : 'muted';
+    });
+  }
+
+  function refreshSummary() {
+    var n = DATA.steps.length, counts = { complete: 0, blocked: 0, waiting: 0, doing: 0, todo: 0 };
+    DATA.steps.forEach(function (s) { counts[stateOf(s)] += 1; });
+    $('summary').textContent = counts.complete + ' of ' + n + ' steps complete · ' + counts.doing + ' in progress · ' +
+      counts.waiting + ' waiting for verification or review · ' + counts.blocked + ' blocked';
+    $('barfill').style.width = (n ? Math.round(100 * counts.complete / n) : 0) + '%';
+    var next = null;
+    DATA.steps.some(function (s) {
+      var stt = stateOf(s);
+      if (stt === 'complete' || stt === 'blocked') return false;
+      var ready = (s.needs || []).every(function (d) { return !byId[d] || stateOf(byId[d]) === 'complete'; });
+      if (ready) { next = s; return true; }
+      return false;
+    });
+    $('next').textContent = next ? 'Next ready step: ' + next.id + ' ' + next.title : (counts.complete === n ? 'All steps complete.' : 'No step is ready; resolve blocked steps first.');
+  }
+
+  function applyFilters() {
+    var ph = $('fPhase').value, who = $('fWho').value, fs = $('fState').value, q = $('fText').value.trim().toLowerCase();
+    DATA.phases.forEach(function (p) {
+      var any = false;
+      DATA.steps.forEach(function (s) {
+        if (s.phase !== p.id) return;
+        var stt = stateOf(s), ok = true;
+        if (ph && s.phase !== ph) ok = false;
+        if (who === 'you' && s.who.indexOf('you') < 0) ok = false;
+        if (who === 'ai' && s.who.indexOf('ai') < 0) ok = false;
+        if (who === 'review' && !s.review) ok = false;
+        if (who === 'get' && !(s.kind === 'download' || s.kind === 'find')) ok = false;
+        if (fs === 'open' && stt === 'complete') ok = false;
+        if (fs && fs !== 'open' && stt !== fs) ok = false;
+        if (q && JSON.stringify(s).toLowerCase().indexOf(q) < 0) ok = false;
+        cards[s.id].card.classList.toggle('hidden', !ok);
+        if (ok) any = true;
+      });
+      $('phase-' + p.id).classList.toggle('hidden', !any);
+    });
+  }
+  function refreshAll() { refreshDeps(); refreshSummary(); applyFilters(); }
+
+  // ---------- amendments ----------
+  function renderAmendments() {
+    var box = $('amendList');
+    box.textContent = '';
+    var shown = state.amendments.filter(function (m) { return !m.removed; });
+    if (!shown.length) { box.appendChild(el('p', { class: 'muted', text: 'No draft amendments.' })); return; }
+    shown.forEach(function (m) {
+      box.appendChild(el('div', { class: 'amend' }, [
+        el('div', null, [el('strong', { text: m.title }), ' ',
+          el('span', { class: 'chip', text: m.folded ? 'Folded into the plan' : 'Draft' }), ' ',
+          el('span', { class: 'muted', text: (m.step ? 'step ' + m.step + ' · ' : '') + new Date(m.created).toISOString().slice(0, 10) })]),
+        el('p', null, [el('strong', { text: 'Found: ' }), m.problem || '']),
+        el('p', null, [el('strong', { text: 'Proposed change: ' }), m.change || '']),
+        el('div', { class: 'controls' }, [
+          el('button', {
+            text: m.folded ? 'Mark as draft again' : 'Mark folded into the plan',
+            onclick: function () { m.folded = !m.folded; m.t = Date.now(); save(); renderAmendments(); }
+          }),
+          el('button', {
+            text: 'Remove',
+            onclick: function () { m.removed = true; m.t = Date.now(); save(); renderAmendments(); }
+          })
+        ])
+      ]));
+    });
+  }
+  function addAmendment() {
+    var title = $('aTitle').value.trim();
+    if (!title) { $('aTitle').focus(); return; }
+    var now = Date.now();
+    state.amendments.push({
+      id: 'D' + now, created: now, t: now, title: title, step: $('aStep').value,
+      problem: $('aProblem').value.trim(), change: $('aChange').value.trim(), folded: false, removed: false
+    });
+    $('aTitle').value = $('aProblem').value = $('aChange').value = '';
+    save(); renderAmendments();
+  }
+
+  // ---------- export / import ----------
+  function exportProgress() {
+    var out = { updated: new Date().toISOString(), steps: state.steps, amendments: state.amendments };
+    var text = '// Saved checklist progress. Replace this file with the one the Export button\n' +
+      '// in index.html downloads, then commit it.\nwindow.PROGRESS = ' + JSON.stringify(out, null, 2) + ';\n';
+    var a = el('a', { href: URL.createObjectURL(new Blob([text], { type: 'text/javascript' })), download: 'progress.js' });
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  function importProgress(file) {
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var t = String(r.result), i = t.indexOf('{'), j = t.lastIndexOf('}');
+        mergeIn(JSON.parse(t.slice(i, j + 1)));
+        save();
+        DATA.steps.forEach(function (s) { refreshCard(s.id); });
+        refreshAll(); renderAmendments();
+      } catch (e) { alert('That file could not be read as saved progress.'); }
+    };
+    r.readAsText(file);
+  }
+
+  // ---------- init ----------
+  load();
+  var root = $('phases');
+  $('fPhase').appendChild(el('option', { value: '', text: 'All phases' }));
+  $('aStep').appendChild(el('option', { value: '', text: 'Found in step: (none)' }));
+  DATA.phases.forEach(function (p) {
+    $('fPhase').appendChild(el('option', { value: p.id, text: p.title }));
+    var sec = el('section', { id: 'phase-' + p.id }, [el('h2', { text: p.title })]);
+    DATA.steps.forEach(function (s) {
+      if (s.phase !== p.id) return;
+      sec.appendChild(buildCard(s));
+      $('aStep').appendChild(el('option', { value: s.id, text: 'Found in step ' + s.id + ': ' + s.title }));
+    });
+    root.appendChild(sec);
+  });
+  DATA.steps.forEach(function (s) { refreshCard(s.id); });
+  ['fPhase', 'fWho', 'fState'].forEach(function (id) { $(id).addEventListener('change', applyFilters); });
+  $('fText').addEventListener('input', applyFilters);
+  $('bExport').addEventListener('click', exportProgress);
+  $('bImport').addEventListener('click', function () { $('fileIn').click(); });
+  $('fileIn').addEventListener('change', function () { if (this.files[0]) importProgress(this.files[0]); this.value = ''; });
+  $('aAdd').addEventListener('click', addAmendment);
+  refreshAll(); renderAmendments();
+  $('foot').textContent = 'Step definitions version ' + (DATA.version || '?') +
+    (BASE.updated ? ' · progress.js last exported ' + BASE.updated.slice(0, 10) : ' · progress.js has no saved progress yet');
+})();
+</script>
+</body>
+</html>
