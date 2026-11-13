@@ -140,13 +140,33 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: changed 3.9. None added or retired.
 - Effect on results already produced: none; no results existed.
 
+## A-006: literature summary rechecked against the PDFs
+- Date: 2026-11-13
+- Raised by: agent, after the owner downloaded ten papers into `downloaded-manually/`
+- Found in step: 1.11
+- What was found:
+  1. Validation data exist for the fingertip after all (Malešević 2021: eleven subjects, sensation threshold median 1.0 mA at 400 µs and 30 Hz on 11 mm² pads). This replaces finding 4 of A-005.
+  2. Poulsen 2020 gives measured and modeled rheobase for five electrode types on the forearm. The model was 0.2 to 4.6 times the measured value, within a factor of two for three of the five. This puts a number on finding 5 of A-005.
+  3. The skin conductivities in the Zhu and Aalborg models come from the same primary sources (Tavernier 1993, Yamamoto 1976, Gabriel 1996), so their agreement is not independent confirmation.
+  4. Neither paper defines which direction its anisotropic conductivities refer to.
+  5. Corrections to the first write-up: the 2024 review is by Ray, Vasudevan and Manivannan, not Kajimoto's group; Zhu's experiment used gold discs with gel; the COMSOL version attributed to Tigerholm was an extraction error.
+  6. PDFs can be read page by page with the Desktop Commander plugin, so the poppler install in step 0.6 is not needed.
+  7. Useful design rules from Kajimoto 1999: contact currents sum to zero to keep current local; each pulse averages to zero so charge does not build up.
+- Why the current plan does not handle it: step 3.9 named only the forearm data of Zhu 2017; step 0.6 required an install that is no longer needed; the folder for hand-downloaded papers was not ignored by git.
+- Decision: accepted.
+  - Step 3.9 validates against Poulsen 2020 first (absolute values, five electrodes), then Zhu 2017 (trends), then the fingertip data of Malešević 2021.
+  - Step 0.6 is redefined as "confirm papers can be read" and closed.
+  - `downloaded-manually/` and all PDFs are ignored by git.
+- Blueprint sections changed: version line, 3.1, 5.2. `docs/scope.md` section 6. `docs/literature-electrotactile.md` rewritten.
+- Checklist steps added, changed or retired: changed 0.6, 3.9. None added or retired.
+- Effect on results already produced: none; no results existed.
+
 ## Open questions waiting for an amendment
 
 These are known gaps. Each becomes an amendment when it is answered.
 
-- Five papers could not be read automatically and need manual download (list in `docs/literature-electrotactile.md` section 6).
-- Values in `docs/literature-electrotactile.md` were extracted by an automated reader and are not yet spot-checked against the papers (step 1.11 is not ticked Verified).
-- Skin conductivities differ widely between published models and are not traced to primary sources (steps 1.6, 1.10).
+- Seven small items in `docs/literature-electrotactile.md` section 7 remain uncertain or unread (two need a look at a figure or page image; two papers were not obtained).
+- Skin conductivities are not traced to their primary sources, and their direction labels are undefined (steps 1.6, 1.10). Tavernier 1993 is the paper to read.
 
 - The default value for the driver's voltage limit is not yet proposed (step 0.3).
 - Defaults, input limits and test layouts are not yet proposed (step 0.3, after step 1.11).

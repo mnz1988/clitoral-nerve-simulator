@@ -4,7 +4,7 @@
 // recommendations (estimates, not measurements): lower them when a step
 // proves easy, raise them only after a failed attempt.
 window.CHECKLIST = {
-  version: "2026-11-13, amendment A-005",
+  version: "2026-11-13, amendment A-006",
   phases: [
     { id: "P0", title: "Setup and decisions" },
     { id: "P1", title: "Sources: find, download, check" },
@@ -100,14 +100,16 @@ window.CHECKLIST = {
     },
     {
       id: "0.6", phase: "P0", kind: "do", who: "ai",
-      title: "Install PDF tooling so papers can be read",
+      title: "Confirm papers can be read",
       what: [
-        "Install poppler (`scoop install poppler`). On 2026-11-13 the agent could not read the preprint PDF because `pdftoppm` was missing."
+        "PDFs are read page by page with the Desktop Commander plugin (`read_file`, where offset and length count pages). No install is needed.",
+        "The built-in reader still fails without poppler; installing it (`scoop install poppler`) is optional.",
+        "Put hand-downloaded papers in `downloaded-manually/`; git ignores that folder. Figures and scanned pages are not readable this way."
       ],
-      verify: ["`pdftoppm -v` prints a version.", "The agent reads page 1 of the preprint and quotes its title."],
+      verify: ["The agent reads a page of a downloaded paper and quotes a value from it that you can find on that page."],
       review: null,
-      model: "Haiku 5.5", effort: "low", why: "One install command.",
-      tools: ["scoop", "pdf skill"], needs: [], blueprint: ""
+      model: "Haiku 5.5", effort: "low", why: "One tool call.",
+      tools: ["Desktop Commander plugin (read_file)"], needs: [], blueprint: ""
     },
     {
       id: "0.7", phase: "P0", kind: "do", who: "you",
@@ -523,9 +525,10 @@ window.CHECKLIST = {
       id: "3.9", phase: "P3", kind: "do", who: "ai",
       title: "Validate the method on published human data",
       what: [
-        "Rebuild the forearm experiment of Zhu 2017 with the same code: 9 mm disc with gel, biphasic cathodic-first pulses, forearm skin values from the literature. It is the most complete dataset found in step 1.11.",
-        "Compare predicted thresholds with the measured ones, for absolute values and for trends with electrode size and pulse width.",
-        "Repeat on the fingertip when a complete fingertip dataset is obtained (see `docs/literature-electrotactile.md` section 6)."
+        "Forearm, absolute values: rebuild Poulsen 2020 (patch and pin electrodes at least; rectangular pulses of 0.1 to 10 ms) and compare modeled with measured rheobase. Their own model was 0.2 to 4.6 times the measured value; that is the bar.",
+        "Forearm, trends: rebuild Zhu 2017 (gold disc 5 to 12 mm with gel, biphasic cathodic-first pulses) and compare the trend with electrode size and pulse width.",
+        "Fingertip: rebuild Malešević 2021 (11 mm² pads, 400 µs, 30 Hz; sensation threshold median 1.0 mA).",
+        "Electrode dimensions for Poulsen and the pad shape for Malešević are in figures: read them from `downloaded-manually/` first."
       ],
       verify: [
         "Predicted and measured thresholds sit in one table, with ranges.",

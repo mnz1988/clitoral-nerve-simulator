@@ -130,7 +130,7 @@ Nothing outstanding. The driver's voltage limit is set by the user in the interf
 
 1. Every parameter is traced to a source and labelled measured, literature or assumption.
 2. Every output is reported as a range from a sensitivity analysis, never a single number.
-3. The method is first validated where human data exist with enough detail to reproduce (forearm thresholds; the fingertip once a complete dataset is obtained), then transferred to clitoral anatomy (checklist step 3.9).
+3. The method is first validated where human data exist with enough detail to reproduce (forearm thresholds from Poulsen 2020 and Zhu 2017; fingertip thresholds from Malešević 2021), then transferred to clitoral anatomy (checklist step 3.9).
 4. Scan-derived geometry is used wherever the scans can be obtained.
 5. Where no open data exists, the gap is stated; it is not filled silently.
 

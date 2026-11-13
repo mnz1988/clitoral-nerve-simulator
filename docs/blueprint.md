@@ -1,6 +1,6 @@
 # Blueprint: a biophysical simulator of the dorsal nerve of the clitoris
 
-Free tools and open data only. Version 2.4, 2026-11-13 (amendments A-001 to A-005).
+Free tools and open data only. Version 2.5, 2026-11-13 (amendments A-001 to A-006).
 
 The decided purpose, electrode requirements, accuracy target and version plan are in [scope.md](scope.md). Read it first.
 
@@ -118,7 +118,9 @@ Do this first. It needs no scan data and exercises the whole of Mode A.
 5. Solve the field once per contact for unit current and store it.
 6. Run threshold searches by bisection for each fiber across waveforms.
 7. Produce: recruitment curves, strength-duration curves, and maps of which fibers fire by position, depth, orientation and type.
-8. Validate the method first where human thresholds are published with enough detail to reproduce: the forearm (Zhu 2017), and the fingertip once a complete dataset is obtained (checklist step 3.9). Then switch to clitoral parameters.
+8. Validate the method first where human thresholds are published with enough detail to reproduce (checklist step 3.9): the forearm data of Poulsen 2020 (measured rheobase for five electrode types), the forearm trends of Zhu 2017, and the fingertip thresholds of Malešević 2021. Then switch to clitoral parameters. For scale: Poulsen's own model was 0.2 to 4.6 times the measured rheobase.
+
+Design rules taken from Kajimoto 1999: contact currents sum to zero to keep the current local, and each pulse averages to zero so charge does not build up. Offer both as defaults in the interface.
 
 Method to follow (A-005): skin layers and fiber placement after the Aalborg models (Tigerholm 2019; Poulsen 2020); multi-contact fields by superposition with free tools after Araiza Illan 2019; tactile fiber model starting from Zhu 2017. Fiber orientation is an explicit property of every terminal fiber, and polarity is an input.
 
@@ -169,7 +171,7 @@ Low-frequency values in S/m. All *(verify)* against the cited source.
 | Blood | 0.6 to 0.7 | [literature] |
 | Erectile tissue, flaccid / engorged | 0.3 / 0.6 | **[assumption]**; no measurement found |
 | Skin | see 5.3 | |
-| Skin layers in published electro-tactile models | stratum corneum 2e-5 to 2e-4; epidermis 0.15 to 0.95; dermis 1.6 to 2.6 | [literature] forearm values from Tigerholm 2019 and Zhu 2017; they disagree with each other and with older single-value skin figures. Trace to primary sources before use (checklist steps 1.6, 1.10) |
+| Skin layers in published electro-tactile models | stratum corneum 2e-5 to 2e-4; epidermis 0.15 to 0.95; dermis 1.6 to 2.6 | [literature] forearm values from Tigerholm 2019, Poulsen 2020 and Zhu 2017. Both groups take them from the same primary sources (Tavernier 1993, Yamamoto 1976, Gabriel 1996), so their agreement is not independent. Direction labels are undefined, and the stratum corneum differs tenfold. Trace to primary sources before use (checklist steps 1.6, 1.10) |
 
 Rules:
 

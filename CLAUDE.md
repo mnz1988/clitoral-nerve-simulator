@@ -42,4 +42,6 @@ At the end of each step, add one line to its notes: what would make this step ch
 
 - Windows 11, PowerShell. NRV and FEniCSx need WSL2.
 - `scoop` and `rtk` are installed. `gh` and `poppler` were not installed on 2026-11-13.
-- Reading papers (seen 2026-11-13): PubMed Central and Frontiers pages load with the web fetch tool. MDPI, bioRxiv, DOAJ, SciELO and university repository PDFs refused or failed. Do not retry those; ask the owner to download the PDF into `data/papers/`, or use a browser the owner is signed in to.
+- Reading papers (seen 2026-11-13): PubMed Central and Frontiers pages load with the web fetch tool. MDPI, bioRxiv, DOAJ, SciELO and university repository PDFs refused or failed. Do not retry those; ask the owner to download the PDF into `downloaded-manually/` (ignored by git).
+- Reading PDFs: use the Desktop Commander plugin's `read_file`; `offset` and `length` count pages from 0. It returns text only, so values that sit in figures, and minus signs or superscripts in tables, need a second look. Read only the pages needed. Three Sonnet 5.5 agents extracting ten papers cost about 416,000 tokens; for a short paper, reading the two or three relevant pages directly is cheaper.
+- Checking citations: the research-desk reference-lookup tools (`lookup_reference`, `verify_reference`) confirm a DOI or title against OpenAlex in one call each.
