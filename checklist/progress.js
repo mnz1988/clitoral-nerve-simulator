@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T21:50:28.144Z",
+  "updated": "2026-11-13T22:03:09.992Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -76,12 +76,12 @@ window.PROGRESS = {
       "t": 1794605865065
     },
     "2.1": {
-      "status": "doing",
-      "verified": false,
+      "status": "done",
+      "verified": true,
       "reviewed": false,
       "fails": 0,
-      "notes": "2026-11-14 (Sonnet 5.5 / low). Ran: wsl --install Ubuntu-22.04 --location F:\\WSL\\Ubuntu-22.04 --no-launch (owner approved the download). Result: wsl -l -v shows Ubuntu-22.04, VERSION 2; disk file F:\\WSL\\Ubuntu-22.04\\ext4.vhdx (1.3 GB) is on drive F; guest is Ubuntu 22.04.5 LTS. The command printed ERROR_ALREADY_EXISTS yet the distribution was installed and runs (probably a second pass over an install that had already completed). No Linux user exists yet: owner must open Ubuntu once and choose a username and password (agent does not enter passwords). Still to do: Miniforge install and conda --version check, so the step is not done. Process: --location and --no-launch work on WSL 3.0.5 from a non-admin shell; nesting quotes with awk in a wsl bash -c call from PowerShell breaks; use getent or a script file.",
-      "t": 1794606628144
+      "notes": "2026-11-14 (Sonnet 5.5 / low, as recommended). Evidence for the three checks: (1) wsl -l -v shows Ubuntu-22.04, VERSION 2; (2) disk file F:\\WSL\\Ubuntu-22.04\\ext4.vhdx is on drive F; (3) conda --version inside Ubuntu prints conda 26.9.4 (Miniforge3 release 26.9.4-2, installed to ~/miniforge3, default channel conda-forge). The installer (128,272,241 bytes) matched the sha256 published in the GitHub release metadata (bbaf16b3...edbbdf); the .sha256 file URL returned 404 on the first try, so the release API was used instead. conda init added lines to the Linux ~/.bashrc only. Linux user: moji. Base Python is 3.14.10; NRV needs 3.12, so step 2.2 must create a separate environment. Process: write bash scripts to a file and run with wsl bash /mnt/f/...; inline quotes break. Release API gives the hash when no .sha256 asset exists.",
+      "t": 1794607389992
     }
   },
   "amendments": []
