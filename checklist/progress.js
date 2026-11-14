@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-13T22:03:09.992Z",
+  "updated": "2026-11-14T11:54:15.242Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -82,6 +82,14 @@ window.PROGRESS = {
       "fails": 0,
       "notes": "2026-11-14 (Sonnet 5.5 / low, as recommended). Evidence for the three checks: (1) wsl -l -v shows Ubuntu-22.04, VERSION 2; (2) disk file F:\\WSL\\Ubuntu-22.04\\ext4.vhdx is on drive F; (3) conda --version inside Ubuntu prints conda 26.9.4 (Miniforge3 release 26.9.4-2, installed to ~/miniforge3, default channel conda-forge). The installer (128,272,241 bytes) matched the sha256 published in the GitHub release metadata (bbaf16b3...edbbdf); the .sha256 file URL returned 404 on the first try, so the release API was used instead. conda init added lines to the Linux ~/.bashrc only. Linux user: moji. Base Python is 3.14.10; NRV needs 3.12, so step 2.2 must create a separate environment. Process: write bash scripts to a file and run with wsl bash /mnt/f/...; inline quotes break. Release API gives the hash when no .sha256 asset exists.",
       "t": 1794607389992
+    },
+    "2.2": {
+      "status": "done",
+      "verified": true,
+      "reviewed": false,
+      "fails": 0,
+      "notes": "2026-11-14 (Sonnet 5.5 / medium, as recommended). Owner approved the downloads (391 MB conda, then pip). Attempt 1 of the conda install failed with HTTP 000 connection failed on one package; attempt 2 changed the settings (1 download thread, 8 retries, longer timeouts) and succeeded. Environment nrv: python 3.12.13, fenics-dolfinx 0.9.0, python-gmsh 4.15.2, mpich 4.3.2, petsc 3.24.4, nrv-py 1.4.0 (pip), neuron 9.0.2. First import compiled nothing because make and a C++ compiler were missing (nrnivmodl exit 127) and left an empty x86_64 folder that NRV took for a finished build; fix: conda install make gxx_linux-64 gcc_linux-64 (16 MB), delete the folder, re-import: libnrnmech.so built. Checks: (1) python -c import nrv prints NRV 1.4.0. (2) Tutorial 1 run headless: unmyelinated HH d=1 um L=5000 um: same 55.5 mV rise above rest at 20/50/80 pct points, peak times 3.46/7.30/11.14 ms, 0.39 m/s (tutorial text says about 0.4 m/s); myelinated MRG d=10 um, 20 nodes (21.85 mm): spikes at nodes along the whole fibre, peak times 1.10 to 1.43 ms, fitted 57.5 m/s (not compared with a published value; 3.2 will). My first measurement script sampled internode points and had a formatting bug; both were script errors, not install failures. Open oddity: peak times at interior nodes were not strictly increasing in the quick check (duplicate segments at the same x were not investigated). (3) environment.yml written at the repo root from conda env export (pip packages pinned with ==). Recreation from the file is tested in step 2.3. Process: install compilers before first import; use script files for WSL commands; check dry-run size before download.",
+      "t": 1794657255242
     }
   },
   "amendments": []

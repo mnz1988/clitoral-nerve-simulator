@@ -375,7 +375,7 @@ window.CHECKLIST = {
     {
       id: "2.2", phase: "P2", kind: "do", who: "ai",
       title: "Install NRV and run its first tutorial",
-      what: ["Follow the install command on the NRV package page (it pins the dolfinx version).", "Run the first documented tutorial."],
+      what: ["Follow the install command on the NRV package page (it pins the dolfinx version).", "Run the first documented tutorial.", "Install a C++ compiler and make into the environment BEFORE the first `import nrv` (conda: `make gxx_linux-64 gcc_linux-64`, about 16 MB). NEURON compiles NRV's .mod files at first import; if it fails, delete the empty `nrv/_misc/mods/x86_64` folder so NRV tries again (2026-11-14 experience)."],
       verify: [
         "`python -c \"import nrv; print(nrv.__version__)\"` prints a version.",
         "The tutorial produces a propagating action potential.",
