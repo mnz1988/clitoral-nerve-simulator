@@ -1,0 +1,33 @@
+# T1 forearm patch (docs/scope.md section 5). Compared with Poulsen 2020: measured rheobase 0.381 mA.
+# From scope.md: cathode 15 x 20 mm, anode 2 cm away, gelled, rectangular pulses 0.1 to 10 ms.
+# Interpretations, not in scope.md (assumption): the anode has the same size as the cathode; "2 cm
+# away" is the edge-to-edge distance; "rectangular pulses" are monophasic; the pulse width is
+# swept over the stated range (pulse_width is the first value); the current is the default 0.5 mA.
+# Sign convention (assumption): a positive current_share delivers the leading phase (cathodic).
+name: T1 forearm patch
+region: forearm
+material: stainless_steel
+skin_condition: gelled
+return_path: local
+contacts:
+  - id: cathode
+    shape: rectangle
+    length: 20 mm
+    width: 15 mm
+    position: {x: 0 mm, y: 0 mm}
+    role: active
+    current_share: 1
+  - id: anode
+    shape: rectangle
+    length: 20 mm
+    width: 15 mm
+    position: {x: 40 mm, y: 0 mm}
+    role: active
+    current_share: -1
+stimulus:
+  pulse_shape: monophasic
+  leading_phase: cathodic
+  pulse_width: 0.1 ms
+  pulse_width_sweep: {min: 0.1 ms, max: 10 ms}
+  current: 0.5 mA
+  rate: 50 Hz

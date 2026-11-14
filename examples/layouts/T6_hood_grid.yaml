@@ -1,0 +1,20 @@
+# T6 hood grid (docs/scope.md section 5). Regression test only.
+# Four 2 mm discs in a 2 x 2 grid, 2 mm gaps, dry, same stimulus as T5.
+# Not in scope.md (assumption): the current shares. Alternating +1, -1, +1, -1 so that they sum
+# to zero without a return contact.
+name: T6 hood grid
+region: hood
+material: stainless_steel
+skin_condition: dry
+return_path: local
+contacts:
+  - {id: c1, shape: disc, diameter: 2 mm, position: {x: -2 mm, y: -2 mm}, role: active, current_share: 1}
+  - {id: c2, shape: disc, diameter: 2 mm, position: {x: 2 mm, y: -2 mm}, role: active, current_share: -1}
+  - {id: c3, shape: disc, diameter: 2 mm, position: {x: -2 mm, y: 2 mm}, role: active, current_share: 1}
+  - {id: c4, shape: disc, diameter: 2 mm, position: {x: 2 mm, y: 2 mm}, role: active, current_share: -1}
+stimulus:
+  pulse_shape: biphasic_symmetric
+  leading_phase: cathodic
+  pulse_width: 200 us
+  current: 0.5 mA
+  rate: 50 Hz

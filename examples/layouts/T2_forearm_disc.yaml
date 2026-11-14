@@ -1,0 +1,27 @@
+# T2 forearm disc (docs/scope.md section 5). Compared with Zhu 2017: thresholds 0.5 to 1.5 mA.
+# From scope.md: one 9 mm gold disc, gelled, return 12 cm away; biphasic cathodic-first, 200 us, 50 Hz.
+# Not in scope.md (assumption): the return electrode shape and size (20 mm disc here), and that
+# "12 cm away" is the centre-to-centre distance. The current is the default 0.5 mA.
+name: T2 forearm disc
+region: forearm
+material: gold
+skin_condition: gelled
+return_path: distant
+contacts:
+  - id: disc
+    shape: disc
+    diameter: 9 mm
+    position: {x: -60 mm, y: 0 mm}
+    role: active
+    current_share: 1
+  - id: return
+    shape: disc
+    diameter: 20 mm
+    position: {x: 60 mm, y: 0 mm}
+    role: return
+stimulus:
+  pulse_shape: biphasic_symmetric
+  leading_phase: cathodic
+  pulse_width: 200 us
+  current: 0.5 mA
+  rate: 50 Hz

@@ -1,0 +1,33 @@
+# T3 fingertip pads (docs/scope.md section 5). Compared with Malesevic 2021: median sensation
+# threshold 1.0 mA.
+# From scope.md: six 11 mm2 pads, 1.6 mm gaps, 150 mm2 reference; biphasic 400 us, 30 Hz.
+# The reference is a 10 x 15 mm rectangle (150 mm2, role return). It DOES fit on the 15 x 20 mm
+# fingertip surface together with the six pads: pads in a 2 (x) by 3 (y) grid take 9.084 x 14.426 mm
+# and the reference takes 10 x 15 mm, so x needs 9.084 + gap + 10 mm, which is 19.284 mm with the
+# smallest allowed gap (0.2 mm) between pads and reference.
+# Assumptions, reported to the owner, NOT decided here:
+#  - The arrangement (2 x 3 pad grid on the left, reference on the right, 0.2 mm gap between pads
+#    and reference, 1.6 mm gaps between pads) is an assumption; scope.md gives no arrangement.
+#  - The pad shape is "to be read from the paper's figure"; discs of 11 mm2 (diameter 3.742 mm)
+#    are a placeholder (assumption). The 10 x 15 mm shape of the reference is also an assumption.
+#  - Which pads carry current is not given in scope.md. Placeholder (assumption): pad p1 is the
+#    only active contact (share +1); p2 to p6 are unconnected; the reference returns the current.
+name: T3 fingertip pads
+region: fingertip
+material: stainless_steel
+skin_condition: dry
+return_path: distant
+contacts:
+  - {id: p1, shape: disc, diameter: 3.742 mm, position: {x: -8.129 mm, y: -5.342 mm}, role: active, current_share: 1}
+  - {id: p2, shape: disc, diameter: 3.742 mm, position: {x: -2.787 mm, y: -5.342 mm}, role: unconnected}
+  - {id: p3, shape: disc, diameter: 3.742 mm, position: {x: -8.129 mm, y: 0 mm}, role: unconnected}
+  - {id: p4, shape: disc, diameter: 3.742 mm, position: {x: -2.787 mm, y: 0 mm}, role: unconnected}
+  - {id: p5, shape: disc, diameter: 3.742 mm, position: {x: -8.129 mm, y: 5.342 mm}, role: unconnected}
+  - {id: p6, shape: disc, diameter: 3.742 mm, position: {x: -2.787 mm, y: 5.342 mm}, role: unconnected}
+  - {id: ref, shape: rectangle, length: 10 mm, width: 15 mm, position: {x: 4.284 mm, y: 0 mm}, role: return}
+stimulus:
+  pulse_shape: biphasic_symmetric
+  leading_phase: cathodic
+  pulse_width: 400 us
+  current: 1.0 mA
+  rate: 30 Hz

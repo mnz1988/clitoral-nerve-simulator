@@ -1,0 +1,112 @@
+# Model limits and defaults: the same for every region (docs/scope.md section 5, A-007).
+# These are model-validity limits, not safety limits. Every entry carries a label
+# (measured, literature or assumption) and a source copied from scope.md.
+# label / source describe the allowed range; default_label / default_source describe the
+# default where it differs. Region limits (sim/config/regions/*.yaml) are applied on top;
+# the tighter of the two wins.
+
+contact_count:
+  dimension: count
+  default: 2
+  min: 1
+  max: 16
+  label: assumption
+  source: "Papers used 6 to 8. Upper bound is computing time: assumption"
+
+contact_size:
+  dimension: length
+  default: 1.5 mm
+  min: 0.2 mm
+  max: null  # set by the region's largest single contact
+  label: literature
+  source: "Smallest modeled contact is a 0.2 mm pin (Tigerholm 2019 p.2)"
+  default_label: assumption
+  default_source: "Default: assumption"
+
+contact_gap:
+  dimension: length
+  default: 1.0 mm
+  min: 0.2 mm
+  max: null  # set by what still fits on the region
+  label: assumption
+  source: "Lower bound: assumption (mesh resolution)"
+  default_label: literature
+  default_source: "1 mm in Kajimoto 1999 and Araiza-Illan 2019; 1.6 mm in Malesevic 2021"
+
+current_share:
+  dimension: fraction
+  default: 1
+  min: -1
+  max: 1
+  label: assumption
+  source: "Assumption: scope.md section 5 gives the range -1 to +1 and the default as a definition with no source"
+
+pulse_width:
+  dimension: time
+  default: 200 us
+  min: 10 us
+  max: 10 ms
+  label: literature
+  source: "Lower bound: the steady-state field assumption needs pulses far longer than about 1 us (Zhu p.3), 10 us is the shortest simulated. Upper bound: longest validated (Poulsen 2020)"
+  default_label: literature
+  default_source: "Default: Kajimoto p.6, Zhu"
+
+interphase_gap:
+  dimension: time
+  default: 0 us
+  min: 0 us
+  max: 1 ms
+  label: assumption
+  source: "Assumption"
+
+current:
+  dimension: current
+  default: 0.5 mA
+  min: 0 mA
+  max: 10 mA
+  label: assumption
+  source: "Default lies between the forearm rheobases (0.1 to 0.4 mA, Poulsen) and the fingertip sensation threshold (1.0 mA, Malesevic). Upper bound covers the stimulator ranges in the papers (2 mA Kajimoto, 9 mA Malesevic): assumption"
+
+pulse_rate:
+  dimension: frequency
+  default: 50 Hz
+  min: 1 Hz
+  max: 1000 Hz
+  label: literature
+  source: "50 Hz in Zhu; adjustable to 1 kHz in Kajimoto. One pulse must fit inside one period"
+
+train_length:
+  dimension: time
+  default: 1 s
+  min: 0.05 s
+  max: 5 s
+  label: assumption
+  source: "Assumption (computing time)"
+
+driver_voltage_limit:
+  dimension: voltage
+  default: 150 V
+  min: 5 V
+  max: 300 V
+  label: assumption
+  source: "+-150 V supply in Kajimoto 1999 figure 11. Range: assumption"
+  default_label: literature
+  default_source: "+-150 V supply in Kajimoto 1999 figure 11"
+
+# Flag thresholds (warnings, not errors).
+flags:
+  small_contact_area:
+    dimension: area
+    value: 10 mm2
+    label: assumption
+    source: "Assumption: the 10 mm2 number has no source. Hand and arm studies report discomfort from the high current density of small contacts, a trend, not a number (Kourtesis 2022 p.2)"
+  current_density:
+    dimension: current_density
+    value: 1.0  # mA per mm2
+    label: assumption
+    source: "Highest in the studies read is about 0.8 mA per mm2 (9 mA on 11 mm2, Malesevic 2021). Threshold: assumption"
+  flat_skin_fraction:
+    dimension: fraction
+    value: 0.5  # of the region's shorter side
+    label: assumption
+    source: "Contact wider than half the region's shorter side. Threshold: assumption"

@@ -1,0 +1,18 @@
+name: hood
+default_skin_condition:
+  value: dry
+  label: assumption
+  source: "Glans and hood skin condition defaults: assumption"
+length:
+  value: 23.2 mm
+  label: measured
+  source: "Longhurst 2024 pooled mean prepuce length, range 5 to 40 mm, from living-woman vulvar measurements (checked in the PDF)"
+width:
+  value: 15 mm
+  label: assumption
+  source: "Assumption: no source found, range 8 to 25 mm"
+largest_contact:
+  value: 10 mm
+  label: assumption
+  source: "scope.md region table gives 10 mm with no stated basis for this number; labelled assumption pending clarification"
+shapes: [disc, rectangle, ring]

@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-14T12:23:15.089Z",
+  "updated": "2026-11-14T13:19:22.695Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -98,6 +98,14 @@ window.PROGRESS = {
       "fails": 0,
       "notes": "2026-11-14 (Sonnet 5.5 / medium, as recommended). Added pyproject.toml (pytest, ruff), sim/__init__.py, axons/README.md (CSV format from blueprint section 14), tests/test_environment.py (5 smoke tests: NRV, dolfinx, Gmsh, NEURON versions match environment.yml pins). Installed pytest 9.2.0 and ruff 0.17.5 into nrv (9 MB, owner approved) and re-exported environment.yml. Check 1: pytest in WSL: 5 passed; ruff check passes and ruff format applied to sim/ and tests/. Check 2: fresh git clone of the committed repo into ~/rebuild_test, conda env create -n nrv_rebuild_test -f environment.yml succeeded (dry run showed 0 packages to fetch because of the local conda cache, so this does not prove a clean machine could download everything), then pytest in that env: 5 passed. Test env and clone removed afterwards. Not done: the quick-gate-python plugin named in the step is not installed and was not used; CI and pre-commit are not set up; the scaffold lives in the same repository as the docs (blueprint section 14 layout), no separate code repo. The first run after env creation compiles NRV mods again (about 20 s). Process: dry-run the rebuild to see whether anything is downloaded before asking.",
       "t": 1794658995089
+    },
+    "2.4": {
+      "status": "done",
+      "verified": true,
+      "reviewed": false,
+      "fails": 0,
+      "notes": "2026-11-14 (orchestrated: builder = Sonnet 5.5 / medium wrote it; numerics-verifier = Opus 5.5 / high checked it independently; builder fixed the findings; orchestrator reran the checks). Files: sim/config/ (errors, units, limits, layout, model_limits.yaml, regions/glans|hood|fingertip|forearm.yaml), examples/layouts/T1..T6, tests/test_config.py. Checks: all example files load; out-of-limit values rejected with the reason; T1 accepted on the forearm and rejected on the glans; adding a region needs only a new YAML file (tested with a temporary thigh.yaml); missing units, overlap, unbalanced currents rejected; pytest 75 passed in total, ruff check and ruff format --check clean. Verifier probes (20 inputs) and 20 single-line code mutations: first run 6 mutations survived and 3 inputs were wrongly accepted; after the fix pass all 20 mutations are killed and the probes behave (orchestrator reran the scripts). Verifier also confirmed every default, range, flag threshold and region size against scope.md section 5. Four warning flags exist: small_contact, current_density, flat_skin_approximation_poor, net_charge_per_pulse, plus return_share_exceeds_unit; the driver-voltage flag needs the solver (later). Labels the code added where scope.md gave none are assumption. Open owner decisions are in docs/amendments.md (open questions): current_share sign, T1-T4 and T6 placeholders, editable region size, scope.md table rows out of place. Not covered: primary sources behind labels were not rechecked. Process: give the builder the verifier mutation list as test-name targets; interphase gap maximum is 1 ms.",
+      "t": 1794662362695
     }
   },
   "amendments": []

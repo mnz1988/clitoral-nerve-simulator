@@ -1,0 +1,19 @@
+# Region preset. Sizes are provisional (docs/scope.md section 5, A-008, A-009).
+name: glans
+default_skin_condition:
+  value: moist
+  label: assumption
+  source: "Glans and hood skin condition defaults: assumption"
+length:
+  value: 6.4 mm
+  label: measured
+  source: "Pooled mean of 21 studies, Longhurst 2024, Table 1 (checked in the PDF)"
+width:
+  value: 5.1 mm
+  label: measured
+  source: "Pooled mean of 21 studies, Longhurst 2024, Table 1 (checked in the PDF)"
+largest_contact:
+  value: 5 mm
+  label: assumption
+  source: "Assumption: a choice by the agent, derived from the measured 5.1 mm width (Longhurst 2024 Table 1); scope.md gives 5 mm without a label of its own"
+shapes: [disc, rectangle, ring]

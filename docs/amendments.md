@@ -254,6 +254,14 @@ The blueprint and the checklist are expected to change. This file records every 
 
 ## Open questions waiting for an amendment
 
+Left open by step 2.4 (they are placeholders labelled assumption in `examples/layouts/` and `sim/config/`; the owner or expert role B decides):
+- Sign of `current_share`: the code reads a positive share as the leading phase. T4's "centre contact anodic" depends on it.
+- T4: which contact is the centre of eight lines, how the return current is split (now +1 and seven at -1/7), and whether "anodic, then cathodic" means two separate monophasic cases or one biphasic pulse.
+- T1 (anode size 15 x 20 mm, 2 cm taken as edge to edge, monophasic), T2 (return electrode 20 mm disc, 12 cm centre to centre), T6 (shares +1 and -1 by column): numbers not in scope.md.
+- T3: six pads and a 10 x 15 mm reference now fit on the fingertip, but which pads carry current is a placeholder (pad 1 only, return computed). Scope.md does not say.
+- Region size is not yet a user-editable input in files (A-009); `region` is required in files (scope's default region glans belongs to the interface, step 6.1).
+- Two rows of the inputs table (Return path, Share of current per contact) sit after the "Rules" bullets in scope.md section 5; the code treats them as part of the electrode inputs table. The file should be tidied.
+- Biphasic second-phase parameters and the pulse "pattern" (bursts, modulation) have no values in scope.md and are not implemented.
 - Region dimensions: the glans size is now sourced (A-009). The hood width, and the spread of both between people, remain to be checked against the original studies (step 1.10).
 - Layer thickness, nerve-ending depth and density of glans and hood skin: still missing. Conductivity: proxies from the IT'IS V5.0 database are in scope.md section 4 as assumptions; no genital tissue is measured there (step 1.10).
 - Dorsal nerve diameter: Jackson 2019 (1 to 3 mm) and Kelling 2020 (2.0 to 3.2 mm) agree; the 0.2 to 0.7 mm figure is the odd one out. Pacinian corpuscles in the glans: Shih 2013 says none, García-Mesa 2020 says some. Glans corpuscle density (the unit in García-Mesa 2020 is unreliable; try Jackson 2019 and Shih 2013), and the nerve-free ventral glans area need the original papers (step 1.10).

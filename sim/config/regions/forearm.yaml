@@ -1,0 +1,18 @@
+name: forearm
+default_skin_condition:
+  value: gelled
+  label: literature
+  source: "Forearm follows the validation papers (scope.md section 5)"
+length:
+  value: 150 mm
+  label: literature
+  source: "Model length 150 mm (Zhu 2017 p.3)"
+width:
+  value: 60 mm
+  label: assumption
+  source: "Assumption: scope.md region table gives 60 x 150 mm and cites no source for the 60 mm width (it cites a 45 x 60 mm electrode, Tigerholm 2019 p.3)"
+largest_contact:
+  value: 60 mm
+  label: literature
+  source: "Shorter side of the 60 x 150 mm surface; largest published electrode 45 x 60 mm (Tigerholm 2019 p.3)"
+shapes: [disc, rectangle, ring]

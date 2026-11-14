@@ -1,0 +1,29 @@
+# T4 fingertip lines (docs/scope.md section 5). Compared with Kajimoto 1999 and Araiza-Illan 2019:
+# polarity selects fiber orientation.
+# From scope.md: eight lines 0.5 x 10 mm at 1 mm pitch, currents sum to zero, 200 us; centre
+# contact anodic, then cathodic.
+# OPEN, reported to the owner: eight lines have no single centre contact, and the split of the
+# return current is not given. Placeholder (assumption): line c4 carries +1 and the other seven
+# carry -1/7 each. Flip every sign for the "then cathodic" case. Sign convention (assumption):
+# a positive current_share delivers the leading phase; leading_phase here is anodic.
+# "1 mm pitch" is read as centre-to-centre (so the edge gap is 0.5 mm).
+name: T4 fingertip lines
+region: fingertip
+material: stainless_steel
+skin_condition: dry
+return_path: local
+contacts:
+  - {id: c1, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: -3.5 mm, y: 0 mm}, role: active, current_share: -0.142857142857}
+  - {id: c2, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: -2.5 mm, y: 0 mm}, role: active, current_share: -0.142857142857}
+  - {id: c3, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: -1.5 mm, y: 0 mm}, role: active, current_share: -0.142857142857}
+  - {id: c4, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: -0.5 mm, y: 0 mm}, role: active, current_share: 1}
+  - {id: c5, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: 0.5 mm, y: 0 mm}, role: active, current_share: -0.142857142857}
+  - {id: c6, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: 1.5 mm, y: 0 mm}, role: active, current_share: -0.142857142857}
+  - {id: c7, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: 2.5 mm, y: 0 mm}, role: active, current_share: -0.142857142857}
+  - {id: c8, shape: rectangle, length: 0.5 mm, width: 10 mm, position: {x: 3.5 mm, y: 0 mm}, role: active, current_share: -0.142857142857}
+stimulus:
+  pulse_shape: biphasic_symmetric
+  leading_phase: anodic
+  pulse_width: 200 us
+  current: 0.5 mA
+  rate: 50 Hz

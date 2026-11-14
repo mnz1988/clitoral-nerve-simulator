@@ -1,0 +1,18 @@
+name: fingertip
+default_skin_condition:
+  value: dry
+  label: literature
+  source: "Fingertip follows the validation papers (scope.md section 5)"
+length:
+  value: 20 mm
+  label: literature
+  source: "Finger diameter 20 mm (Araiza-Illan 2019 p.5)"
+width:
+  value: 15 mm
+  label: assumption
+  source: "Assumption: scope.md region table gives 15 x 20 mm and cites no source for the 15 mm"
+largest_contact:
+  value: 15 mm
+  label: assumption
+  source: "Assumption: scope.md gives 15 mm and cites no source for it (it cites 10 mm line electrodes, Kajimoto 1999 p.6, which is not 15 mm)"
+shapes: [disc, rectangle, ring]

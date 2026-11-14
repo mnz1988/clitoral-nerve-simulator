@@ -1,0 +1,26 @@
+# T5 glans pair (docs/scope.md section 5): the default interface state. Regression test only.
+# Two 1.5 mm discs, 1 mm gap, moist, 200 us, 50 Hz, 0.5 mA.
+name: T5 glans pair
+region: glans
+material: stainless_steel
+skin_condition: moist
+return_path: local
+contacts:
+  - id: c1
+    shape: disc
+    diameter: 1.5 mm
+    position: {x: -1.25 mm, y: 0 mm}
+    role: active
+    current_share: 1
+  - id: c2
+    shape: disc
+    diameter: 1.5 mm
+    position: {x: 1.25 mm, y: 0 mm}
+    role: active
+    current_share: -1
+stimulus:
+  pulse_shape: biphasic_symmetric
+  leading_phase: cathodic
+  pulse_width: 200 us
+  current: 0.5 mA
+  rate: 50 Hz
