@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-14T13:19:22.695Z",
+  "updated": "2026-11-14T16:40:33.407Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -106,6 +106,14 @@ window.PROGRESS = {
       "fails": 0,
       "notes": "2026-11-14 (orchestrated: builder = Sonnet 5.5 / medium wrote it; numerics-verifier = Opus 5.5 / high checked it independently; builder fixed the findings; orchestrator reran the checks). Files: sim/config/ (errors, units, limits, layout, model_limits.yaml, regions/glans|hood|fingertip|forearm.yaml), examples/layouts/T1..T6, tests/test_config.py. Checks: all example files load; out-of-limit values rejected with the reason; T1 accepted on the forearm and rejected on the glans; adding a region needs only a new YAML file (tested with a temporary thigh.yaml); missing units, overlap, unbalanced currents rejected; pytest 75 passed in total, ruff check and ruff format --check clean. Verifier probes (20 inputs) and 20 single-line code mutations: first run 6 mutations survived and 3 inputs were wrongly accepted; after the fix pass all 20 mutations are killed and the probes behave (orchestrator reran the scripts). Verifier also confirmed every default, range, flag threshold and region size against scope.md section 5. Four warning flags exist: small_contact, current_density, flat_skin_approximation_poor, net_charge_per_pulse, plus return_share_exceeds_unit; the driver-voltage flag needs the solver (later). Labels the code added where scope.md gave none are assumption. Open owner decisions are in docs/amendments.md (open questions): current_share sign, T1-T4 and T6 placeholders, editable region size, scope.md table rows out of place. Not covered: primary sources behind labels were not rechecked. Process: give the builder the verifier mutation list as test-name targets; interphase gap maximum is 1 ms.",
       "t": 1794662362695
+    },
+    "3.1": {
+      "status": "done",
+      "verified": true,
+      "reviewed": false,
+      "fails": 0,
+      "notes": "2026-11-14. Builder Opus 5.5/high (general-purpose agent, model and effort set on the call) wrote sim/solver/ (own Gmsh mesh, dolfinx P2, per-contact Neumann flux, Robin far boundary) and tests/test_solver.py. Independent numerics-verifier (Opus 5.5/high) re-derived the formulas, checked the two-layer case with its own Hankel solution (agreement 1e-11), ran 20 mutations (4 survived: unequal-contact area, scaled() no-op, box refinement dropped, disc centre y ignored) and stress cases. Builder fixed these, added per-contact mesh size, mesh-box check, under-resolved-layer warning, Hankel reference, mm/mA to SI adapter. Orchestrator rerun: 94 passed, ruff check and format clean. Achieved: disc on homogeneous half-space 0.13% max (target 2%, assumption); far field 0.31% at 5a; superposition 4e-14 (target 1%); linearity exact; proxy threshold change h to h/2 under 1.2% (target 3%), cells 9.3k to 66k; two layers vs images 0.21% max; balanced pair currents sum 1e-18 A. Known limit: thin top layer 100x or more as conductive as below exceeds 2% (2.3% at 100x/0.2 mm; 3.9-4.4% at 1000x/10 um); Gmsh silently fails on large thin refine boxes, solver refuses such meshes and warns (A-013, decision pending). Two-layer formula source (Telford et al.) not opened: unverified. Orchestrator reran tests and lint, not the 21 mutations (builder's rerun). What would make this cheaper next time: turn on Gmsh terminal log from the start; run mutations with pytest -x; keep the Hankel check as a permanent reference test.",
+      "t": 1794674433407
     }
   },
   "amendments": []
