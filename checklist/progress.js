@@ -1,7 +1,7 @@
 // Saved checklist progress. Replace this file with the one the Export button
 // in index.html downloads, then commit it.
 window.PROGRESS = {
-  "updated": "2026-11-14T11:54:15.242Z",
+  "updated": "2026-11-14T12:23:15.089Z",
   "steps": {
     "0.1": {
       "status": "done",
@@ -90,6 +90,14 @@ window.PROGRESS = {
       "fails": 0,
       "notes": "2026-11-14 (Sonnet 5.5 / medium, as recommended). Owner approved the downloads (391 MB conda, then pip). Attempt 1 of the conda install failed with HTTP 000 connection failed on one package; attempt 2 changed the settings (1 download thread, 8 retries, longer timeouts) and succeeded. Environment nrv: python 3.12.13, fenics-dolfinx 0.9.0, python-gmsh 4.15.2, mpich 4.3.2, petsc 3.24.4, nrv-py 1.4.0 (pip), neuron 9.0.2. First import compiled nothing because make and a C++ compiler were missing (nrnivmodl exit 127) and left an empty x86_64 folder that NRV took for a finished build; fix: conda install make gxx_linux-64 gcc_linux-64 (16 MB), delete the folder, re-import: libnrnmech.so built. Checks: (1) python -c import nrv prints NRV 1.4.0. (2) Tutorial 1 run headless: unmyelinated HH d=1 um L=5000 um: same 55.5 mV rise above rest at 20/50/80 pct points, peak times 3.46/7.30/11.14 ms, 0.39 m/s (tutorial text says about 0.4 m/s); myelinated MRG d=10 um, 20 nodes (21.85 mm): spikes at nodes along the whole fibre, peak times 1.10 to 1.43 ms, fitted 57.5 m/s (not compared with a published value; 3.2 will). My first measurement script sampled internode points and had a formatting bug; both were script errors, not install failures. Open oddity: peak times at interior nodes were not strictly increasing in the quick check (duplicate segments at the same x were not investigated). (3) environment.yml written at the repo root from conda env export (pip packages pinned with ==). Recreation from the file is tested in step 2.3. Process: install compilers before first import; use script files for WSL commands; check dry-run size before download.",
       "t": 1794657255242
+    },
+    "2.3": {
+      "status": "done",
+      "verified": true,
+      "reviewed": false,
+      "fails": 0,
+      "notes": "2026-11-14 (Sonnet 5.5 / medium, as recommended). Added pyproject.toml (pytest, ruff), sim/__init__.py, axons/README.md (CSV format from blueprint section 14), tests/test_environment.py (5 smoke tests: NRV, dolfinx, Gmsh, NEURON versions match environment.yml pins). Installed pytest 9.2.0 and ruff 0.17.5 into nrv (9 MB, owner approved) and re-exported environment.yml. Check 1: pytest in WSL: 5 passed; ruff check passes and ruff format applied to sim/ and tests/. Check 2: fresh git clone of the committed repo into ~/rebuild_test, conda env create -n nrv_rebuild_test -f environment.yml succeeded (dry run showed 0 packages to fetch because of the local conda cache, so this does not prove a clean machine could download everything), then pytest in that env: 5 passed. Test env and clone removed afterwards. Not done: the quick-gate-python plugin named in the step is not installed and was not used; CI and pre-commit are not set up; the scaffold lives in the same repository as the docs (blueprint section 14 layout), no separate code repo. The first run after env creation compiles NRV mods again (about 20 s). Process: dry-run the rebuild to see whether anything is downloaded before asking.",
+      "t": 1794658995089
     }
   },
   "amendments": []
