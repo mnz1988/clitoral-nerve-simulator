@@ -43,6 +43,8 @@ Read these before doing any step. They are the owner's standing instructions.
 
 12. **Failures and settings.** An agent that errors, uses the wrong model or effort, lacks a tool or returns nothing useful counts as one attempt (rule 1). The second attempt changes something (briefing, agent, model or effort one level up). After two, stop and tell the owner what failed and which setting to set by hand: the file `.claude/agents/<name>.md` and its fields `model` and `effort`. A running session only sees agent definitions from when it started; if the named agent is not found, use the general-purpose agent with the model and effort set on the call, and say so.
 
+13. **Writing style (owner request, 2026-11-14).** Write explanations of subjects, in the repository and in chat, in ASD-STE100 Simplified Technical English about 80% of the time: short sentences (descriptions about 20 words or fewer), active voice, one idea per sentence, one word for one meaning, simple verbs, numbers with units. Keep needed technical terms and define each once. Only the writing rules are applied, from knowledge; the official STE dictionary is not used, so the text is not certified STE. The labels measured, literature and assumption stay. Agents get this rule in their briefs when they write prose.
+
 ## Spending fewer tokens
 
 - Use the model and effort level written on the step. Go one level up only after a failed attempt; go down when a step proves easy, and record that in `steps.js`.
