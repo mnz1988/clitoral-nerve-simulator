@@ -1,0 +1,20 @@
+[project]
+name = "clitoral-nerve-simulator"
+version = "0.0.1"
+description = "Biophysical simulator of surface electro-tactile stimulation (see docs/blueprint.md)"
+requires-python = ">=3.12,<3.13"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "slow: runs a NEURON or FEM simulation (deselect with -m 'not slow')",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["docs", "checklist", "downloaded-manually", "data", "meshes", "segmentation"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
