@@ -230,6 +230,28 @@ The blueprint and the checklist are expected to change. This file records every 
 - Checklist steps added, changed or retired: changed 1.9, 3.x fibre-model step (note added). None added or retired.
 - Effect on results already produced: none; no results existed.
 
+## A-011: COMSOL is not used
+- Date: 2026-11-14
+- Raised by: owner (a COMSOL 5.6.0.401 installation disc was found on a virtual DVD drive)
+- Found in step: none (side question after step 2.3)
+- What was found: the disc has a Linux installer but installing needs a license (key, file or server; a dongle does not work in WSL), the sudo password and about 10 GB. The blueprint's rule is free tools and open data. NRV's own COMSOL path is discouraged by its authors and gets no new geometries or electrodes. The slow parts of this project are the fibre simulations, the Zhu and Aalborg fibre models and the missing data, none of which COMSOL helps with.
+- Why the current plan does not handle it: it did not say whether commercial solvers are allowed.
+- Decision: accepted by the owner. COMSOL is not installed or used. The field solver is FEniCSx, checked against exact solutions (point source, two-layer half-space by images, linearity, superposition, mesh convergence) in step 3.1.
+- Revisit gate: only if those tests fail or are doubtful for the thin-layer approximation or for small contacts. That would be a new amendment, and it needs a license that works in WSL and a decision about publishing results from a commercial tool.
+- Blueprint sections changed: none. Checklist steps added, changed or retired: none.
+- Effect on results already produced: none.
+
+## A-012: the main session is the orchestrator; work goes to named agents
+- Date: 2026-11-14
+- Raised by: owner
+- Found in step: none (working method)
+- What was found: the owner wants each kind of task done by an agent with its own model, effort and thinking level, a failure rule, and the main session acting only as orchestrator.
+- Decision: accepted by the owner. Rules 8 to 12 are added to `CLAUDE.md`. Five agents are defined in `.claude/agents/`: `literature-scout` (Sonnet 5.5, medium), `judge` (Fable 5.2, high), `builder` (Sonnet 5.5, medium), `numerics-verifier` (Opus 5.5, high), `bookkeeper` (Haiku 5.5, low). The agent that checks work is never the one that wrote it.
+- Limit found on 2026-11-14: a running session only sees agent definitions that existed when it started. The new agents appear after a restart. Until then the orchestrator uses the built-in general-purpose agent with the same model and effort set on each call and the agent file's text as the brief.
+- Test, 2026-11-14: the five agents were started through the general-purpose agent with model and effort set on the call. Each reported the model it expects (self-reported): Sonnet 5.5 twice, Opus 5.5, Fable 5.2, Haiku 5.5. The effort level cannot be observed from inside an agent, so it is as configured but not independently confirmed. The named agent types were not found in the running session (attempt 1), which is why the general-purpose route was used (attempt 2).
+- Blueprint sections changed: none. Checklist steps added, changed or retired: none.
+- Effect on results already produced: none.
+
 ## Open questions waiting for an amendment
 
 - Region dimensions: the glans size is now sourced (A-009). The hood width, and the spread of both between people, remain to be checked against the original studies (step 1.10).

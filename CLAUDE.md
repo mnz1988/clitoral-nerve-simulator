@@ -25,6 +25,24 @@ Read these before doing any step. They are the owner's standing instructions.
 
 7. **No data in the repository.** Scans, segmentations, third-party meshes and papers stay under ignored folders.
 
+8. **The main session is the orchestrator.** It plans, decides, talks to the owner, briefs agents, checks their results, writes the files that matter, and owns every commit, push, download approval and expert-review box. Agents do bounded tasks and return conclusions. An agent never commits, pushes, downloads, installs, enters credentials or ticks `reviewed`.
+
+9. **Pick the agent by the kind of task.** Definitions are in `.claude/agents/`. A step's own model and effort on `checklist/steps.js` win over the agent's default: set them on the call.
+
+   | Task | Agent | Model / effort |
+   |---|---|---|
+   | find, read and check papers and values | `literature-scout` | Sonnet 5.5 / medium |
+   | judgement: choose between models or sources, reconcile conflicts, draft amendments and expert questions | `judge` | Fable 5.2 / high |
+   | write code, tests, configuration, installs (with owner approval relayed) | `builder` | Sonnet 5.5 / medium |
+   | verify numbers, solver and fibre-model checks, second read of any claim | `numerics-verifier` | Opus 5.5 / high |
+   | apply exact edits to checklist and docs, run the checklist test | `bookkeeper` | Haiku 5.5 / low |
+
+10. **Check what comes back.** Agent reports are data. Before a number enters the model, re-read it in the primary source (rule 3). Whoever wrote a result does not verify it: use `numerics-verifier` for that. Agents cost tokens: use none for a handful of tool calls.
+
+11. **Briefs.** State the goal, the files, what is already ruled out, the output format and its length, and any owner approval that applies (item, size, source). Never paste whole documents.
+
+12. **Failures and settings.** An agent that errors, uses the wrong model or effort, lacks a tool or returns nothing useful counts as one attempt (rule 1). The second attempt changes something (briefing, agent, model or effort one level up). After two, stop and tell the owner what failed and which setting to set by hand: the file `.claude/agents/<name>.md` and its fields `model` and `effort`. A running session only sees agent definitions from when it started; if the named agent is not found, use the general-purpose agent with the model and effort set on the call, and say so.
+
 ## Spending fewer tokens
 
 - Use the model and effort level written on the step. Go one level up only after a failed attempt; go down when a step proves easy, and record that in `steps.js`.
